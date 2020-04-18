@@ -6,12 +6,13 @@ public struct MobWave
 {
     public enum WaveType
     {
-        Spider,
+        Monster,
         Boss
     }
 
     public WaveType Type;
     public GameObject Prefab;
     public int Count;
-    public float Delay;
+    public float DelayInBetween;
+    public float DelayAfterWave;
 }
