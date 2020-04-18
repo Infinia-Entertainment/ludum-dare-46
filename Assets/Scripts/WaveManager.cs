@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
         if(monsterNum > 0)
         {
             int x = Random.Range(0, numSpawnPoints);
-            Instantiate(monster, spawnPointsToUse[x].position, Quaternion.identity);
+            Instantiate(monster, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
             monsterNum -= 1;
         }
         
