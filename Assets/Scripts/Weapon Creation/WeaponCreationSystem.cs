@@ -10,12 +10,18 @@ public class WeaponCreationSystem : MonoBehaviour
     [SerializeField] private GameObject weaponStructurePrefab;
 
     //this will connect to UI
-
     [SerializeField] GameObject selectedRodAttachment;
     [SerializeField] GameObject selectedAttackTypeAttachment;
     [SerializeField] GameObject selectedElementTypeAttachment;
 
 
+    /// <summary>
+    /// Returns prefab with the weapon, it contains all info
+    /// </summary>
+    /// <param name="rodPrefab">rod prefab of the weapon</param>
+    /// <param name="attackTypePrefab"> attack type attachement prefab of the weapon</param>
+    /// <param name="elementTypePrefab">attack element attachement prefab of the weapon</param>
+    /// <returns></returns>
     public GameObject CreateWeapon(GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
     {
         GameObject weaponPrefab = Instantiate(weaponStructurePrefab, transform.position, Quaternion.identity);

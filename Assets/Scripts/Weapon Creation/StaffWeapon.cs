@@ -11,7 +11,6 @@ public class StaffWeapon : MonoBehaviour
 
     [SerializeField] public List<GameObject> buffAttachments;
 
-
     private int baseDamage = 10; //for now
     private int adjustedDamage;
 
