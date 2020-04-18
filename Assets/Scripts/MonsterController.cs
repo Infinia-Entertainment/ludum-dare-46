@@ -51,4 +51,11 @@ public class MonsterController : MonoBehaviour
             attack = true;
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Hero")
+        {
+            attack = false;
+        }
+    }
 }

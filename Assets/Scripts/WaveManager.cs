@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WaveManager : MonoBehaviour
 {
     public int numSpawnPoints;
-    public float respawnInterval;
-    public int monsterNum;
-    public GameObject monster;
     public Transform spawn1;
     public Transform spawn2;
     public Transform spawn3;
@@ -15,9 +13,13 @@ public class WaveManager : MonoBehaviour
     public Transform spawn5;
     public List<Transform> spawnPoints;
     public List<Transform> spawnPointsToUse;
+    public List<MobWave> Waves = new List<MobWave>();
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+
         spawnPoints = new List<Transform>();
 
         spawnPoints.Add(spawn1);
@@ -31,7 +33,7 @@ public class WaveManager : MonoBehaviour
             spawnPointsToUse.Add(spawnPoints[i]);
         }
 
-        InvokeRepeating("spawn", 0, respawnInterval);
+        StartCoroutine(spawn());
 
     }
 
@@ -40,14 +42,25 @@ public class WaveManager : MonoBehaviour
     {
         
     }
-    void spawn()
+    public IEnumerator spawn()
     {
-        if(monsterNum > 0)
+        foreach (MobWave wave in Waves)
+        {
+            for (int i = 0; i < wave.Count; i++)
+            {
+                int x = Random.Range(0, numSpawnPoints);
+                Instantiate(wave.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return new WaitForSeconds(wave.Delay);
+            
+        }
+        /*if(monsterNum > 0)
         {
             int x = Random.Range(0, numSpawnPoints);
             Instantiate(monster, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
             monsterNum -= 1;
-        }
+        }*/
         
     }
 }
