@@ -18,4 +18,12 @@ public static class WeaponData
         Ice,
         Electricity
     }
+
+    //will get added later just for examples
+    public enum WeaponBuffs
+    {
+        Damage,
+        AttackRate,
+        ElementModifier
+    }
 }

@@ -6,51 +6,64 @@ using static WeaponData;
 
 public class WeaponCreationSystem : MonoBehaviour
 {
+    //only to use for instantiation
+    [SerializeField] private GameObject weaponStructurePrefab;
 
-    /* We're creating a system for staff creation (the weapon in this case)
-     *
-     * It will have different components
-     * 
-     * first either it's ranged or melee
-     * 
-     * then you add an element to that
-     * 
-     * Fire
-     * Wind
-     * Earth
-     * Ice
-     * Electricity
-     * 
-     * + other attachements
-     * 
-     *  attachements that add more buffs in some way (defence, attackRate etc)
-     */
+    //this will connect to UI
+    private WeaponType weaponType;
+    private WeaponElement weaponElement;
 
 
-    /*
-     * How do i do visual combination?
-     * I have the enums for the type so now what?
-     * 
-     */
-
-    GameObject weaponStructurePrefab;
-
-    public GameObject CreateWeaponPrefab()
+    public GameObject CreateWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffAttachement[] weaponBuffAttachement)
     {
-        //for now just spawns here, later at a specific place
-        GameObject weaponPrefab = Instantiate(weaponStructurePrefab,transform.position,Quaternion.identity);
-        return weaponPrefab;
+        GameObject weaponPrefab = Instantiate(weaponStructurePrefab, transform.position, Quaternion.identity);
+
+        StaffWeapon weapon = weaponPrefab.GetComponent<StaffWeapon>();
+
+        weapon.InitializeWeapon(weaponType, weaponElement, weaponBuffAttachement);
+
+        ConstructWeapon(weapon); //Construct the visual stuff
+
+        return weaponPrefab; //
     }
 
-    public StaffWeapon CreateWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffAttachement[] weaponBuffAttachement)
+    //i need to create a prefab just that lol
+
+    /// <summary>
+    /// Changes the prefabs to the appropriate ones and makes stuff work and go brrrrrr
+    /// </summary>
+    /// <param name="staffWeapon"></param>
+    private void ConstructWeapon(StaffWeapon staffWeapon)
     {
-        StaffWeapon weapon = new StaffWeapon(weaponType, weaponElement, weaponBuffAttachement);
 
-        return weapon;
+        //Get all transforms
+        //Transform rodTransform = GetComponent<Transform>();
+        Transform attackTypeTranform = GetComponent<Transform>();
+        Transform elementTypeTransform = GetComponent<Transform>();
 
+        Transform[] buffAttachmentsTransform = new Transform[3];
+
+        foreach (GameObject buffAttachment in staffWeapon.buffAttachments)
+        {
+            staffWeapon.buffAttachments.Add(buffAttachment);
+        }
+
+        //Get data which contains positions for where to put the next attachment
+        AttachmentData rodAttachmentData = staffWeapon.rodAttachment.GetComponent<AttachmentData>();
+        AttachmentData attackTypeAttachmentData = staffWeapon.attackTypeAttachment.GetComponent<AttachmentData>();
+
+        //Assign the positions to transforms
+        attackTypeTranform.position = rodAttachmentData.nextAttachmentbuildPos;
+        elementTypeTransform.position = attackTypeAttachmentData.nextAttachmentbuildPos;
+
+        // cache buff positions
+        Vector3[] buffPositions = staffWeapon.rodAttachment.GetComponent<AttachmentData>().buffAttachmentPositions;
+
+        //Assign extra buff positions
+        for (int i = 0; i < buffPositions.Length; i++)
+        {
+            buffAttachmentsTransform[0].position = buffPositions[0];
+        }
     }
-
-    
-
 
 }

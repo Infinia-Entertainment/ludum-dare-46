@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,25 +7,43 @@ using static WeaponData;
 
 public class StaffWeapon : MonoBehaviour
 {
-    [SerializeField] public GameObject Rod, AttackTypeAttachment, ElementTypeAttachment;
+    [SerializeField] public GameObject rodAttachment, attackTypeAttachment, ElementTypeAttachment;
 
-    private int baseDamage;
+    [SerializeField] public List<GameObject> buffAttachments;
 
-    public WeaponType weaponType;
-    public WeaponElement weaponElement;
 
-    private List<WeaponBuffAttachement> _weaponBuffAttachements = new List<WeaponBuffAttachement>(); //all other attachements
+    private int baseDamage = 10; //for now
 
-    public StaffWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffAttachement[] weaponBuffAttachements)
+    private WeaponType weaponType;
+    private WeaponElement weaponElement;
+    private WeaponBuffs[] weaponBuffs = new WeaponBuffs[3];
+
+    public void InitializeWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffs[] weaponBuffs)
     {
-        this.baseDamage = baseDamage;
         this.weaponType = weaponType;
         this.weaponElement = weaponElement;
-        _weaponBuffAttachements = weaponBuffAttachements.ToList();
+        weaponBuffs = weaponBuffs;
     }
 
     public int CalculateDamage()
     {
+        switch (weaponElement)
+        {
+            case WeaponElement.None:
+                break;
+            case WeaponElement.Fire:
+                break;
+            case WeaponElement.Wind:
+                break;
+            case WeaponElement.Eearth:
+                break;
+            case WeaponElement.Ice:
+                break;
+            case WeaponElement.Electricity:
+                break;
+            default:
+                break;
+        }
 
         return baseDamage;
     }
