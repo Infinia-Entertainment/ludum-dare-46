@@ -7,27 +7,57 @@ using static WeaponData;
 
 public class StaffWeapon : MonoBehaviour
 {
-    [SerializeField] public GameObject rodAttachment, attackTypeAttachment, ElementTypeAttachment;
+    [SerializeField] public GameObject rodAttachment, attackTypeAttachment, elementTypeAttachment;
 
     [SerializeField] public List<GameObject> buffAttachments;
 
 
     private int baseDamage = 10; //for now
+    private int adjustedDamage;
 
-    private WeaponType weaponType;
-    private WeaponElement weaponElement;
-    private WeaponBuffs[] weaponBuffs = new WeaponBuffs[3];
+    private WeaponType _weaponType;
+    private WeaponElement _weaponElement;
+    //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
-    public void InitializeWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffs[] weaponBuffs)
+    public void InitializeWeapon(WeaponType weaponType, WeaponElement weaponElement)
     {
-        this.weaponType = weaponType;
-        this.weaponElement = weaponElement;
-        weaponBuffs = weaponBuffs;
+        this._weaponType = weaponType;
+        this._weaponElement = weaponElement;
+        //_weaponBuffs = weaponBuffs;
+
+        ProcessBuffEffects();
     }
 
-    public int CalculateDamage()
+    private void ProcessBuffEffects()
     {
-        switch (weaponElement)
+        //Debug.Log("Processed Buff effects");
+    }
+
+    public void DoAttack()
+    {
+        switch (_weaponType)
+        {
+            case WeaponType.Melee:
+
+                //Do melee stuff
+
+                break;
+            case WeaponType.Ranged:
+
+                //Do ranged stuff, spawn projectile n' stuff
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int CalculateDamage(WeaponElement monsterElementType)
+    {
+        //Compare weapon type and monster type
+
+
+        switch (_weaponElement)
         {
             case WeaponElement.None:
                 break;

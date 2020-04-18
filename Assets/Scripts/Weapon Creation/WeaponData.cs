@@ -9,6 +9,8 @@ public static class WeaponData
         Melee,
         Ranged
     }
+
+    //I'll just reuse this for enemy as well
     public enum WeaponElement
     {
         None,

@@ -10,60 +10,66 @@ public class WeaponCreationSystem : MonoBehaviour
     [SerializeField] private GameObject weaponStructurePrefab;
 
     //this will connect to UI
-    private WeaponType weaponType;
-    private WeaponElement weaponElement;
+
+    [SerializeField] GameObject selectedRodAttachment;
+    [SerializeField] GameObject selectedAttackTypeAttachment;
+    [SerializeField] GameObject selectedElementTypeAttachment;
 
 
-    public GameObject CreateWeapon(WeaponType weaponType, WeaponElement weaponElement, params WeaponBuffAttachement[] weaponBuffAttachement)
+    public GameObject CreateWeapon(GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
     {
         GameObject weaponPrefab = Instantiate(weaponStructurePrefab, transform.position, Quaternion.identity);
 
         StaffWeapon weapon = weaponPrefab.GetComponent<StaffWeapon>();
 
-        weapon.InitializeWeapon(weaponType, weaponElement, weaponBuffAttachement);
+        Destroy(weapon.rodAttachment);
+        Destroy(weapon.attackTypeAttachment);
+        Destroy(weapon.elementTypeAttachment);
 
-        ConstructWeapon(weapon); //Construct the visual stuff
+        weapon.rodAttachment = Instantiate(rodPrefab, weaponPrefab.transform.position, Quaternion.identity,weaponPrefab.transform);
+        weapon.attackTypeAttachment =  Instantiate(attackTypePrefab, weaponPrefab.transform.position, Quaternion.identity,weaponPrefab.transform);
+        weapon.elementTypeAttachment = Instantiate(elementTypePrefab, weaponPrefab.transform.position, Quaternion.identity, weaponPrefab.transform);
+
+        //RodData stuff = rodPrefab.GetComponent<RodAttachmentData>().weaponType;
+        WeaponType weaponType = attackTypePrefab.GetComponent<AttackTypeAttachmentData>().weaponType;
+        WeaponElement weaponElement = elementTypePrefab.GetComponent<ElementTypeAttachmentData>().weaponElement;
+        
+        weapon.InitializeWeapon(weaponType, weaponElement);
+
+        ConstructWeapon(weapon , rodPrefab, attackTypePrefab, elementTypePrefab); //Construct the visual stuff
 
         return weaponPrefab; //
     }
-
-    //i need to create a prefab just that lol
 
     /// <summary>
     /// Changes the prefabs to the appropriate ones and makes stuff work and go brrrrrr
     /// </summary>
     /// <param name="staffWeapon"></param>
-    private void ConstructWeapon(StaffWeapon staffWeapon)
+    private void ConstructWeapon(StaffWeapon staffWeapon,GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
     {
 
-        //Get all transforms
-        //Transform rodTransform = GetComponent<Transform>();
-        Transform attackTypeTranform = GetComponent<Transform>();
-        Transform elementTypeTransform = GetComponent<Transform>();
+        Transform attackTypeTranform;
+        Transform elementTypeTransform;
+        //Transform[] buffAttachmentsTransform = new Transform[3];
 
-        Transform[] buffAttachmentsTransform = new Transform[3];
+        Debug.Log(staffWeapon.attackTypeAttachment);
 
-        foreach (GameObject buffAttachment in staffWeapon.buffAttachments)
-        {
-            staffWeapon.buffAttachments.Add(buffAttachment);
-        }
-
-        //Get data which contains positions for where to put the next attachment
-        AttachmentData rodAttachmentData = staffWeapon.rodAttachment.GetComponent<AttachmentData>();
-        AttachmentData attackTypeAttachmentData = staffWeapon.attackTypeAttachment.GetComponent<AttachmentData>();
+        attackTypeTranform = staffWeapon.attackTypeAttachment.transform;
+        elementTypeTransform = staffWeapon.elementTypeAttachment.transform;
 
         //Assign the positions to transforms
-        attackTypeTranform.position = rodAttachmentData.nextAttachmentbuildPos;
-        elementTypeTransform.position = attackTypeAttachmentData.nextAttachmentbuildPos;
+        attackTypeTranform.position = staffWeapon.rodAttachment.GetComponentInChildren<NextSnapPoint>().transform.position;
+        elementTypeTransform.position = staffWeapon.attackTypeAttachment.GetComponentInChildren<NextSnapPoint>().transform.position;
 
-        // cache buff positions
-        Vector3[] buffPositions = staffWeapon.rodAttachment.GetComponent<AttachmentData>().buffAttachmentPositions;
-
-        //Assign extra buff positions
-        for (int i = 0; i < buffPositions.Length; i++)
-        {
-            buffAttachmentsTransform[0].position = buffPositions[0];
-        }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            //Test code
+            //GameObject weapon = CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
+            //weapon.transform.position = new Vector3(-3,0,0);
+        }
+    }
 }
