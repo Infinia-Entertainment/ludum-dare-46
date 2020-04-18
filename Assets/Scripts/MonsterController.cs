@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public Rigidbody rb;
 
     public bool attack;
 
@@ -31,23 +31,23 @@ public class MonsterController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody>();
        
-        rb.velocity = new Vector2(-speed, 0);
+        rb.velocity = new Vector3(-speed, 0,0);
 
         if (attack)
         {
-            rb.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector3(0, 0,0);
         }
         
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Hero")
+        if (other.gameObject.tag == "Hero")
         {
-            hero = collision.gameObject;
+            hero = other.gameObject;
             attack = true;
         }
     }
