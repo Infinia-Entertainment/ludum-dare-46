@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - Monster
+=======
+  - Platform
+  - Canvas
+>>>>>>> feature/Grid,_Drag_and_Drop
   - Hero
   layers:
   - Default
@@ -15,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - platform
   - 
   - 
   - 
