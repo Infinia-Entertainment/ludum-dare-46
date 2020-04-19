@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static WeaponData;
+using GameData;
 
 public class WeaponCreationSystem : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public class WeaponCreationSystem : MonoBehaviour
 
         //RodData stuff = rodPrefab.GetComponent<RodAttachmentData>().weaponType;
         WeaponType weaponType = attackTypePrefab.GetComponent<AttackTypeAttachmentData>().weaponType;
-        WeaponElement weaponElement = elementTypePrefab.GetComponent<ElementTypeAttachmentData>().weaponElement;
+        ElementAttribute weaponElement = elementTypePrefab.GetComponent<ElementTypeAttachmentData>().weaponElement;
         
         weapon.InitializeWeapon(weaponType, weaponElement);
 
