@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using GameData;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 
 public class StaffWeapon : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class StaffWeapon : MonoBehaviour
     //Prefab references
     [SerializeField] public GameObject rodAttachment, attackTypeAttachment, elementTypeAttachment;
     [SerializeField] public List<GameObject> buffAttachments;
+
+    //prefab for the projectile of ranged weapons
+    [SerializeField] private MagicProjectile projectilePrefab;
 
     //Damage info
     [SerializeField] private int _baseDamage = 10; //for now
@@ -22,11 +26,16 @@ public class StaffWeapon : MonoBehaviour
 
     //Other weapon info
     [SerializeField] private float attackRate = 1f; //in seconds
+    [SerializeField] private int defenceModifier; //for now
 
     //[SerializeField] private float knockback; ??
 
     private WeaponType _weaponType;
     private ElementAttribute _weaponElement;
+
+    public WeaponType WeaponType { get => _weaponType;}
+    public ElementAttribute WeaponElement { get => _weaponElement;}
+
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
     public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
@@ -34,7 +43,6 @@ public class StaffWeapon : MonoBehaviour
         _weaponType = weaponType;
         _weaponElement = weaponElement;
         //_weaponBuffs = weaponBuffs;
-
 
         switch (_weaponType)
         {
@@ -62,24 +70,28 @@ public class StaffWeapon : MonoBehaviour
 
     public void DoAttack()
     {
+        RaycastHit hitInfo;
+        Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 8); //8 is Monster layer
+
         switch (_weaponType)
         {
             case WeaponType.Melee:
 
-                //Do melee stuff
 
-                //Does more damage but less speed and no range
+                //Not timed with animation rn
+                //Then enable/disable collider or something with the animation
+                hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(CalculateDamage(_weaponElement));
 
-                CalculateDamage(_weaponElement );
 
                 break;
             case WeaponType.Ranged:
 
-                //Do ranged stuff, spawn projectile n' stuff
+                //Not timed with animation rn,
+                //Need an animation value to trigger the attack or something
+                MagicProjectile projectile = Instantiate(projectilePrefab,elementTypeAttachment.transform.position,Quaternion.identity);
+                projectile.damage = CalculateDamage(_weaponElement);
 
-                //Does less damage but more speed and has range
 
-                CalculateDamage(_weaponElement);
 
                 break;
             default:

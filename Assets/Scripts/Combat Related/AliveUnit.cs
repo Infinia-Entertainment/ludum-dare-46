@@ -18,9 +18,9 @@ public class AliveUnit : MonoBehaviour
         }
     }
 
-    void ReceiveDamage(int damage)
+    public void ReceiveDamage(int damage)
     {
         health -= damage;
-        CheckForHealth
+        CheckForHealth();
     }
 }

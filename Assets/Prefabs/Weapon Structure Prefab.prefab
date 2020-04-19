@@ -329,7 +329,10 @@ MonoBehaviour:
   attackTypeAttachment: {fileID: 0}
   elementTypeAttachment: {fileID: 0}
   buffAttachments: []
+  projectilePrefab: {fileID: 6103128741939219082, guid: d084b210b5ae714409cfa64bb73fd386,
+    type: 3}
   _baseDamage: 10
   _adjustedToWeaponDamage: 0
   elementDamageModifier: 0.5
   attackRate: 1
+  defenceModifier: 0

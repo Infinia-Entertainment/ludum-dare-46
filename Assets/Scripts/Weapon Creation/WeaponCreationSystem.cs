@@ -14,7 +14,6 @@ public class WeaponCreationSystem : MonoBehaviour
     [SerializeField] GameObject selectedAttackTypeAttachment;
     [SerializeField] GameObject selectedElementTypeAttachment;
 
-
     /// <summary>
     /// Returns prefab with the weapon, it contains all info
     /// </summary>

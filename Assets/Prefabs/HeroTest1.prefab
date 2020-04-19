@@ -7658,6 +7658,7 @@ GameObject:
   - component: {fileID: 9109037167265772240}
   - component: {fileID: 1373972742216102784}
   - component: {fileID: -4935182411973721627}
+  - component: {fileID: -7360218323875611710}
   m_Layer: 0
   m_Name: HeroTest1
   m_TagString: Hero
@@ -7723,6 +7724,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7360218323875611710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178199317922355747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e366530ca2ebbe54eb34d5ac8c962be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 0
+  health: 10
+  weaponPrefab: {fileID: 4238179120846898282, guid: f25bf77dcbd69644c8d4e693cb6520b5,
+    type: 3}
 --- !u!1 &4185292000310129686
 GameObject:
   m_ObjectHideFlags: 0
