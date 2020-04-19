@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static WeaponData;
+using GameData;
 
 public class AttackTypeAttachmentData : MonoBehaviour
 {

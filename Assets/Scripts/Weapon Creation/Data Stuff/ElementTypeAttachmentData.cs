@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static WeaponData;
+using GameData;
 
 public class ElementTypeAttachmentData : MonoBehaviour
 {
-    public WeaponElement weaponElement;
+    public ElementAttribute weaponElement;
 }

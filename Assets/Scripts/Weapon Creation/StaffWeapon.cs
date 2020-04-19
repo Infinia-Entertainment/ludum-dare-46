@@ -3,34 +3,64 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static WeaponData;
+using GameData;
+using Sirenix.OdinInspector;
 
 public class StaffWeapon : MonoBehaviour
 {
-    [SerializeField] public GameObject rodAttachment, attackTypeAttachment, elementTypeAttachment;
 
+    //Prefab references
+    [SerializeField] public GameObject rodAttachment, attackTypeAttachment, elementTypeAttachment;
     [SerializeField] public List<GameObject> buffAttachments;
 
-    private int baseDamage = 10; //for now
-    private int adjustedDamage;
+    //Damage info
+    [SerializeField] private int _baseDamage = 10; //for now
+    [SerializeField] private int _adjustedToWeaponDamage;
+
+    [Range(0.0f,2.0f)]
+    [SerializeField] private float elementDamageModifier = 0.5f;
+
+    //Other weapon info
+    [SerializeField] private float attackRate = 1f; //in seconds
+
+    //[SerializeField] private float knockback; ??
+
+
 
     private WeaponType _weaponType;
-    private WeaponElement _weaponElement;
+    private ElementAttribute _weaponElement;
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
-    public void InitializeWeapon(WeaponType weaponType, WeaponElement weaponElement)
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
     {
-        this._weaponType = weaponType;
-        this._weaponElement = weaponElement;
+        _weaponType = weaponType;
+        _weaponElement = weaponElement;
         //_weaponBuffs = weaponBuffs;
 
-        ProcessBuffEffects();
+
+        switch (_weaponType)
+        {
+            case WeaponType.Melee:
+
+                _adjustedToWeaponDamage = _baseDamage + 20;
+
+                break;
+            case WeaponType.Ranged:
+
+                _adjustedToWeaponDamage = _baseDamage + 5;
+
+                break;
+            default:
+                break;
+        }
+
+        //ProcessBuffEffects();
     }
 
-    private void ProcessBuffEffects()
-    {
+    //private void ProcessBuffEffects()
+    //{
         //Debug.Log("Processed Buff effects");
-    }
+    //}
 
     public void DoAttack()
     {
@@ -40,10 +70,18 @@ public class StaffWeapon : MonoBehaviour
 
                 //Do melee stuff
 
+                //Does more damage but less speed and no range
+
+                CalculateDamage(_weaponElement );
+
                 break;
             case WeaponType.Ranged:
 
                 //Do ranged stuff, spawn projectile n' stuff
+
+                //Does less damage but more speed and has range
+
+                CalculateDamage(_weaponElement);
 
                 break;
             default:
@@ -51,29 +89,65 @@ public class StaffWeapon : MonoBehaviour
         }
     }
 
-    public int CalculateDamage(WeaponElement monsterElementType)
+    public int CalculateDamage(ElementAttribute monsterElementType)
     {
         //Compare weapon type and monster type
-
+        float adjustedDamage = _adjustedToWeaponDamage;
 
         switch (_weaponElement)
         {
-            case WeaponElement.None:
+            case ElementAttribute.Void:
+
+                // Neutral to all
+                // So do nothing for now
+
+                //adjustedDamage = _baseDamage;
+
                 break;
-            case WeaponElement.Fire:
+            case ElementAttribute.Fire:
+
+                //Strong against Earth (or plants)
+
+                if (_weaponElement == ElementAttribute.Earth)
+                {
+                    adjustedDamage *= (1 - elementDamageModifier);
+                }
+
                 break;
-            case WeaponElement.Wind:
+            case ElementAttribute.Earth:
+
+                //Strong against Lightning
+
+                if (_weaponElement == ElementAttribute.Lightning)
+                {
+                    adjustedDamage *= (1 - elementDamageModifier);
+                }
+
                 break;
-            case WeaponElement.Eearth:
+            case ElementAttribute.Ice:
+
+                //Strong against Fire
+
+                if (_weaponElement == ElementAttribute.Fire)
+                {
+                    adjustedDamage *= (1 - elementDamageModifier);
+                }
+
                 break;
-            case WeaponElement.Ice:
-                break;
-            case WeaponElement.Electricity:
+            case ElementAttribute.Lightning:
+
+                //Strong against Ice
+
+                if (_weaponElement == ElementAttribute.Ice)
+                {
+                    adjustedDamage *= (1 - elementDamageModifier);
+                }
+
                 break;
             default:
                 break;
         }
 
-        return baseDamage;
+        return Mathf.RoundToInt(adjustedDamage);
     }
 }
