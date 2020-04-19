@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class WeaponData
+namespace GameData
 {
     public enum WeaponType
     {
@@ -11,14 +11,13 @@ public static class WeaponData
     }
 
     //I'll just reuse this for enemy as well
-    public enum WeaponElement
+    public enum ElementAttribute
     {
-        None,
+        Void,
         Fire,
-        Wind,
-        Eearth,
+        Earth,
         Ice,
-        Electricity
+        Lightning
     }
 
     //will get added later just for examples
