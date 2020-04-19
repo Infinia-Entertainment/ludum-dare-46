@@ -29,7 +29,7 @@ public class HeroController : AliveUnit
         CheckForHealth();
         CheckForAttackRange();
 
-        Debug.Log();
+        Debug.Log(weapon.WeaponType);
     }
 
     //!!!!!!!!!!!Do anims here!!!!!!!!!
