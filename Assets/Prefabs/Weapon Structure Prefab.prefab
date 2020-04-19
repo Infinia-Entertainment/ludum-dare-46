@@ -304,7 +304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8143088798437453215}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34128332, y: 0.5231032, z: -0.31735754}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4183187254120594786}
@@ -325,8 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccbd2412d1abb84c9a01659c6e7e684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rod: {fileID: 1332558502969730945}
-  AttackTypeAttachment: {fileID: 4895313156264773538}
-  ElementTypeAttachment: {fileID: 5586247473174779192}
-  weaponType: 0
-  weaponElement: 0
+  rodAttachment: {fileID: 0}
+  attackTypeAttachment: {fileID: 0}
+  elementTypeAttachment: {fileID: 0}
+  buffAttachments: []
+  _baseDamage: 10
+  _adjustedToWeaponDamage: 0
+  elementDamageModifier: 0.5
+  attackRate: 1

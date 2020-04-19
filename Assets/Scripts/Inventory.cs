@@ -26,9 +26,13 @@ public class Inventory : MonoBehaviour {
 
     public Item Hero;
 
-    private void Start()
+    private void Awake()
     {
         interactionController = FindObjectOfType<InteractionController>();
+    }
+
+    private void Start()
+    {
         whiteBorder.SetActive(true);
         AddItem(Hero);
         AddItem(Hero);
@@ -90,8 +94,6 @@ public class Inventory : MonoBehaviour {
             }
         }
     }
-
-
 
     private void GetSelectionIndex()
     {

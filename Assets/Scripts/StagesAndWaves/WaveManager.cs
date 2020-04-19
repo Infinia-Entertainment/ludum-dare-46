@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+
+
+    public Stage currentStage;
     public int numSpawnPoints;
     public Transform spawn1;
     public Transform spawn2;
@@ -13,7 +16,6 @@ public class WaveManager : MonoBehaviour
     public Transform spawn5;
     public List<Transform> spawnPoints;
     public List<Transform> spawnPointsToUse;
-    public Stage stage;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +46,7 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator spawn()
     {
-        foreach (MobWave wave in stage.Waves)
+        foreach (MobWave wave in currentStage.Waves)
         {
             for (int i = 0; i < wave.Count; i++)
             {
