@@ -17,4 +17,10 @@ public class AliveUnit : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void ReceiveDamage(int damage)
+    {
+        health -= damage;
+        CheckForHealth
+    }
 }

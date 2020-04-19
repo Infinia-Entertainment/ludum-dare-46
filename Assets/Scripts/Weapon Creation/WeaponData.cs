@@ -13,6 +13,7 @@ namespace GameData
     //I'll just reuse this for enemy as well
     public enum ElementAttribute
     {
+        None,
         Void,
         Fire,
         Earth,

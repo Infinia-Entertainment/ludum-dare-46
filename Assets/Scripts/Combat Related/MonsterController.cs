@@ -15,7 +15,6 @@ public class MonsterController : AliveUnit
 
     private void Update()
     {
-        CheckForHealth();
 
         if (monsterInFront == null && hero == null)
         {
@@ -98,12 +97,7 @@ public class MonsterController : AliveUnit
 }
 
 /*
- * Move left
- * Check if hero infront
- * if yes stop otherwise continue
- * if you're infront of the monster, and that monster is stopped, stop as well
- * Wait till he's continues then continue too
+ * Bug: When they move and you put the hero back in the middle they stop again
  * 
- * If you're infront of the hero then attack (and anims etc)
- * 
+ * What should happen: The ones behind the character continue going through, and infront stop (or snap back?)
  */

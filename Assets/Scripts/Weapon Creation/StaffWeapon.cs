@@ -25,8 +25,6 @@ public class StaffWeapon : MonoBehaviour
 
     //[SerializeField] private float knockback; ??
 
-
-
     private WeaponType _weaponType;
     private ElementAttribute _weaponElement;
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
