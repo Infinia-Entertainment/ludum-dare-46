@@ -10,6 +10,7 @@ public struct MobWave
         Boss
     }
 
+    public Sprite Artwork;
     public WaveType Type;
     public GameObject Prefab;
     public int Count;

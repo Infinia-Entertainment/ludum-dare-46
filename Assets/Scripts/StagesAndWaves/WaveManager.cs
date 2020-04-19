@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
     public Transform spawn5;
     public List<Transform> spawnPoints;
     public List<Transform> spawnPointsToUse;
-    public List<MobWave> Waves = new List<MobWave>();
+    public Stage stage;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +44,7 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator spawn()
     {
-        foreach (MobWave wave in Waves)
+        foreach (MobWave wave in stage.Waves)
         {
             for (int i = 0; i < wave.Count; i++)
             {
