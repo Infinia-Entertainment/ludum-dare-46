@@ -41,15 +41,17 @@ public class StaffWeapon : MonoBehaviour
 
     private void Awake()
     {
-        #region Test Code Only
-
-        WeaponType weaponType = attackTypeAttachment.GetComponent<AttackTypeAttachmentData>().weaponType;
-        ElementAttribute weaponElement = elementTypeAttachment.GetComponent<ElementTypeAttachmentData>().weaponElement;
-
-        InitializeWeapon(weaponType, weaponElement);
-
-        #endregion
+        
     }
+
+
+    #region Test Code Only
+    public void TestInitialize()
+    {
+        InitializeWeapon(WeaponType.Ranged, ElementAttribute.Ice);
+        Debug.Log("initialized");
+    }
+    #endregion
 
     public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
     {
@@ -103,7 +105,7 @@ public class StaffWeapon : MonoBehaviour
 
                 //Not timed with animation rn,
                 //Need an animation value to trigger the attack or something
-                MagicProjectile projectile = Instantiate(projectilePrefab,elementTypeAttachment.transform.position,Quaternion.identity);
+                MagicProjectile projectile = Instantiate(projectilePrefab,elementTypeAttachment.transform.position,projectilePrefab.transform.rotation);
                 projectile.damage = CalculateDamage(_weaponElement);
 
 

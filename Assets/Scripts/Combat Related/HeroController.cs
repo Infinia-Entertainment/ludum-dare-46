@@ -15,6 +15,7 @@ public class HeroController : AliveUnit
     private void Awake()
     {
         weapon = weaponPrefab.GetComponent<StaffWeapon>();
+        weapon.TestInitialize();
     }
 
 
@@ -29,7 +30,7 @@ public class HeroController : AliveUnit
         CheckForHealth();
         CheckForAttackRange();
 
-        Debug.Log(weapon.WeaponType);
+        //Debug.Log(weapon.WeaponType);
     }
 
     //!!!!!!!!!!!Do anims here!!!!!!!!!

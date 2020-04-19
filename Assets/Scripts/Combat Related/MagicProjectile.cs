@@ -7,7 +7,7 @@ public class MagicProjectile : MonoBehaviour
 {
     public int damage;
 
-    Vector3 translation = new Vector3(0, 0, 2.5f);
+    Vector3 translation = new Vector3(0, 2.5f, 0);
 
     private void Update()
     {
@@ -19,6 +19,7 @@ public class MagicProjectile : MonoBehaviour
         if (other.CompareTag("Monster"))
         {
             other.gameObject.GetComponent<AliveUnit>().ReceiveDamage(damage);
+            Debug.Log("Damaged the monster haha");
         }
     }
 }
