@@ -38,6 +38,19 @@ public class StaffWeapon : MonoBehaviour
 
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
+
+    private void Awake()
+    {
+        #region Test Code Only
+
+        WeaponType weaponType = attackTypeAttachment.GetComponent<AttackTypeAttachmentData>().weaponType;
+        ElementAttribute weaponElement = elementTypeAttachment.GetComponent<ElementTypeAttachmentData>().weaponElement;
+
+        InitializeWeapon(weaponType, weaponElement);
+
+        #endregion
+    }
+
     public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
     {
         _weaponType = weaponType;
@@ -67,6 +80,8 @@ public class StaffWeapon : MonoBehaviour
     //{
         //Debug.Log("Processed Buff effects");
     //}
+
+
 
     public void DoAttack()
     {
