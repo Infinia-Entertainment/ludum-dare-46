@@ -52,7 +52,7 @@ public class WaveManager : MonoBehaviour
             {
                 int x = Random.Range(0, numSpawnPoints);
                 Instantiate(wave.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
-                yield return new WaitForSeconds(wave.DelayInBetween);
+                yield return new WaitForSeconds(1 + wave.DelayInBetween);
             }
             yield return new WaitForSeconds(wave.DelayAfterWave);
             

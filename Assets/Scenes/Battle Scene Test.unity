@@ -1135,6 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20f5f44080d12f4b807791f1351a765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentStage: {fileID: 11400000, guid: f57f44fc75be4dc47b25f4b542e7b0f1, type: 2}
   numSpawnPoints: 5
   spawn1: {fileID: 380659938}
   spawn2: {fileID: 97459317}
@@ -1148,7 +1149,6 @@ MonoBehaviour:
   - {fileID: 1667621617}
   - {fileID: 915158641}
   spawnPointsToUse: []
-  stage: {fileID: 11400000, guid: f57f44fc75be4dc47b25f4b542e7b0f1, type: 2}
 --- !u!4 &1721000268
 Transform:
   m_ObjectHideFlags: 0
