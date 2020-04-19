@@ -48,7 +48,7 @@ public class StaffWeapon : MonoBehaviour
     #region Test Code Only
     public void TestInitialize()
     {
-        InitializeWeapon(WeaponType.Ranged, ElementAttribute.Ice);
+        InitializeWeapon(WeaponType.Melee, ElementAttribute.Ice);
         Debug.Log("initialized");
     }
     #endregion
@@ -88,7 +88,7 @@ public class StaffWeapon : MonoBehaviour
     public void DoAttack()
     {
         RaycastHit hitInfo;
-        Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 8); //8 is Monster layer
+        Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12); //12 is Monster layer
 
         switch (_weaponType)
         {
@@ -97,6 +97,10 @@ public class StaffWeapon : MonoBehaviour
 
                 //Not timed with animation rn
                 //Then enable/disable collider or something with the animation
+                Debug.Log(hitInfo.collider);
+                Debug.Log(hitInfo.collider.gameObject);
+                Debug.Log(hitInfo.collider.gameObject.GetComponent<AliveUnit>());
+
                 hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(CalculateDamage(_weaponElement));
 
 

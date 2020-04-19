@@ -39,9 +39,9 @@ public class HeroController : AliveUnit
         float distanceToEnemy;
 
         RaycastHit hitInfo;
-        Physics.Raycast( transform.position,Vector3.right,out hitInfo, 10, 1 << 8); //8 is Monster layer
+        Physics.Raycast( transform.position,Vector3.right,out hitInfo, 10, 1 << 12); //12 is Monster layer
 
-        if (!Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 8))
+        if (!Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12))
         {
             return;
         }
@@ -51,7 +51,7 @@ public class HeroController : AliveUnit
         {
             case WeaponType.Melee:
 
-                if (hitInfo.distance <= 3)
+                if (hitInfo.distance <= 2)
                 {
                     weapon.DoAttack();
                 }
