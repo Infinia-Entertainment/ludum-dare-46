@@ -12,4 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f99e031b5594b4b99abe04a943bd8f, type: 3}
   m_Name: 1stWave
   m_EditorClassIdentifier: 
-  Waves: []
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Waves:
+  - Artwork: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    Type: 0
+    Prefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
+      type: 3}
+    Count: 31
+    DelayInBetween: 1
+    DelayAfterWave: 5
+  - Artwork: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    Type: 1
+    Prefab: {fileID: 8837826415581866015, guid: f2421196afd30414eb6b2bc4e3a0c242,
+      type: 3}
+    Count: 20
+    DelayInBetween: 1
+    DelayAfterWave: 20
