@@ -459,7 +459,19 @@ MonoBehaviour:
   spawn5: {fileID: 1714466046}
   spawnPoints: []
   spawnPointsToUse: []
-  Waves: []
+  Waves:
+  - Type: 0
+    Prefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
+      type: 3}
+    Count: 80
+    DelayInBetween: 1
+    DelayAfterWave: 5
+  - Type: 0
+    Prefab: {fileID: 8837826415581866015, guid: f2421196afd30414eb6b2bc4e3a0c242,
+      type: 3}
+    Count: 60
+    DelayInBetween: 1
+    DelayAfterWave: 5
 --- !u!4 &1612992478
 Transform:
   m_ObjectHideFlags: 0
