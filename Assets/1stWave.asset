@@ -21,4 +21,22 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+<<<<<<< HEAD
   Waves: []
+=======
+  Waves:
+  - Artwork: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    Type: 0
+    Prefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
+      type: 3}
+    Count: 31
+    DelayInBetween: 1
+    DelayAfterWave: 5
+  - Artwork: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    Type: 1
+    Prefab: {fileID: 8837826415581866015, guid: f2421196afd30414eb6b2bc4e3a0c242,
+      type: 3}
+    Count: 20
+    DelayInBetween: 1
+    DelayAfterWave: 20
+>>>>>>> 512743f2e6d6fc7d604f8f41de462fcf518dc8ca
