@@ -28,6 +28,10 @@ public class MonsterController : MonoBehaviour
         {
             Destroy(gameObject, 1f);
         }
+        if (hero == null)
+        {
+            attack = false;
+        }
     }
     private void FixedUpdate()
     {
