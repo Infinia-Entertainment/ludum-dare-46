@@ -15,7 +15,7 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] GameObject heroPrefab;
 
-    [SerializeField] private int gold;
+    [SerializeField] private int currentgold;
     [SerializeField] private int totalGoldFromStage;
 
     [SerializeField] private int blacksmithMaxHealth = 100;
@@ -68,7 +68,7 @@ public class GameStateManager : MonoBehaviour
     private void InitializeFirstTime()
     {
         blacksmithCurrentHealth = blacksmithMaxHealth;
-        gold = 100;
+        currentgold = 100;
 
         GameObject hero1 = Instantiate(heroPrefab);
         GameObject hero2 = Instantiate(heroPrefab);
@@ -122,19 +122,30 @@ public class GameStateManager : MonoBehaviour
         
     }
 
-    public bool CanBuyWeapon()
+    public bool CanBuyWeapon(int price)
     {
-        return true;
+        //returns true if there are enough heroes to buy it
+
+        if (currentgold <= price)
+        {
+            return true;
+        }
+        else return false;
     }
 
     public bool HasEnougHeroes()
     {
-        return true;
+        //returns true if there are enough heroes to buy it
+
+        if (currentWeapons.Count < currentHeroes.Count)
+        {
+            return true;
+        }
+        else return false;
     }
 
     private void transitionToShop()
     {
-
         DeleteDeadHeroes();
         StoreHeores();
         DeleteWeaponData();
@@ -171,11 +182,18 @@ public class GameStateManager : MonoBehaviour
         currentHeroes.Add(heroObject);
     }
 
-    public void AddWeapon(GameObject weapon)
+    public void BuyWeapon(int price, GameObject weapon)
+    {
+        AddWeapon(weapon);
+        currentgold -= price;
+    }
+
+    private void AddWeapon(GameObject weapon)
     {
         currentWeapons.Add(weapon);
     }
 
+    
     private void StoreWeapons()
     {
         //we make sure they don't destroy
@@ -264,7 +282,7 @@ public class GameStateManager : MonoBehaviour
     {
         int baseGold = 100 * currentStageIndex;
 
-        gold = baseGold + totalGoldFromStage;
+        currentgold = baseGold + totalGoldFromStage;
 
         totalGoldFromStage = 0;
     }
