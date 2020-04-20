@@ -528,17 +528,17 @@ PrefabInstance:
     - target: {fileID: 1673172805088651655, guid: 6739e994dca703d4c85606de3c23a504,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.381
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1673172805088651655, guid: 6739e994dca703d4c85606de3c23a504,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.348
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1673172805088651655, guid: 6739e994dca703d4c85606de3c23a504,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.051
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1673172805088651655, guid: 6739e994dca703d4c85606de3c23a504,
         type: 3}
@@ -15638,7 +15638,7 @@ MonoBehaviour:
   currentUnusedHeroes: []
   heroPrefab: {fileID: 5900213881108704568, guid: 37a84b86a12f0c04880105b64ac20649,
     type: 3}
-  gold: 0
+  currentgold: 0
   totalGoldFromStage: 0
   blacksmithMaxHealth: 100
   blacksmithCurrentHealth: 0

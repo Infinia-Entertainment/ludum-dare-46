@@ -51,9 +51,8 @@ public class HeroController : AliveUnit
     //!!!!!!!!!!!Do anims here!!!!!!!!!
     private void CheckForAttackRange()
     {
-        RaycastHit hitInfo;
 
-        if (!Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        if (!Physics.Raycast(transform.position, Vector3.right, out RaycastHit hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
             return;
         }
@@ -65,11 +64,11 @@ public class HeroController : AliveUnit
             //Just checks if attack is within range
             if (weapon.WeaponType == WeaponType.Melee && hitInfo.distance <= 2)
             {
-                weapon.DoAttack();
+                weapon.DoAttack(hitInfo);
             }
             if (weapon.WeaponType == WeaponType.Ranged && hitInfo.distance <= 8)
             {
-                weapon.DoAttack();
+                weapon.DoAttack(hitInfo);
             }
             lastAttack = Time.time;
         }

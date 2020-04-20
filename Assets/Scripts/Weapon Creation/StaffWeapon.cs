@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using GameData;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using GameData;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using System.Net.Configuration;
 using static GameData.GameFunctions;
 
 public class StaffWeapon : MonoBehaviour
 {
+    
+    //[SerializeField] public GameObject heroOwner;
 
     //Prefab references
     [SerializeField] public GameObject rodAttachment, attackTypeAttachment, elementTypeAttachment;
+
     [SerializeField] public List<GameObject> buffAttachments;
 
     //prefab for the projectile of ranged weapons
@@ -21,6 +18,7 @@ public class StaffWeapon : MonoBehaviour
 
     //Damage info
     [SerializeField] private int _baseDamage = 10; //for now
+
     [SerializeField] private int _adjustedToWeaponDamage;
 
     [Range(0.0f, 2.0f)]
@@ -28,6 +26,7 @@ public class StaffWeapon : MonoBehaviour
 
     //Other weapon info
     [SerializeField] private float _attackRate = 2f; //in seconds
+
     [SerializeField] private int defenceModifier; //for now
 
     //[SerializeField] private float knockback; ??
@@ -42,13 +41,14 @@ public class StaffWeapon : MonoBehaviour
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
     #region Test Code Only
+
     public void TestInitialize()
     {
         InitializeWeapon(WeaponType.Melee, ElementAttribute.Ice);
         Debug.Log("initialized");
-
     }
-    #endregion
+
+    #endregion Test Code Only
 
     public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
     {
@@ -63,11 +63,13 @@ public class StaffWeapon : MonoBehaviour
                 _adjustedToWeaponDamage = _baseDamage + 20;
 
                 break;
+
             case WeaponType.Ranged:
 
                 _adjustedToWeaponDamage = _baseDamage + 5;
 
                 break;
+
             default:
                 break;
         }
@@ -80,25 +82,25 @@ public class StaffWeapon : MonoBehaviour
     //Debug.Log("Processed Buff effects");
     //}
 
-
-    public void DoAttack()
+    public void DoAttack(RaycastHit monsterHitInfo)
     {
-        RaycastHit hitInfo;
-        Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12); //12 is Monster layer
-        Debug.DrawRay(transform.position, Vector3.right * hitInfo.distance, Color.red);
-
         switch (_weaponType)
         {
             case WeaponType.Melee:
 
+                //    Not timed with animation rn
+                //   Then enable/disable collider or something with the animation
 
-            //    Not timed with animation rn
-             //   Then enable/disable collider or something with the animation
-                MonsterController monster = hitInfo.collider.gameObject.GetComponent<MonsterController>();
+                Debug.Log(monsterHitInfo);//returns type
+                Debug.Log(monsterHitInfo.collider); //returns null
+                Debug.Log(monsterHitInfo.collider.gameObject);
 
-               monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+                MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
+
+                monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
+
             case WeaponType.Ranged:
 
                 //Not timed with animation rn,
@@ -106,8 +108,8 @@ public class StaffWeapon : MonoBehaviour
                 MagicProjectile projectile = Instantiate(projectilePrefab, elementTypeAttachment.transform.position, projectilePrefab.transform.rotation);
                 projectile.InitilizeProjectile(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement);
 
-
                 break;
+
             default:
                 break;
         }
