@@ -29,10 +29,10 @@ public class GameStateManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
+        //}
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -44,6 +44,8 @@ public class GameStateManager : MonoBehaviour
             WinStage(FindObjectOfType<WaveManager>().currentStage);
         }
     }
+
+    
 
     private void Awake()
     {
@@ -68,11 +70,13 @@ public class GameStateManager : MonoBehaviour
         blacksmithCurrentHealth = blacksmithMaxHealth;
         gold = 100;
 
-        GameObject firstHero = Instantiate(heroPrefab);
-        GameObject secondHero = Instantiate(heroPrefab);
+        GameObject hero1 = Instantiate(heroPrefab);
+        GameObject hero2 = Instantiate(heroPrefab);
+        GameObject hero3 = Instantiate(heroPrefab);
 
-        AddHero(firstHero);
-        AddHero(secondHero);
+        AddHero(hero1);
+        AddHero(hero2);
+        AddHero(hero3);
     }
 
     private void transitionToBattle()
@@ -120,14 +124,23 @@ public class GameStateManager : MonoBehaviour
 
         for (int i = 0; i < numberOfunusedHeroes; i++)
         {
-            currentUnusedHeroes.Add(currentHeroes[currentHeroes.Count - 1 - i]);
-            currentHeroes.RemoveAt(currentHeroes.Count - 1 - i);
-            //weapons are max amount of used characters
-            //but you shouldn't be able to have more weapons than characters (checked when creating)
+            int movedHeroIndex = currentHeroes.Count - 1;
+
+            currentUnusedHeroes.Add(currentHeroes[movedHeroIndex]);
+            currentHeroes.RemoveAt(movedHeroIndex);
 
         }
-
         
+    }
+
+    public bool CanBuyWeapon()
+    {
+        return true;
+    }
+
+    public bool HasEnougHeroes()
+    {
+        return true;
     }
 
     private void transitionToShop()
