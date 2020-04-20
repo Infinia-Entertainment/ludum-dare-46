@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +14,16 @@ public class Next_Stage_Info : MonoBehaviour
     private Vector3 pos;
     List<MobWave.WaveType> types = new List<MobWave.WaveType>();
 
-    [SerializeField] private GameObject parentCanvas;
     [SerializeField] private GameObject prefab;
+
+    [SerializeField] private GameObject parentCanvas;
+    [SerializeField] private List<GameObject> waveIcons = new List<GameObject>(0);
 
     private void Awake()
     {
         parentCanvas = GetComponent<Canvas>().gameObject;
+
+        waveIcons =  GetComponentsInChildren<GameObject>().ToList();
     }
 
     private void Start()
