@@ -238,14 +238,14 @@ public class GameStateManager : MonoBehaviour
     {
         Debug.Log("Func runs..");
         Debug.Log(currentHeroes);
-        Vector3 heroPosition = FindObjectOfType<HeroPlacement>().transform.position;
-        for (int i = 0; i < currentHeroes.Count; i++)
-        {
-            Debug.Log("Moving.." + currentHeroes[i].name);
-           //Move heroes to a specific position in a line
-            currentHeroes[i].transform.position = heroPosition;
-            heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
-        }
+        //Vector3 heroPosition = FindObjectOfType<HeroPlacement>().transform.position;
+        //for (int i = 0; i < currentHeroes.Count; i++)
+        //{
+        //    Debug.Log("Moving.." + currentHeroes[i].name);
+        //   //Move heroes to a specific position in a line
+        //    currentHeroes[i].transform.position = heroPosition;
+        //    heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
+        //}
     }
 
     public void DamageBlacksmith(int damage)
