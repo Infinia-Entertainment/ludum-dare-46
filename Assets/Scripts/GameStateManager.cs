@@ -29,10 +29,10 @@ public class GameStateManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
+        }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -88,7 +88,7 @@ public class GameStateManager : MonoBehaviour
 
         
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
 
         //Lul because we're such good programmers lmao
         HideHeroes();
