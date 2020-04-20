@@ -100,15 +100,26 @@ public class AttachmentMenu : MonoBehaviour
     {
         attachmentImages[type].enabled = true;
         dropDowns[type].gameObject.SetActive(false);
+
+        //Add check for if has enough money and space
         if(selectedRod != null && selectedAttack != null && selectedElement != null)
         {
-            craftButton.SetActive(true);
+            craftButton.SetActive(true);    
         }
     }
 
     void TriggerCompiling()
     {
         GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
+
         GameStateManager.Instance.AddWeapon(weapon);
+    }
+
+    private int CalculatePrice()
+    {
+        int calculatedPrice = 0;
+
+        return calculatedPrice;
+        //price calculation
     }
 }

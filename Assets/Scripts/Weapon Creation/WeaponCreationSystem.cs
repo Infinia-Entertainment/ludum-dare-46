@@ -78,11 +78,13 @@ public class WeaponCreationSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        { 
-            GameObject weapon = CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
-            weapon.transform.position = new Vector3(-3, 0, 0);
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{   
+        //    GameObject weapon = CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
+        //    weapon.transform.position = new Vector3(-3, 0, 0);
+        //}
     }
+
+
 
 }

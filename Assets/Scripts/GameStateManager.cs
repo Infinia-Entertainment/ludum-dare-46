@@ -7,41 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
-    /*
-     * 2 scenes
-     *
-     * blacksmith and battle
-     *
-     *  if in blacksmith scene control gold and weapon creation and movement
-     *
-     *  transitionToBattle()
-     *  {
-     *      save weapon data,
-     *      instantiate heroes (into UI),
-     *      //Add weapons position initialization
-     *
-     *  }
-     *
-     *  transitionToShop()
-     *  {
-     *      keep heroes, delete weapons
-     *      gold stuff = base gold + monster gold
-     *  }
-     *
-     *  if in the battle scene check if enemies pass through
-     *  deduct from health
-     *  blah blah dead
-     *
-     *
-     */
 
     [SerializeField] List<GameObject> currentWeapons = new List<GameObject>();
     [SerializeField] List<GameObject> currentHeroes = new List<GameObject>();
 
-    //[SerializeField] List<GameObject> currentStayedHeroes = new List<GameObject>();
+    [SerializeField] List<GameObject> currentUnusedHeroes = new List<GameObject>();
 
     [SerializeField] GameObject heroPrefab;
-
 
     [SerializeField] private int gold;
     [SerializeField] private int totalGoldFromStage;
@@ -57,10 +29,10 @@ public class GameStateManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
+        //}
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -72,6 +44,8 @@ public class GameStateManager : MonoBehaviour
             WinStage(FindObjectOfType<WaveManager>().currentStage);
         }
     }
+
+    
 
     private void Awake()
     {
@@ -96,17 +70,23 @@ public class GameStateManager : MonoBehaviour
         blacksmithCurrentHealth = blacksmithMaxHealth;
         gold = 100;
 
-        GameObject firstHero = Instantiate(heroPrefab);
-        GameObject secondHero = Instantiate(heroPrefab);
+        GameObject hero1 = Instantiate(heroPrefab);
+        GameObject hero2 = Instantiate(heroPrefab);
+        GameObject hero3 = Instantiate(heroPrefab);
 
-        AddHero(firstHero);
-        AddHero(secondHero);
+        AddHero(hero1);
+        AddHero(hero2);
+        AddHero(hero3);
     }
 
     private void transitionToBattle()
     {
         StoreWeapons();
         StoreHeores();
+
+        MoveUnusedHeroes();
+
+        
 
         SceneManager.LoadScene(1);
 
@@ -118,8 +98,16 @@ public class GameStateManager : MonoBehaviour
         //Some heroes stay
         //code here
 
-        //assign weapons to heros
-        //fix their positions
+        //5 heroes 
+        //3 weapons
+        // move scenes so 3 heroes are used only
+        // 2 heroes stay behind
+        //and
+        //
+        //3 heroes so no more than 3 weapons can be made
+        //
+
+        
 
         for (int i = 0; i < currentHeroes.Count; i++)
         {
@@ -128,8 +116,31 @@ public class GameStateManager : MonoBehaviour
             heroController.InitializeWeaponPosition();
         }
 
-        //Add weapons position initialization
-        //In Each Hero maybe?
+    }
+
+    private void MoveUnusedHeroes()
+    {
+        int numberOfunusedHeroes = currentHeroes.Count - currentWeapons.Count;
+
+        for (int i = 0; i < numberOfunusedHeroes; i++)
+        {
+            int movedHeroIndex = currentHeroes.Count - 1;
+
+            currentUnusedHeroes.Add(currentHeroes[movedHeroIndex]);
+            currentHeroes.RemoveAt(movedHeroIndex);
+
+        }
+        
+    }
+
+    public bool CanBuyWeapon()
+    {
+        return true;
+    }
+
+    public bool HasEnougHeroes()
+    {
+        return true;
     }
 
     private void transitionToShop()

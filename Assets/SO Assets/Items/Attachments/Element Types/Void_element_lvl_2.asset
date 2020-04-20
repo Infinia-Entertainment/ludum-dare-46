@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 539b6fa2deb4dcf499079b81e9540df1, type: 3}
-  m_Name: Element 4
+  m_Name: Void_element_lvl_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: a6caca270e009cf45aa2238750514b40, type: 3}
-  itemObject: {fileID: 3485007510014499696, guid: cb8b62ffee088fe42b9551f893fedc2b,
+  sprite: {fileID: 21300000, guid: 3f876872c067e4e4e96e021c54032378, type: 3}
+  itemObject: {fileID: 8624365556799393502, guid: 3dc8549597cb8474a8b49ee61faacdcf,
     type: 3}
   itemName: Rod 1
   itemDescription: Base 1
-  assignedID: 3
+  assignedID: 1
