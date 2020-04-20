@@ -15636,13 +15636,15 @@ MonoBehaviour:
   currentWeapons: []
   currentHeroes: []
   currentUnusedHeroes: []
-  heroPrefab: {fileID: 5900213881108704568, guid: 37a84b86a12f0c04880105b64ac20649,
+  heroPrefab: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac,
     type: 3}
   currentgold: 0
   totalGoldFromStage: 0
   blacksmithMaxHealth: 100
   blacksmithCurrentHealth: 0
   currentStageIndex: 0
+  gameStages:
+  - {fileID: 11400000, guid: f57f44fc75be4dc47b25f4b542e7b0f1, type: 2}
 --- !u!4 &1749134374
 Transform:
   m_ObjectHideFlags: 0

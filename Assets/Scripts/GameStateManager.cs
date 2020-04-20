@@ -112,7 +112,7 @@ public class GameStateManager : MonoBehaviour
 
         WaveManager waveManager = FindObjectOfType<WaveManager>();
 
-        Debug.Log(waveManager.currentStage);
+        //Debug.Log(waveManager.currentStage);
         //waveManager.currentStage = gameStages[currentStageIndex];
     }
 

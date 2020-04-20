@@ -10932,7 +10932,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armor: 0
   health: 10
-  weaponObject: {fileID: 0}
+  weaponObject: {fileID: 4238179120846898282, guid: 079e9d34ed9fd2147962cef8e2a1bf6b,
+    type: 3}
   handHoldingWeapon: {fileID: 0}
 --- !u!1 &6192799648949273586
 GameObject:
