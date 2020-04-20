@@ -42,9 +42,8 @@ public class HeroController : AliveUnit
     private void CheckForAttackRange()
     {
         RaycastHit hitInfo;
-        Physics.Raycast( transform.position,Vector3.right,out hitInfo, 10, 1 << 12); //12 is Monster layer
 
-        if (!Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12))
+        if (!Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
             return;
         }

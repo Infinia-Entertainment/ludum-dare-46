@@ -38,19 +38,25 @@ public class MonsterController : AliveUnit
     private void CheckForAttack()
     {
         RaycastHit hitInfo;
-        Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13); //13 is Hero layer
-        Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance,Color.red,5);
+         //13 is Hero layer
+        
+        Debug.Log(Time.time - lastAttack  + " attack rate: " + monsterData.attackRate + "   " + (Time.time - lastAttack > monsterData.attackRate));
 
-
-        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13))
+        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13)) // 1 << 13 Hero layer
         {
             Debug.Log("returned");
+
             return;
         }
-        Debug.Log("didn't return");
+
+        Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance, Color.red, 1);
+        Debug.Log("i am here");
+
+        
+
 
         //Check for attack Rate
-        if (Time.time - lastAttack >= monsterData.attackRate)
+        if (Time.time - lastAttack > monsterData.attackRate)
         {
             Debug.Log("attack cooldown thing");
 
