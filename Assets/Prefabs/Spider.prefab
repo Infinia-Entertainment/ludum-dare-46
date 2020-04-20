@@ -567,11 +567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 0
-  health: 10
-  isFrontOccupied: 0
-  speed: 1
+  health: 90
   hero: {fileID: 0}
-  monsterInFront: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
 --- !u!95 &810597402262459418
 Animator:
   serializedVersion: 3

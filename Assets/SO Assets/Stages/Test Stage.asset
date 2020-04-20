@@ -42,7 +42,7 @@ MonoBehaviour:
       Data: 0
     - Name: Count
       Entry: 3
-      Data: 5
+      Data: 20
     - Name: DelayInBetween
       Entry: 4
       Data: 1

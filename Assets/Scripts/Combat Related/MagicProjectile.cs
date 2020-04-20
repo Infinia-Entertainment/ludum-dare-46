@@ -19,7 +19,8 @@ public class MagicProjectile : MonoBehaviour
         if (other.CompareTag("Monster"))
         {
             other.gameObject.GetComponent<AliveUnit>().ReceiveDamage(damage);
-            Debug.Log("Damaged the monster haha");
+
+            Destroy(gameObject);
         }
     }
 }

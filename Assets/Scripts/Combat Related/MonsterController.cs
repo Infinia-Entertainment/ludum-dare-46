@@ -3,11 +3,20 @@ using UnityEngine;
 
 public class MonsterController : AliveUnit
 {
-    public bool isFrontOccupied;
-    public float speed;
+    private bool isFrontOccupied;
     public GameObject hero;
-    public MonsterController monsterInFront;
-    // Start is called before the first frame update
+    private MonsterController monsterInFront;
+
+    private float lastAttack;
+
+    //Monster stats
+    public MonsterData monsterData;
+
+    private void Awake()
+    {
+         lastAttack = Time.time;
+    }
+
     private void Start()
     {
         isFrontOccupied = false;
@@ -23,15 +32,38 @@ public class MonsterController : AliveUnit
 
         Move();
 
-        if (hero !=null)
-        {
-            Attack();
-        }
+        CheckForAttack();
     }
 
-    private void Attack()
+    private void CheckForAttack()
     {
-        //do attack stuff
+        RaycastHit hitInfo;
+        Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13); //13 is Hero layer
+        Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance,Color.red,5);
+
+
+        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13))
+        {
+            Debug.Log("returned");
+            return;
+        }
+        Debug.Log("didn't return");
+
+        //Check for attack Rate
+        if (Time.time - lastAttack >= monsterData.attackRate)
+        {
+            Debug.Log("attack cooldown thing");
+
+            //Just checks if attack is within range
+            if (hitInfo.distance <= monsterData.attackDistance && isFrontOccupied)
+            {
+                Debug.Log("monster attacked");
+
+                //attack anims etc
+                hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
+            }
+            lastAttack = Time.time;
+        }
     }
 
     private void CheckNextMonster()
@@ -54,7 +86,7 @@ public class MonsterController : AliveUnit
         }
         else
         {
-            translation = new Vector3(0, 0, -speed);
+            translation = new Vector3(0, 0, -monsterData.speed);
         }
 
         transform.Translate(translation * Time.deltaTime);

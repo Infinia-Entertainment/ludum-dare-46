@@ -25,7 +25,7 @@ public class StaffWeapon : MonoBehaviour
     [SerializeField] private float elementDamageModifier = 0.5f;
 
     //Other weapon info
-    [SerializeField] private float attackRate = 1f; //in seconds
+    [SerializeField] private float _attackRate = 2f; //in seconds
     [SerializeField] private int defenceModifier; //for now
 
     //[SerializeField] private float knockback; ??
@@ -35,20 +35,14 @@ public class StaffWeapon : MonoBehaviour
 
     public WeaponType WeaponType { get => _weaponType;}
     public ElementAttribute WeaponElement { get => _weaponElement;}
+    public float AttackRate { get => _attackRate; }
 
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
-
-
-    private void Awake()
-    {
-        
-    }
-
 
     #region Test Code Only
     public void TestInitialize()
     {
-        InitializeWeapon(WeaponType.Melee, ElementAttribute.Ice);
+        InitializeWeapon(WeaponType.Ranged  , ElementAttribute.Ice);
         Debug.Log("initialized");
     }
     #endregion
@@ -80,15 +74,15 @@ public class StaffWeapon : MonoBehaviour
 
     //private void ProcessBuffEffects()
     //{
-        //Debug.Log("Processed Buff effects");
+    //Debug.Log("Processed Buff effects");
     //}
-
 
 
     public void DoAttack()
     {
         RaycastHit hitInfo;
         Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12); //12 is Monster layer
+        Debug.DrawRay(transform.position, Vector3.right * hitInfo.distance);
 
         switch (_weaponType)
         {

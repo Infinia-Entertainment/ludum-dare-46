@@ -10,12 +10,17 @@ public class HeroController : AliveUnit
     [SerializeField] GameObject weaponPrefab;
     private StaffWeapon weapon;
 
-    Time lastAttack;
+    float lastAttack;
 
     private void Awake()
     {
+        health = 20;
+        weaponPrefab = Instantiate(weaponPrefab,transform);
+
         weapon = weaponPrefab.GetComponent<StaffWeapon>();
         weapon.TestInitialize();
+
+        lastAttack = Time.time;
     }
 
 
@@ -36,8 +41,6 @@ public class HeroController : AliveUnit
     //!!!!!!!!!!!Do anims here!!!!!!!!!
     private void CheckForAttackRange()
     {
-        float distanceToEnemy;
-
         RaycastHit hitInfo;
         Physics.Raycast( transform.position,Vector3.right,out hitInfo, 10, 1 << 12); //12 is Monster layer
 
@@ -46,26 +49,20 @@ public class HeroController : AliveUnit
             return;
         }
 
-        //Just checks if attack is within range
-        switch (weapon.WeaponType)
+        //Check for attack Rate
+        if (Time.time - lastAttack >= weapon.AttackRate)
         {
-            case WeaponType.Melee:
 
-                if (hitInfo.distance <= 2)
-                {
-                    weapon.DoAttack();
-                }
-
-                break;
-            case WeaponType.Ranged:
-
-                if (hitInfo.distance <= 8)
-                {
-                    weapon.DoAttack();
-                }
-                break;
-            default:
-                break;
+            //Just checks if attack is within range
+            if (weapon.WeaponType == WeaponType.Melee && hitInfo.distance <= 2)
+            {
+                weapon.DoAttack();
+            }
+            if (weapon.WeaponType == WeaponType.Ranged && hitInfo.distance <= 8)
+            {
+                weapon.DoAttack();
+            }
+            lastAttack = Time.time;
         }
     }
 }
