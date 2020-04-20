@@ -21,6 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  elementAttribute: 2
+  health: 100
   damage: 5
   speed: 1
   defence: 10

@@ -23,13 +23,6 @@ public class HeroController : AliveUnit
         lastAttack = Time.time;
     }
 
-
-    private void Attack()
-    {
-        weapon.DoAttack();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         CheckForHealth();

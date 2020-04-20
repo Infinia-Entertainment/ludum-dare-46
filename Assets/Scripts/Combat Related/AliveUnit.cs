@@ -1,6 +1,7 @@
 ﻿using GameData;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class AliveUnit : MonoBehaviour
@@ -22,5 +23,6 @@ public class AliveUnit : MonoBehaviour
     {
         health -= damage;
         CheckForHealth();
+        Debug.Log(gameObject.name + " got damaged for " + damage + " damage");
     }
 }

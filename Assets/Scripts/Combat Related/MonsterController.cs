@@ -14,7 +14,9 @@ public class MonsterController : AliveUnit
 
     private void Awake()
     {
-         lastAttack = Time.time;
+        health = monsterData.health;
+
+        lastAttack = Time.time;
     }
 
     private void Start()
@@ -40,7 +42,6 @@ public class MonsterController : AliveUnit
         RaycastHit hitInfo;
          //13 is Hero layer
         
-        Debug.Log(Time.time - lastAttack  + " attack rate: " + monsterData.attackRate + "   " + (Time.time - lastAttack > monsterData.attackRate));
 
         if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13)) // 1 << 13 Hero layer
         {
@@ -50,16 +51,11 @@ public class MonsterController : AliveUnit
         }
 
         Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance, Color.red, 1);
-        Debug.Log("i am here");
-
-        
 
 
         //Check for attack Rate
         if (Time.time - lastAttack > monsterData.attackRate)
         {
-            Debug.Log("attack cooldown thing");
-
             //Just checks if attack is within range
             if (hitInfo.distance <= monsterData.attackDistance && isFrontOccupied)
             {
