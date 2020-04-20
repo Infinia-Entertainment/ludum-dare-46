@@ -4,21 +4,26 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class HeroController : AliveUnit
 {
-    [SerializeField] GameObject weaponPrefab;
+    [SerializeField] public GameObject weaponObject;
+    [SerializeField] private GameObject handHoldingWeapon;
+
     private StaffWeapon weapon;
 
     float lastAttack;
 
     private void Awake()
     {
+        handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
+
         health = 20;
 
-        weapon = weaponPrefab.GetComponent<StaffWeapon>();
+        weapon = weaponObject.GetComponent<StaffWeapon>();
 
-        InitializeWeaponPosition();
+        //InitializeWeaponPosition();
 
         lastAttack = Time.time;
 
@@ -28,9 +33,11 @@ public class HeroController : AliveUnit
         //weapon.TestInitialize();
     }
 
-    private void InitializeWeaponPosition()
+    public void InitializeWeaponPosition()
     {
-        //calculation for proper position
+        weaponObject.transform.parent = handHoldingWeapon.transform;
+        weaponObject.transform.localPosition = new Vector3(0.147f, 0.576f, 0.08f);
+        weaponObject.transform.localEulerAngles = new Vector3(80f, -2.59f, 48f);
     }
 
     void Update()

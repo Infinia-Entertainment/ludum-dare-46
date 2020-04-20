@@ -38,6 +38,8 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] List<GameObject> currentWeapons = new List<GameObject>();
     [SerializeField] List<GameObject> currentHeroes = new List<GameObject>();
 
+    //[SerializeField] List<GameObject> currentStayedHeroes = new List<GameObject>();
+
     [SerializeField] GameObject heroPrefab;
 
 
@@ -113,6 +115,18 @@ public class GameStateManager : MonoBehaviour
         HideWeapons();
 
         InstantiateHeroUI();
+        //Some heroes stay
+        //code here
+
+        //assign weapons to heros
+        //fix their positions
+
+        for (int i = 0; i < currentHeroes.Count; i++)
+        {
+            HeroController heroController = currentHeroes[i].GetComponent<HeroController>();
+            heroController.weaponObject = currentWeapons[i];
+            heroController.InitializeWeaponPosition();
+        }
 
         //Add weapons position initialization
         //In Each Hero maybe?
