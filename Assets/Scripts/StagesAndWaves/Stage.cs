@@ -7,4 +7,6 @@ using Sirenix.OdinInspector;
 public class Stage : SerializedScriptableObject
 {
     [SerializeField] public List<MobWave> Waves = new List<MobWave>();
+
+    public int heroReward;
 }

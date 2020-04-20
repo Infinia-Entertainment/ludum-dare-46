@@ -68,6 +68,11 @@ public class WeaponCreationSystem : MonoBehaviour
 
     }
 
+    public GameObject CreateTestWeapon()
+    {
+        return CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))

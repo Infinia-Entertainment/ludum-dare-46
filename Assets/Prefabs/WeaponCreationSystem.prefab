@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bf824bb47c63543b8be8a8fd87d97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStructurePrefab: {fileID: 4314961682707004490, guid: deaf33ecdb8c61b4c9207cc1320b88d4,
+  weaponStructurePrefab: {fileID: 4238179120846898282, guid: 079e9d34ed9fd2147962cef8e2a1bf6b,
     type: 3}
   selectedRodAttachment: {fileID: 0}
   selectedAttackTypeAttachment: {fileID: 0}

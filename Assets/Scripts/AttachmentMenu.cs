@@ -15,6 +15,14 @@ public class AttachmentMenu : MonoBehaviour
     Item selectedRod;
     Item selectedAttack;
     Item selectedElement;
+
+    GameStateManager gameStateManager;
+
+    private void Awake()
+    {
+        gameStateManager = FindObjectOfType<GameStateManager>();
+    }
+
     public void SlotClicked(int slotType = 1)
     {
 
@@ -88,7 +96,8 @@ public class AttachmentMenu : MonoBehaviour
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
         {
             GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
-            DontDestroyOnLoad(weapon);
+
+            gameStateManager.AddWeapon(weapon);
         }
     }
 }
