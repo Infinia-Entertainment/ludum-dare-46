@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class AttachmentMenu : MonoBehaviour
 {
     public Image[] attachmentImages;
@@ -10,11 +11,13 @@ public class AttachmentMenu : MonoBehaviour
     public Item[] attackAttachments;
     public Item[] elementAttachments;
 
-    public Dropdown[] dropDowns;
+    public TMP_Dropdown[] dropDowns;
 
     Item selectedRod;
     Item selectedAttack;
     Item selectedElement;
+
+    public GameObject craftButton;
     public void SlotClicked(int slotType = 1)
     {
 
@@ -65,30 +68,46 @@ public class AttachmentMenu : MonoBehaviour
 
     void UpdateRodAttachment(Item rod)
     {
-  
         selectedRod = rod;
+        UpdateElements(0);
         attachmentImages[0].sprite = rod.sprite;
-        dropDowns[0].gameObject.SetActive(false);
     }
     void UpdateAttackAttachment(Item attack)
     {
         selectedAttack = attack;
+        UpdateElements(1);
         attachmentImages[1].sprite = attack.sprite;
-        dropDowns[1].gameObject.SetActive(false);
     }
     void UpdateElementAttachment(Item element)
     {
         selectedElement = element;
+        UpdateElements(2);
         attachmentImages[2].sprite = element.sprite;
-        dropDowns[2].gameObject.SetActive(false);
     }
 
     public void Craft()
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
         {
-            GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
-            DontDestroyOnLoad(weapon);
+
+            
+            FindObjectOfType<BlackSmith>().TriggerCrafting();
+            Invoke("TriggerCompiling", 2.7f);
+
         }
+    }
+    void UpdateElements(int type)
+    {
+        attachmentImages[type].enabled = true;
+        dropDowns[type].gameObject.SetActive(false);
+        if(selectedRod != null && selectedAttack != null && selectedElement != null)
+        {
+            craftButton.SetActive(true);
+        }
+    }
+
+    void TriggerCompiling()
+    {
+        GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
     }
 }

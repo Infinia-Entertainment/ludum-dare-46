@@ -14,6 +14,8 @@ public class WeaponCreationSystem : MonoBehaviour
     [SerializeField] GameObject selectedAttackTypeAttachment;
     [SerializeField] GameObject selectedElementTypeAttachment;
 
+    Animator animator;
+
     /// <summary>
     /// Returns prefab with the weapon, it contains all info
     /// </summary>
@@ -24,7 +26,6 @@ public class WeaponCreationSystem : MonoBehaviour
     public GameObject CreateWeapon(GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
     {
         GameObject weaponPrefab = Instantiate(weaponStructurePrefab, transform.position, Quaternion.identity);
-
         StaffWeapon weapon = weaponPrefab.GetComponent<StaffWeapon>();
 
         Destroy(weapon.rodAttachment);
@@ -41,7 +42,9 @@ public class WeaponCreationSystem : MonoBehaviour
         
         weapon.InitializeWeapon(weaponType, weaponElement);
 
+       
         ConstructWeapon(weapon , rodPrefab, attackTypePrefab, elementTypePrefab); //Construct the visual stuff
+
 
         return weaponPrefab; //
     }
@@ -76,4 +79,5 @@ public class WeaponCreationSystem : MonoBehaviour
             weapon.transform.position = new Vector3(-3, 0, 0);
         }
     }
+
 }
