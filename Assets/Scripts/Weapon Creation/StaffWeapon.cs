@@ -23,7 +23,7 @@ public class StaffWeapon : MonoBehaviour
     [SerializeField] private int _baseDamage = 10; //for now
     [SerializeField] private int _adjustedToWeaponDamage;
 
-    [Range(0.0f,2.0f)]
+    [Range(0.0f, 2.0f)]
     [SerializeField] private float _elementDamageModifier = 0.5f;
 
     //Other weapon info
@@ -35,8 +35,8 @@ public class StaffWeapon : MonoBehaviour
     private WeaponType _weaponType;
     private ElementAttribute _weaponElement;
 
-    public WeaponType WeaponType { get => _weaponType;}
-    public ElementAttribute WeaponElement { get => _weaponElement;}
+    public WeaponType WeaponType { get => _weaponType; }
+    public ElementAttribute WeaponElement { get => _weaponElement; }
     public float AttackRate { get => _attackRate; }
 
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
@@ -44,7 +44,7 @@ public class StaffWeapon : MonoBehaviour
     #region Test Code Only
     public void TestInitialize()
     {
-        InitializeWeapon(WeaponType.Melee  , ElementAttribute.Ice);
+        InitializeWeapon(WeaponType.Melee, ElementAttribute.Ice);
         Debug.Log("initialized");
 
     }
@@ -96,20 +96,25 @@ public class StaffWeapon : MonoBehaviour
                 //Then enable/disable collider or something with the animation
                 MonsterController monster = hitInfo.collider.gameObject.GetComponent<MonsterController>();
 
-                monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage,_elementDamageModifier,_weaponElement, monster.monsterData.elementAttribute));
+                monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
             case WeaponType.Ranged:
 
                 //Not timed with animation rn,
                 //Need an animation value to trigger the attack or something
-                MagicProjectile projectile = Instantiate(projectilePrefab,elementTypeAttachment.transform.position,projectilePrefab.transform.rotation);
-                projectile.InitilizeProjectile(_adjustedToWeaponDamage, _elementDamageModifier ,_weaponElement);
+                MagicProjectile projectile = Instantiate(projectilePrefab, elementTypeAttachment.transform.position, projectilePrefab.transform.rotation);
+                projectile.InitilizeProjectile(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement);
 
 
                 break;
             default:
                 break;
         }
+    }
+
+    public void IdleWeaponAnimation()
+    {
+        GetComponent<Animator>().SetTrigger("Idle");
     }
 }
