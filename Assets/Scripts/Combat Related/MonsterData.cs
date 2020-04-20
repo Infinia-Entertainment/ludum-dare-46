@@ -9,10 +9,11 @@ using UnityEngine;
 public class MonsterData : SerializedScriptableObject
 {
     public ElementAttribute elementAttribute;
-    public int health;
-    public int damage;
-    public float speed;
-    public float defence;
+    public int health; //health of the monster
+    public int damage; // damage to the heros
+    public int playerDamage; //damage dealt if they pass through
+    public float speed; //speed
+    public float defence; 
     public float attackRate;
     public float attackDistance;
 }

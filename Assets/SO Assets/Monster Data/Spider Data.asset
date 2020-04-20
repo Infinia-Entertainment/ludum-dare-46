@@ -24,6 +24,7 @@ MonoBehaviour:
   elementAttribute: 2
   health: 100
   damage: 5
+  playerDamage: 10
   speed: 1
   defence: 10
   attackRate: 2
