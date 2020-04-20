@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -45,9 +46,10 @@ public class GameStateManager : MonoBehaviour
         {
             WinStage(FindObjectOfType<WaveManager>().currentStage);
         }
+
     }
 
-    
+
 
     private void Awake()
     {
@@ -88,18 +90,34 @@ public class GameStateManager : MonoBehaviour
 
         MoveUnusedHeroes();
 
+
+
+        StartCoroutine(LoadBattleScene());
+
+        
+        //Lul because we're such good programmers lmao
         
 
-        SceneManager.LoadScene(1);
+        
 
-        //Lul because we're such good programmers lmao
+        
+
+
+        
+        //waveManager.currentStage = gameStages[currentStageIndex];
+    }
+
+    private IEnumerator LoadBattleScene()
+    {
+        // Start loading the scene
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(1);
+        // Wait until the level finish loading
+        while (!asyncLoadLevel.isDone)
+            yield return null;
+        // Wait a frame so every Awake and Start method is called
+
         HideHeroes();
         HideWeapons();
-
-
-        InstantiateHeroUI();
-
-        
 
         for (int i = 0; i < currentHeroes.Count; i++)
         {
@@ -109,13 +127,30 @@ public class GameStateManager : MonoBehaviour
             heroController.InitializeWeaponPosition();
         }
 
+        InstantiateHeroUI();
+
 
         WaveManager waveManager = FindObjectOfType<WaveManager>();
+        Debug.Log(SceneManager.GetActiveScene().name);
 
-        //Debug.Log(waveManager.currentStage);
-        //waveManager.currentStage = gameStages[currentStageIndex];
+        Debug.Log(waveManager);
+        yield return new WaitForEndOfFrame();
     }
+    private IEnumerator LoadShopScene()
+    {
+        // Start loading the scene
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(0);
+        // Wait until the level finish loading
+        while (!asyncLoadLevel.isDone)
+            yield return null;
+        // Wait a frame so every Awake and Start method is called
 
+        CalculateGold();
+
+        blacksmithCurrentHealth = blacksmithMaxHealth;
+
+        yield return new WaitForEndOfFrame();
+    }
     private void MoveUnusedHeroes()
     {
         int numberOfunusedHeroes = currentHeroes.Count - currentWeapons.Count;
@@ -159,11 +194,9 @@ public class GameStateManager : MonoBehaviour
         StoreHeores();
         DeleteWeaponData();
 
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadShopScene());
 
-        CalculateGold();
-
-        blacksmithCurrentHealth = blacksmithMaxHealth;
+       
     }
 
     public void WinStage(Stage wonStage)
