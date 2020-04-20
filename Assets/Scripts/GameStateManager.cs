@@ -95,17 +95,6 @@ public class GameStateManager : MonoBehaviour
         HideWeapons();
 
         InstantiateHeroUI();
-        //Some heroes stay
-        //code here
-
-        //5 heroes 
-        //3 weapons
-        // move scenes so 3 heroes are used only
-        // 2 heroes stay behind
-        //and
-        //
-        //3 heroes so no more than 3 weapons can be made
-        //
 
         
 
