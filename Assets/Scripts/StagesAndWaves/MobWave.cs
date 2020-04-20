@@ -11,7 +11,6 @@ public struct MobWave
         Boss
     }
 
-
     [OdinSerialize] public Sprite Artwork;
     [OdinSerialize] public WaveType Type;
     [OdinSerialize] public GameObject Prefab;

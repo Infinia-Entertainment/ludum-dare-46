@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,26 +14,28 @@ public class Next_Stage_Info : MonoBehaviour
     private Vector3 pos;
     List<MobWave.WaveType> types = new List<MobWave.WaveType>();
 
-    public GameObject ParentCanvas;
+    [SerializeField] private GameObject prefab;
 
-    
+    [SerializeField] private GameObject parentCanvas;
+    [SerializeField] private List<GameObject> waveIcons = new List<GameObject>(0);
+
     private void Awake()
     {
-        pos.x = x;
-        pos.y = y;
-        pos.z = 0;
+        parentCanvas = GetComponent<Canvas>().gameObject;
+
+        waveIcons =  GetComponentsInChildren<GameObject>().ToList();
+    }
+
+    private void Start()
+    {
         foreach (MobWave wave in nextStage.Waves)
         {
             if (!types.Contains(wave.Type))
             {
                 types.Add(wave.Type);
-                GameObject NewObj = new GameObject(); //Create the GameObject
-                Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
-                NewImage.sprite = wave.Artwork; //Set the Sprite of the Image Component on the new GameObject
-                NewObj.GetComponent<RectTransform>().SetParent(ParentCanvas.transform); //Assign the newly created Image GameObject as a Child of the Parent Panel.
-                NewObj.GetComponent<RectTransform>().SetPositionAndRotation(pos, Quaternion.identity);//Set position
-                NewObj.SetActive(true); //Activate the GameObject
-                pos.y -= 100;
+                GameObject icon = Instantiate(prefab,parentCanvas.transform);
+                Image monsterImage = icon.GetComponent<Image>(); //Add the Image Component script
+                monsterImage.sprite = wave.Artwork; //Set the Sprite of the Image Component on the new GameObject
             }
         }
     }
