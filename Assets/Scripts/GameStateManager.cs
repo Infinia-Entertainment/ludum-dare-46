@@ -238,7 +238,9 @@ public class GameStateManager : MonoBehaviour
 
     private void LoseGame()
     {
-        throw new NotImplementedException();
+        SceneManager.LoadScene(0);
+
+        Debug.Log("You lost the game dingus");
     }
 
     #endregion
