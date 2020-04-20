@@ -293,7 +293,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5396371011347166531 stripped
 Transform:
+<<<<<<< HEAD
   m_CorrespondingSourceObject: {fileID: 3485007510014499695, guid: cb8b62ffee088fe42b9551f893fedc2b,
     type: 3}
   m_PrefabInstance: {fileID: 8844780540728684076}
   m_PrefabAsset: {fileID: 0}
+=======
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143088798437453215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4183187254120594786}
+  - {fileID: 7876266123867532141}
+  - {fileID: 5235525899918236278}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4498806448011431194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143088798437453215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccbd2412d1abb84c9a01659c6e7e684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rodAttachment: {fileID: 0}
+  attackTypeAttachment: {fileID: 0}
+  elementTypeAttachment: {fileID: 0}
+  buffAttachments: []
+  projectilePrefab: {fileID: 6103128741939219082, guid: d084b210b5ae714409cfa64bb73fd386,
+    type: 3}
+  _baseDamage: 10
+  _adjustedToWeaponDamage: 0
+  elementDamageModifier: 0.5
+  attackRate: 1
+  defenceModifier: 0
+>>>>>>> feature/combat_scene_scripting

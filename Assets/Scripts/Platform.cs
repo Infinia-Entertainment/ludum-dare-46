@@ -23,7 +23,7 @@ public class Platform : MonoBehaviour
             GameObject hero = Instantiate(
                 heroPrefab,
                 transform.position,
-                Quaternion.identity
+                heroPrefab.transform.rotation
                 );
             hero.GetComponent<DragandDrop>().associatedPlatform = this;
             hasObject = true;

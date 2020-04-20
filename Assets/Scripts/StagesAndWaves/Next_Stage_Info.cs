@@ -8,7 +8,6 @@ public class Next_Stage_Info : MonoBehaviour
     public Stage nextStage;
 
     public int x;
-
     public int y;
 
     private Vector3 pos;
