@@ -94,6 +94,7 @@ public class GameStateManager : MonoBehaviour
         HideHeroes();
         HideWeapons();
 
+
         InstantiateHeroUI();
 
         
@@ -101,6 +102,7 @@ public class GameStateManager : MonoBehaviour
         for (int i = 0; i < currentHeroes.Count; i++)
         {
             HeroController heroController = currentHeroes[i].GetComponent<HeroController>();
+            currentWeapons[i].GetComponent<Animator>().enabled = false;
             heroController.weaponObject = currentWeapons[i];
             heroController.InitializeWeaponPosition();
         }
