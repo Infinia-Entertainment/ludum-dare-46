@@ -112,14 +112,12 @@ public class AttachmentMenu : MonoBehaviour
     {
         GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
 
-        GameStateManager.Instance.AddWeapon(weapon);
+        GameStateManager.Instance.BuyWeapon(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price),weapon);
     }
 
-    private int CalculatePrice()
+    private int CalculatePrice(int selectedRodPrice, int selectedAttackPrice, int selectedElementPrice)
     {
-        int calculatedPrice = 0;
-
-        return calculatedPrice;
+        return selectedRodPrice + selectedAttackPrice + selectedElementPrice;
         //price calculation
     }
 }
