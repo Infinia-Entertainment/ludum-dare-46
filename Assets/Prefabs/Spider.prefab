@@ -568,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armor: 0
   health: 90
-  hero: {fileID: 0}
+  hero: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac, type: 3}
   monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
 --- !u!95 &810597402262459418
 Animator:
@@ -602,9 +602,9 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &3507597643511440002
 GameObject:
   m_ObjectHideFlags: 0

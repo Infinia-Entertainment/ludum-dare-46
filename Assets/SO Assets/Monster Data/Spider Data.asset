@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   elementAttribute: 2
-  health: 100
+  health: 60
   damage: 5
   playerDamage: 10
   speed: 1

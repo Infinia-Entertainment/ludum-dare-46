@@ -85,18 +85,18 @@ public class StaffWeapon : MonoBehaviour
     {
         RaycastHit hitInfo;
         Physics.Raycast(transform.position, Vector3.right, out hitInfo, 10, 1 << 12); //12 is Monster layer
-        Debug.DrawRay(transform.position, Vector3.right * hitInfo.distance);
+        Debug.DrawRay(transform.position, Vector3.right * hitInfo.distance, Color.red);
 
         switch (_weaponType)
         {
             case WeaponType.Melee:
 
 
-                //Not timed with animation rn
-                //Then enable/disable collider or something with the animation
+            //    Not timed with animation rn
+             //   Then enable/disable collider or something with the animation
                 MonsterController monster = hitInfo.collider.gameObject.GetComponent<MonsterController>();
 
-                monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+               monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
             case WeaponType.Ranged:

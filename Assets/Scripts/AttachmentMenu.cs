@@ -109,6 +109,9 @@ public class AttachmentMenu : MonoBehaviour
     void TriggerCompiling()
     {
         GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
-        GameStateManager.Instance.AddWeapon(weapon);
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.AddWeapon(weapon);
+        }
     }
 }
