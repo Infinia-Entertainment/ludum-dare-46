@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class WaveManager : MonoBehaviour
@@ -17,10 +18,10 @@ public class WaveManager : MonoBehaviour
     public List<Transform> spawnPoints;
     public List<Transform> spawnPointsToUse;
     // Start is called before the first frame update
+
+    private GameObject lastMonsterObject;
     void Start()
     {
-        
-        
 
         spawnPoints = new List<Transform>();
 
@@ -46,15 +47,20 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator spawn()
     {
-        foreach (MobWave wave in currentStage.Waves)
+        foreach (MobWave currentWave in currentStage.Waves)
         {
-            for (int i = 0; i < wave.Count; i++)
+            for (int i = 0; i < currentWave.Count; i++)
             {
                 int x = Random.Range(0, numSpawnPoints);
-                Instantiate(wave.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
-                yield return new WaitForSeconds(1 + wave.DelayInBetween);
+                lastMonsterObject = Instantiate(currentWave.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
+                yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
             }
-            yield return new WaitForSeconds(wave.DelayAfterWave);
+            if (currentStage.Waves.IndexOf(currentWave) + 1 == currentStage.Waves.Count && lastMonsterObject == null)
+            {
+                GameStateManager.Instance.WinStage(currentStage);
+            }
+
+            yield return new WaitForSeconds(currentWave.DelayAfterWave);
             
         }
         /*if(monsterNum > 0)

@@ -21,9 +21,11 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int blacksmithMaxHealth = 100;
     [SerializeField] private int blacksmithCurrentHealth;
 
-    [SerializeField] private int currentStageIndex;
+    [SerializeField] private int currentStageIndex = 0;
 
     private static GameStateManager _gameStateManager;
+
+    [SerializeField] private List<Stage> gameStages;
 
     public static GameStateManager Instance { get => _gameStateManager;}
 
@@ -107,6 +109,11 @@ public class GameStateManager : MonoBehaviour
             heroController.InitializeWeaponPosition();
         }
 
+
+        WaveManager waveManager = FindObjectOfType<WaveManager>();
+
+        Debug.Log(waveManager.currentStage);
+        //waveManager.currentStage = gameStages[currentStageIndex];
     }
 
     private void MoveUnusedHeroes()
