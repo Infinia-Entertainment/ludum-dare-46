@@ -793,8 +793,9 @@ MonoBehaviour:
   currentHeroes: []
   heroPrefab: {fileID: 4178199317922355747, guid: 37a84b86a12f0c04880105b64ac20649,
     type: 3}
+  gold: 0
   totalGoldFromStage: 0
-  blacksmithMaxHealth: 0
+  blacksmithMaxHealth: 100
   blacksmithCurrentHealth: 0
   currentStageIndex: 0
 --- !u!1 &1136248575

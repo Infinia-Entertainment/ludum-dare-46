@@ -40,10 +40,11 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] GameObject heroPrefab;
 
-    [SerializeField] private static int gold;
+
+    [SerializeField] private int gold;
     [SerializeField] private int totalGoldFromStage;
 
-    [SerializeField] private int blacksmithMaxHealth;
+    [SerializeField] private int blacksmithMaxHealth = 100;
     [SerializeField] private int blacksmithCurrentHealth;
 
     [SerializeField] private int currentStageIndex;
@@ -90,6 +91,7 @@ public class GameStateManager : MonoBehaviour
 
     private void InitializeFirstTime()
     {
+        blacksmithCurrentHealth = blacksmithMaxHealth;
         gold = 100;
 
         GameObject firstHero = Instantiate(heroPrefab);
@@ -247,6 +249,8 @@ public class GameStateManager : MonoBehaviour
         int baseGold = 100 * currentStageIndex;
 
         gold = baseGold + totalGoldFromStage;
+
+        totalGoldFromStage = 0;
     }
 
     #endregion
