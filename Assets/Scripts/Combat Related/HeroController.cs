@@ -15,12 +15,22 @@ public class HeroController : AliveUnit
     private void Awake()
     {
         health = 20;
-        weaponPrefab = Instantiate(weaponPrefab,transform);
 
         weapon = weaponPrefab.GetComponent<StaffWeapon>();
-        weapon.TestInitialize();
+
+        InitializeWeaponPosition();
 
         lastAttack = Time.time;
+
+
+        //test only
+        //weaponPrefab = Instantiate(weaponPrefab,transform);
+        //weapon.TestInitialize();
+    }
+
+    private void InitializeWeaponPosition()
+    {
+        //calculation for proper position
     }
 
     void Update()
