@@ -60,26 +60,29 @@ public class HeroController : AliveUnit
     private void CheckForAttackRange()
     {
 
-        Debug.DrawRay(transform.position, Vector3.right * attackHitInfo.distance,Color.red);
 
-        if (!Physics.Raycast(transform.position, Vector3.left, out RaycastHit hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 10, Color.red);
             return;
         }
-        Debug.Log("before before ranged animation");
+
+        //Debug.Log(attackHitInfo.collider.gameObject);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * attackHitInfo.distance, Color.green);
 
         //Check for attack Rate
         if (Time.time - lastAttack >= weapon.AttackRate)
         {
+            Debug.Log("Attacked");
 
             //Just checks if attack is within range
-            if (weapon.WeaponType == WeaponType.Melee && hitInfo.distance <= 2)
+            if (weapon.WeaponType == WeaponType.Melee && attackHitInfo.distance <= 2)
             {
-                Debug.Log("before ranged animation");
+                Debug.Log("before melee  animation");
                     
                 DoMeleeAttackAnimation();
             }
-            if (weapon.WeaponType == WeaponType.Ranged && hitInfo.distance <= 8)
+            if (weapon.WeaponType == WeaponType.Ranged && attackHitInfo.distance <= 8)
             {
                 Debug.Log("before ranged animation");
 
@@ -93,8 +96,7 @@ public class HeroController : AliveUnit
     private void DoRangedAttackAnimation( )
     {
         Debug.Log("ranged animation");
-        animator.SetBool("Ranged attack", true);
-        animator.SetBool("Ranged attack", false);
+        animator.SetTrigger("Ranged attack");
 
     }
 
@@ -105,23 +107,23 @@ public class HeroController : AliveUnit
 
     private void DoMeleeAttackAnimation( )
     {
-        animator.SetBool("Melee attack",true);
-        animator.SetBool("Melee attack",false);
+        animator.SetTrigger("Melee attack");
     }
 
     public override void ReceiveDamage(int damage)
     {
         base.ReceiveDamage(damage);
-        animator.SetBool("IsHit", true);
-        animator.SetBool("IsHit", false);
+        animator.SetTrigger("IsHit");
 
     }
 
     protected override void CheckForHealth()
     {
-        base.CheckForHealth();
-        animator.SetBool("Death", true);
-        animator.SetBool("Death", false);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            animator.SetTrigger("Death");
+        }
 
     }
 
