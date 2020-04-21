@@ -21,15 +21,15 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int blacksmithMaxHealth = 100;
     [SerializeField] private int blacksmithCurrentHealth;
 
-    [SerializeField] private int currentStageIndex = 0;
+    [SerializeField] private int _currentStageIndex = 0;
 
     private static GameStateManager _gameStateManager;
 
-    [SerializeField] private List<Stage> gameStages;
+    [SerializeField] private List<Stage> _gameStages;
 
-    public static GameStateManager Instance { get => _gameStateManager; }
-    public List<GameObject> CurrentWeapons { get => currentWeapons; }
-    public List<GameObject> CurrentHeroes { get => currentHeroes; }
+    public static GameStateManager Instance { get => _gameStateManager;}
+    public int CurrentStageIndex { get => _currentStageIndex;}
+    public List<Stage> GameStages { get => _gameStages;}
 
     public float spacingBetweenHeroes = 0.75f;
 
@@ -85,7 +85,6 @@ public class GameStateManager : MonoBehaviour
         MoveUnusedHeroes();
 
         StartCoroutine(LoadBattleScene());
-
     }
 
     private IEnumerator LoadBattleScene()
@@ -107,8 +106,8 @@ public class GameStateManager : MonoBehaviour
         WaveManager waveManager = FindObjectOfType<WaveManager>();
 
         //If null reference add the test stage to game manager stage list stuff
-        waveManager.currentStage = gameStages[currentStageIndex];
-
+        waveManager.currentStage = _gameStages[_currentStageIndex];
+       
         waveManager.StartCoroutine(waveManager.StartSpawning());
 
 
@@ -201,7 +200,7 @@ public class GameStateManager : MonoBehaviour
             AddHero(heroObj);
         }
 
-        currentStageIndex++;
+        _currentStageIndex++;
 
         transitionToShop();
     }
@@ -322,7 +321,7 @@ public class GameStateManager : MonoBehaviour
     #region Shop_Related
     private void CalculateGold()
     {
-        int baseGold = 100 * currentStageIndex;
+        int baseGold = 100 * _currentStageIndex;
 
         currentgold = baseGold + totalGoldFromStage;
 

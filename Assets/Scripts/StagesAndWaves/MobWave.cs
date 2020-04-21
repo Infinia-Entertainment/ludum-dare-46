@@ -11,9 +11,8 @@ public struct MobWave
     [Serializable]
     public struct Mob
     {
-        [OdinSerialize] public Sprite Artwork;
         [OdinSerialize] public MonsterData monsterData;
-        [OdinSerialize] public GameObject Prefab;
+        [OdinSerialize] public GameObject monsterPrefab;
         [OdinSerialize] public int count;
     }
 
