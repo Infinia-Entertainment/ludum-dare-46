@@ -15,6 +15,9 @@ public class HeroController : AliveUnit
 
     float lastAttack;
 
+    public bool isSelected;
+    public bool isInitialized;
+
     private void Awake()
     {
         handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
@@ -72,5 +75,10 @@ public class HeroController : AliveUnit
             }
             lastAttack = Time.time;
         }
+    }
+
+    private void OnMouseOver()
+    {
+        Debug.Log(gameObject.name + " has been selected");
     }
 }

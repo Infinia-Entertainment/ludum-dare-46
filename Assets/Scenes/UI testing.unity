@@ -3247,7 +3247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 12.091001, y: 179.99998, z: 0}
 --- !u!95 &1154598605
 Animator:
@@ -16627,10 +16627,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e97576829acf8c54e94ee415830ca07c, type: 2}
   - {fileID: 11400000, guid: 98084d2fff7716c4e95b4f802ef8297b, type: 2}
   elementAttachments:
-  - {fileID: 11400000, guid: df44058c13f539a40a9ec11a8e196cfa, type: 2}
+  - {fileID: 11400000, guid: 0c03a583acb8ec341848370200e30668, type: 2}
+  - {fileID: 11400000, guid: 6ebab84204727754d890d7887a4b986d, type: 2}
   - {fileID: 11400000, guid: cbf28515cb15f894bae4f9f5150f4fc9, type: 2}
-  - {fileID: 11400000, guid: 8d392ddcb699a94468839ca6e5ffcff5, type: 2}
-  - {fileID: 11400000, guid: 2d65bbe8417bce041b1311881d9840f0, type: 2}
+  - {fileID: 11400000, guid: b966554d0af4caa45902e6197c271ab3, type: 2}
+  - {fileID: 11400000, guid: 300ce036e5481fb4798d87d809edd383, type: 2}
+  - {fileID: 11400000, guid: 29eb7f640ee17254fad0afe1a99da3ff, type: 2}
+  - {fileID: 11400000, guid: 44ceb78fbf048674b89037a01325f9d3, type: 2}
+  - {fileID: 11400000, guid: 14cf156f988d0b04faae9313aad4a9cd, type: 2}
+  - {fileID: 11400000, guid: 81e6ccfd2f688234c89bc7d5b0a5af7e, type: 2}
+  - {fileID: 11400000, guid: cbbea57a207934e488ac60c803020b83, type: 2}
   dropDowns:
   - {fileID: 1872865949}
   - {fileID: 1386037296}
