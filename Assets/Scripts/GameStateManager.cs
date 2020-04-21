@@ -49,9 +49,6 @@ public class GameStateManager : MonoBehaviour
         }
 
     }
-
-
-
     private void Awake()
     {
 
@@ -69,7 +66,6 @@ public class GameStateManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         InitializeFirstTime();
     }
-
     private void InitializeFirstTime()
     {
         blacksmithCurrentHealth = blacksmithMaxHealth;
@@ -87,25 +83,12 @@ public class GameStateManager : MonoBehaviour
     private void transitionToBattle()
     {
         StoreWeapons();
-        StoreHeores();
+        StoreHeroes();
 
         MoveUnusedHeroes();
 
-
-
         StartCoroutine(LoadBattleScene());
 
-        
-        //Lul because we're such good programmers lmao
-        
-
-        
-
-        
-
-
-        
-        //waveManager.currentStage = gameStages[currentStageIndex];
     }
 
     private IEnumerator LoadBattleScene()
@@ -120,23 +103,34 @@ public class GameStateManager : MonoBehaviour
         HideHeroes();
         HideWeapons();
 
-        for (int i = 0; i < currentHeroes.Count; i++)
-        {
-            HeroController heroController = currentHeroes[i].GetComponent<HeroController>();
-            currentWeapons[i].GetComponent<Animator>().enabled = false;
-            heroController.weaponObject = currentWeapons[i];
-            heroController.InitializeWeaponPosition();
-        }
+        AssignWeaponsToHeroes();
 
         InstantiateHeroUI();
 
 
         WaveManager waveManager = FindObjectOfType<WaveManager>();
-        Debug.Log(SceneManager.GetActiveScene().name);
 
-        Debug.Log(waveManager);
+        //If null reference add the test stage to game manager stage list stuff
+        waveManager.currentStage = gameStages[currentStageIndex];
+
+
+
         yield return new WaitForEndOfFrame();
     }
+
+    private void AssignWeaponsToHeroes()
+    {
+        for (int i = 0; i < currentHeroes.Count; i++)
+        {
+            HeroController heroController = currentHeroes[i].GetComponent<HeroController>();
+            currentWeapons[i].GetComponent<Animator>().enabled = false;
+
+            heroController.weaponObject = currentWeapons[i];
+            heroController.InitializeWeaponPosition();
+            heroController.InitalizeWeaponData();
+        }
+    }
+
     private IEnumerator LoadShopScene()
     {
         // Start loading the scene
@@ -152,6 +146,7 @@ public class GameStateManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
     }
+
     private void MoveUnusedHeroes()
     {
         int numberOfunusedHeroes = currentHeroes.Count - currentWeapons.Count;
@@ -192,7 +187,7 @@ public class GameStateManager : MonoBehaviour
     private void transitionToShop()
     {
         DeleteDeadHeroes();
-        StoreHeores();
+        StoreHeroes();
         DeleteWeaponData();
 
         StartCoroutine(LoadShopScene());
@@ -246,7 +241,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    private void StoreHeores()
+    private void StoreHeroes()
     {
         foreach (GameObject hero in currentHeroes)
         {

@@ -58,7 +58,7 @@ public class WeaponCreationSystem : MonoBehaviour
             rodAttachmentData.attachmentAttackRange,
             elementTypeAttachmentData.elementModifierStrength);
 
-       
+
         ConstructWeapon(weapon , rodPrefab, attackTypePrefab, elementTypePrefab); //Construct the visual stuff
 
 
@@ -76,8 +76,6 @@ public class WeaponCreationSystem : MonoBehaviour
         Transform elementTypeTransform;
         //Transform[] buffAttachmentsTransform = new Transform[3];
 
-        Debug.Log(staffWeapon.attackTypeAttachment);
-
         attackTypeTranform = staffWeapon.attackTypeAttachment.transform;
         elementTypeTransform = staffWeapon.elementTypeAttachment.transform;
 
@@ -89,6 +87,9 @@ public class WeaponCreationSystem : MonoBehaviour
 
     public GameObject CreateTestWeapon()
     {
+
+
+
         return CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
     }
 

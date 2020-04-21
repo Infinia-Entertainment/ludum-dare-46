@@ -11,7 +11,7 @@ public class HeroController : AliveUnit
     [SerializeField] public GameObject weaponObject;
     [SerializeField] private GameObject handHoldingWeapon;
 
-    private StaffWeapon weapon;
+    private StaffWeapon _weapon;
 
     float lastAttack;
     RaycastHit attackHitInfo;
@@ -21,6 +21,8 @@ public class HeroController : AliveUnit
     public bool isSelected;
     public bool isInitialized;
 
+    public StaffWeapon Weapon { get => _weapon; }
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -29,10 +31,6 @@ public class HeroController : AliveUnit
 
         health = 20;
 
-        weapon = weaponObject.GetComponent<StaffWeapon>();
-
-        //InitializeWeaponPosition();
-
         lastAttack = Time.time;
 
 
@@ -40,6 +38,13 @@ public class HeroController : AliveUnit
         //weaponPrefab = Instantiate(weaponPrefab,transform);
         //weapon.TestInitialize();
     }
+
+    public void InitalizeWeaponData()
+    {
+        _weapon = weaponObject.GetComponent<StaffWeapon>();
+    }
+
+
 
     public void InitializeWeaponPosition()
     {
@@ -71,18 +76,18 @@ public class HeroController : AliveUnit
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * attackHitInfo.distance, Color.green);
 
         //Check for attack Rate
-        if (Time.time - lastAttack >= weapon.AttackRate)
+        if (Time.time - lastAttack >= _weapon.AttackRate)
         {
             Debug.Log("Attacked");
 
             //Just checks if attack is within range
-            if (weapon.WeaponType == WeaponType.Melee && attackHitInfo.distance <= 2)
+            if (_weapon.WeaponType == WeaponType.Melee && attackHitInfo.distance <= 2)
             {
                 Debug.Log("before melee  animation");
                     
                 DoMeleeAttackAnimation();
             }
-            if (weapon.WeaponType == WeaponType.Ranged && attackHitInfo.distance <= 8)
+            if (_weapon.WeaponType == WeaponType.Ranged && attackHitInfo.distance <= 8)
             {
                 Debug.Log("before ranged animation");
 
@@ -96,13 +101,13 @@ public class HeroController : AliveUnit
     private void DoRangedAttackAnimation( )
     {
         Debug.Log("ranged animation");
-        animator.SetTrigger("Ranged attack");
+        animator.SetTrigger("Range attack");
 
     }
 
     public void CarryOutAttack()
     {
-        weapon.DoAttack(attackHitInfo);
+        _weapon.DoAttack(attackHitInfo);
     }
 
     private void DoMeleeAttackAnimation( )
@@ -121,10 +126,14 @@ public class HeroController : AliveUnit
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
             animator.SetTrigger("Death");
         }
 
+    }
+
+    public void FinishDeath()
+    {
+        Destroy(gameObject);
     }
 
     private void OnMouseOver()

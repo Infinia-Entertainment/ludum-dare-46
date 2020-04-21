@@ -45,12 +45,8 @@ public class MonsterController : AliveUnit
 
         if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13)) // 1 << 13 Hero layer
         {
-
             return;
         }
-
-        Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance, Color.red, 1);
-
 
         //Check for attack Rate
         if (Time.time - lastAttack > monsterData.attackRate)
