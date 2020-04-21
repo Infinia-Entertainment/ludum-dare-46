@@ -16142,8 +16142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55b2b6d43e93f743ba3c26c32733510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapons: []
-  currentHeroes: []
+  _currentWeapons: []
+  _currentHeroes: []
   currentUnusedHeroes: []
   heroPrefab: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac,
     type: 3}
@@ -16151,8 +16151,8 @@ MonoBehaviour:
   totalGoldFromStage: 0
   blacksmithMaxHealth: 100
   blacksmithCurrentHealth: 0
-  currentStageIndex: 0
-  gameStages:
+  _currentStageIndex: 0
+  _gameStages:
   - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
   spacingBetweenHeroes: 2.5
 --- !u!4 &1749134374
@@ -17523,7 +17523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6597013eb06c9f840aae86c6cbe1216e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftMoreButton: {fileID: 118391834}
+  craftMoreButton: {fileID: 38079470}
   heroCountText: {fileID: 1305921448}
   attachmentImages:
   - {fileID: 1200909128}
