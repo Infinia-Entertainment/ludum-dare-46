@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539b6fa2deb4dcf499079b81e9540df1, type: 3}
   m_Name: Melee lvl 1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 3f876872c067e4e4e96e021c54032378, type: 3}
+  sprite: {fileID: 21300000, guid: f6eb664b076f59841a85f156cb7ac826, type: 3}
   itemObject: {fileID: 7105329209695084894, guid: a7cb6d870f05abf42ab3249121e93b6c,
     type: 3}
   itemName: Rod 1

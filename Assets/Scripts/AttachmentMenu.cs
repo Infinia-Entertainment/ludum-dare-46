@@ -71,18 +71,21 @@ public class AttachmentMenu : MonoBehaviour
         selectedRod = rod;
         UpdateElements(0);
         attachmentImages[0].sprite = rod.sprite;
+        attachmentImages[0].preserveAspect = true;
     }
     void UpdateAttackAttachment(Item attack)
     {
         selectedAttack = attack;
         UpdateElements(1);
         attachmentImages[1].sprite = attack.sprite;
+        attachmentImages[1].preserveAspect = true;
     }
     void UpdateElementAttachment(Item element)
     {
         selectedElement = element;
         UpdateElements(2);
         attachmentImages[2].sprite = element.sprite;
+        attachmentImages[2].preserveAspect = true;
     }
 
     public void Craft()

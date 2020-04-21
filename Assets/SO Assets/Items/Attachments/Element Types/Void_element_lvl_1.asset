@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539b6fa2deb4dcf499079b81e9540df1, type: 3}
   m_Name: Void_element_lvl_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 3f876872c067e4e4e96e021c54032378, type: 3}
+  sprite: {fileID: 21300000, guid: a21a1978000f0b64fbb6e2f5a8ca7cdf, type: 3}
   itemObject: {fileID: 8146012710252734139, guid: 34add80a011fdfa43a055363bbf3667e,
     type: 3}
   itemName: Rod 1
+  price: 0
   itemDescription: Base 1
-  assignedID: 1
+  assignedID: 8
