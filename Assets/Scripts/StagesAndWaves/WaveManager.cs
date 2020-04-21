@@ -46,10 +46,6 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        Debug.Log(currentStage.Waves.IndexOf(_currentWave) + 1);
-        Debug.Log(currentStage.Waves.Count);
-        Debug.Log(lastMonsterObject);
-
         if (currentStage.Waves.IndexOf(_currentWave) + 1 == currentStage.Waves.Count && lastMonsterObject == null && !hasWon)
         {
             GameStateManager.Instance.WinStage(currentStage);
