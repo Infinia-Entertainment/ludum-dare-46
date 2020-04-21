@@ -30,7 +30,7 @@ public class GameStateManager : MonoBehaviour
 
     public static GameStateManager Instance { get => _gameStateManager;}
 
-    public float spacingBetweenHeroes = 2.5f;
+    public float spacingBetweenHeroes = 0.75f;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -296,16 +296,16 @@ public class GameStateManager : MonoBehaviour
     }
     private void InstantiateHeroUI()
     {
-        Debug.Log("Func runs..");
-        Debug.Log(currentHeroes);
-        //Vector3 heroPosition = FindObjectOfType<HeroPlacement>().transform.position;
-        //for (int i = 0; i < currentHeroes.Count; i++)
-        //{
-        //    Debug.Log("Moving.." + currentHeroes[i].name);
-        //   //Move heroes to a specific position in a line
-        //    currentHeroes[i].transform.position = heroPosition;
-        //    heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
-        //}
+        Vector3 heroPosition = new Vector3(-1.5f, 0, 5);
+        for (int i = 0; i < currentHeroes.Count; i++)
+        {
+            currentHeroes[i].transform.position = heroPosition;
+            heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
+        }
+        for (int i = 0; i < currentUnusedHeroes.Count; i++)
+        {
+            currentUnusedHeroes[i].transform.position = new Vector3(100,100,100);
+        }
     }
 
     public void DamageBlacksmith(int damage)
