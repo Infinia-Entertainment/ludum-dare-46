@@ -68,13 +68,13 @@ public class StaffWeapon : MonoBehaviour
         {
             case WeaponType.Melee:
 
-                _adjustedToWeaponDamage = _baseDamage + 20;
+                _adjustedToWeaponDamage = _baseDamage * 2;
 
                 break;
 
             case WeaponType.Ranged:
 
-                _adjustedToWeaponDamage = _baseDamage + 5;
+                _adjustedToWeaponDamage = Mathf.RoundToInt(_baseDamage /2);
 
                 break;
 

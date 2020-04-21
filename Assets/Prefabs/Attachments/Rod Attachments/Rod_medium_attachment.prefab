@@ -93,6 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac96d0520c9cfb42abb14ce3b1a9506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachmentAttackRange: 5
+  attachmentFireRate: 2
+  attachmentdefence: 6
 --- !u!1 &8480973551045516460
 GameObject:
   m_ObjectHideFlags: 0

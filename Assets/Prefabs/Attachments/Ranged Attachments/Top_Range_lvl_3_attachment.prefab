@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  attachmentDamage: 40
 --- !u!1 &3917485688400178952
 GameObject:
   m_ObjectHideFlags: 0

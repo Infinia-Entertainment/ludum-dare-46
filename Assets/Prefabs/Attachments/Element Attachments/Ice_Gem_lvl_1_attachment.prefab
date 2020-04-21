@@ -93,4 +93,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982e52381912cb84bb621b2513606743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponElement: 4
+  attachmentWeaponElement: 4
+  elementModifierStrength: 0.5
