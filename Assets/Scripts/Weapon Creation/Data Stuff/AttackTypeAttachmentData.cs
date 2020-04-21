@@ -6,4 +6,5 @@ using GameData;
 public class AttackTypeAttachmentData : MonoBehaviour
 {
     public WeaponType weaponType;
+    public int attachmentDamage;
 }

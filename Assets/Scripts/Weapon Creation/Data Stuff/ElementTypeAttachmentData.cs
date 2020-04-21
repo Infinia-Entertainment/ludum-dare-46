@@ -5,5 +5,7 @@ using GameData;
 
 public class ElementTypeAttachmentData : MonoBehaviour
 {
-    public ElementAttribute weaponElement;
+    public ElementAttribute attachmentWeaponElement;
+    [Range(0.0f, 2.0f)]
+    public float elementModifierStrength;
 }

@@ -21,11 +21,12 @@ public class StaffWeapon : MonoBehaviour
 
     [SerializeField] private int _adjustedToWeaponDamage;
 
-    [Range(0.0f, 2.0f)]
+    //[Range(0.0f, 2.0f)]
     [SerializeField] private float _elementDamageModifier = 0.5f;
 
     //Other weapon info
     [SerializeField] private float _attackRate = 2f; //in seconds
+    [SerializeField] private float _attackRange;
 
     [SerializeField] private int defenceModifier; //for now
 
@@ -44,17 +45,24 @@ public class StaffWeapon : MonoBehaviour
 
     public void TestInitialize()
     {
-        InitializeWeapon(WeaponType.Melee, ElementAttribute.Ice);
+        _weaponType = WeaponType.Melee;
+        _weaponElement = ElementAttribute.Ice;
         Debug.Log("initialized");
     }
 
     #endregion Test Code Only
 
-    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement)
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement,int damage, int defence, float fireRate,float range,float elementDamageModifier)
     {
         _weaponType = weaponType;
         _weaponElement = weaponElement;
         //_weaponBuffs = weaponBuffs;
+
+        _baseDamage = damage;
+        //int defence;
+        _attackRate =  fireRate;
+        _attackRange = range;
+        _elementDamageModifier = elementDamageModifier;
 
         switch (_weaponType)
         {
@@ -75,6 +83,8 @@ public class StaffWeapon : MonoBehaviour
         }
 
         //ProcessBuffEffects();
+
+
     }
 
     //private void ProcessBuffEffects()
