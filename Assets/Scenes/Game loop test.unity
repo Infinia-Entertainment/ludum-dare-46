@@ -15482,7 +15482,7 @@ MonoBehaviour:
   blacksmithCurrentHealth: 0
   currentStageIndex: 0
   gameStages:
-  - {fileID: 11400000, guid: f57f44fc75be4dc47b25f4b542e7b0f1, type: 2}
+  - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
   spacingBetweenHeroes: 2.5
 --- !u!4 &1749134374
 Transform:

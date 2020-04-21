@@ -39,33 +39,47 @@ public class WaveManager : MonoBehaviour
             spawnPointsToUse.Add(spawnPoints[i]);
         }
 
-        StartCoroutine(spawn());
 
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        if (currentStage.Waves.IndexOf(_currentWave) + 1 == currentStage.Waves.Count && lastMonsterObject == null && !hasWon)
+    {
+
+        //Debug.Log(currentStage);
+        //Debug.Log(currentStage.Waves);
+        //Debug.Log(currentStage.Waves.IndexOf(_currentWave));
+
+
+        //Add check for if the monster is 
+        if (currentStage)
         {
-            GameStateManager.Instance.WinStage(currentStage);
-            hasWon = true;
+            if (currentStage.Waves.IndexOf(_currentWave) + 1 == currentStage.Waves.Count && lastMonsterObject == null && !hasWon)
+            {
+                GameStateManager.Instance.WinStage(currentStage);
+                hasWon = true;
+            }
         }
+        
     }
-    public IEnumerator spawn()
+    public IEnumerator StartSpawning()
     {
         foreach (MobWave currentWave in currentStage.Waves)
         {
             _currentWave = currentWave;
-            for (int i = 0; i < currentWave.Count; i++)
+
+            foreach (MobWave.Mob mob in currentWave.MobsInTheWave)
             {
-                int x = Random.Range(0, numSpawnPoints);
-                lastMonsterObject = Instantiate(currentWave.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
-                yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
+                for (int i = 0; i < mob.count; i++)
+                {
+                    int spawnPointIndex = Random.Range(0, numSpawnPoints);
+                    lastMonsterObject = Instantiate(mob.Prefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.LookRotation(Vector3.right));
+                    lastMonsterObject.GetComponent<MonsterController>().monsterData = mob.monsterData;
+                    yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
+                }
+
             }
-            
             yield return new WaitForSeconds(currentWave.DelayAfterWave);
-            
         }
 
 

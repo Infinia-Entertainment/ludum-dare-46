@@ -15,47 +15,27 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: Waves
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[MobWave, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: MobWave, Assembly-CSharp
-    - Name: Artwork
-      Entry: 6
-      Data: 
-    - Name: Type
-      Entry: 3
-      Data: 0
-    - Name: Prefab
-      Entry: 10
-      Data: 0
-    - Name: Count
-      Entry: 3
-      Data: 5
-    - Name: DelayInBetween
-      Entry: 4
-      Data: 10
-    - Name: DelayAfterWave
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  Waves:
+  - MobsInTheWave:
+    - Artwork: {fileID: 21300000, guid: c9470265bc2ff9c46afe4871d6b01dc7, type: 3}
+      monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      Prefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
+        type: 3}
+      count: 5
+    DelayInBetween: 1
+    DelayAfterWave: 3
+  - MobsInTheWave:
+    - Artwork: {fileID: 21300000, guid: f7cf15c30dfceac4c99c2efa6b3b27f9, type: 3}
+      monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      Prefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
+        type: 3}
+      count: 7
+    DelayInBetween: 1
+    DelayAfterWave: 2
   heroReward: 1
