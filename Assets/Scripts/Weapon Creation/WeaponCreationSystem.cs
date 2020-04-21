@@ -41,8 +41,13 @@ public class WeaponCreationSystem : MonoBehaviour
         ElementAttribute weaponElement = elementTypePrefab.GetComponent<ElementTypeAttachmentData>().attachmentWeaponElement;
 
         RodAttachmentData rodAttachmentData = weapon.rodAttachment.GetComponent<RodAttachmentData>() ;
-        ElementTypeAttachmentData elementTypeAttachmentData = weapon.rodAttachment.GetComponent<ElementTypeAttachmentData>();
-        AttackTypeAttachmentData attackTypeAttachmentData = weapon.rodAttachment.GetComponent<AttackTypeAttachmentData>();
+        ElementTypeAttachmentData elementTypeAttachmentData = weapon.elementTypeAttachment.GetComponent<ElementTypeAttachmentData>();
+        AttackTypeAttachmentData attackTypeAttachmentData = weapon.attackTypeAttachment.GetComponent<AttackTypeAttachmentData>();
+
+
+        //Debug.Log(attackTypeAttachmentData);
+        //Debug.Log(rodAttachmentData);
+        //Debug.Log(elementTypeAttachmentData);
 
         weapon.InitializeWeapon(
             weaponType,

@@ -11,7 +11,7 @@ public class AliveUnit : MonoBehaviour
 
     ElementAttribute UnitElementType;
 
-    protected void CheckForHealth()
+    protected virtual void CheckForHealth()
     {
         if (health <= 0)
         {
@@ -19,10 +19,11 @@ public class AliveUnit : MonoBehaviour
         }
     }
 
-    public void ReceiveDamage(int damage)
+    public virtual void ReceiveDamage(int damage)
     {
         health -= damage;
         CheckForHealth();
         Debug.Log(gameObject.name + " got damaged for " + damage + " damage");
     }
+
 }

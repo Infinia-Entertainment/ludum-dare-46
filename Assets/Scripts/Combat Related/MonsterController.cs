@@ -58,8 +58,6 @@ public class MonsterController : AliveUnit
             //Just checks if attack is within range
             if (hitInfo.distance <= monsterData.attackDistance && isFrontOccupied)
             {
-                Debug.Log("monster attacked");
-
                 //attack anims etc
                 hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
             }

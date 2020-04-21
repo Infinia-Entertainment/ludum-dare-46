@@ -101,10 +101,6 @@ public class StaffWeapon : MonoBehaviour
                 //    Not timed with animation rn
                 //   Then enable/disable collider or something with the animation
 
-                Debug.Log(monsterHitInfo);//returns type
-                Debug.Log(monsterHitInfo.collider); //returns null
-                Debug.Log(monsterHitInfo.collider.gameObject);
-
                 MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
 
                 monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));

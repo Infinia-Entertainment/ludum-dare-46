@@ -14,12 +14,17 @@ public class HeroController : AliveUnit
     private StaffWeapon weapon;
 
     float lastAttack;
+    RaycastHit attackHitInfo;
+
+    Animator animator;
 
     public bool isSelected;
     public bool isInitialized;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+
         handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
 
         health = 20;
@@ -55,10 +60,13 @@ public class HeroController : AliveUnit
     private void CheckForAttackRange()
     {
 
-        if (!Physics.Raycast(transform.position, Vector3.right, out RaycastHit hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        Debug.DrawRay(transform.position, Vector3.right * attackHitInfo.distance,Color.red);
+
+        if (!Physics.Raycast(transform.position, Vector3.left, out RaycastHit hitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
             return;
         }
+        Debug.Log("before before ranged animation");
 
         //Check for attack Rate
         if (Time.time - lastAttack >= weapon.AttackRate)
@@ -67,14 +75,54 @@ public class HeroController : AliveUnit
             //Just checks if attack is within range
             if (weapon.WeaponType == WeaponType.Melee && hitInfo.distance <= 2)
             {
-                weapon.DoAttack(hitInfo);
+                Debug.Log("before ranged animation");
+                    
+                DoMeleeAttackAnimation();
             }
             if (weapon.WeaponType == WeaponType.Ranged && hitInfo.distance <= 8)
             {
-                weapon.DoAttack(hitInfo);
+                Debug.Log("before ranged animation");
+
+                DoRangedAttackAnimation();
+
             }
             lastAttack = Time.time;
         }
+    }
+
+    private void DoRangedAttackAnimation( )
+    {
+        Debug.Log("ranged animation");
+        animator.SetBool("Ranged attack", true);
+        animator.SetBool("Ranged attack", false);
+
+    }
+
+    public void CarryOutAttack()
+    {
+        weapon.DoAttack(attackHitInfo);
+    }
+
+    private void DoMeleeAttackAnimation( )
+    {
+        animator.SetBool("Melee attack",true);
+        animator.SetBool("Melee attack",false);
+    }
+
+    public override void ReceiveDamage(int damage)
+    {
+        base.ReceiveDamage(damage);
+        animator.SetBool("IsHit", true);
+        animator.SetBool("IsHit", false);
+
+    }
+
+    protected override void CheckForHealth()
+    {
+        base.CheckForHealth();
+        animator.SetBool("Death", true);
+        animator.SetBool("Death", false);
+
     }
 
     private void OnMouseOver()
