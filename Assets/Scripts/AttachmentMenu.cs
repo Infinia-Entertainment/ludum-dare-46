@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 public class AttachmentMenu : MonoBehaviour
 {
+    public GameObject craftMoreButton;
+
+    [SerializeField] private TMP_Text heroCountText;
+    private const string heroCountDescription = "Armed: ";
+
     public Image[] attachmentImages;
 
     public Item[] rodAttachments;
@@ -18,6 +23,15 @@ public class AttachmentMenu : MonoBehaviour
     Item selectedElement;
 
     public GameObject craftButton;
+
+    public GameObject currentWeapon;
+
+    public GameObject choicePanel;
+
+    private void Start()
+    {
+        UpdateHeroCountUI();
+    }
     public void SlotClicked(int slotType = 1)
     {
 
@@ -87,16 +101,19 @@ public class AttachmentMenu : MonoBehaviour
         attachmentImages[2].sprite = element.sprite;
         attachmentImages[2].preserveAspect = true;
     }
-
+    public void UpdateHeroCountUI()
+    {
+        GameStateManager gameManager = GameStateManager.Instance;
+        heroCountText.text = heroCountDescription + gameManager.CurrentWeapons.Count.ToString() + "/" + gameManager.CurrentHeroes.Count.ToString();
+    }
     public void Craft()
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
         {
 
-            
-            FindObjectOfType<BlackSmith>().TriggerCrafting();
-            Invoke("TriggerCompiling", 2.7f);
-
+            craftButton.SetActive(false);
+            FindObjectOfType<BlackSmith>().TriggerCrafting();    
+            Invoke("TriggerCompiling", 2.7f); 
         }
     }
     void UpdateElements(int type)
@@ -105,7 +122,7 @@ public class AttachmentMenu : MonoBehaviour
         dropDowns[type].gameObject.SetActive(false);
 
         //Add check for if has enough money and space
-        if(selectedRod != null && selectedAttack != null && selectedElement != null)
+        if(selectedRod != null && selectedAttack != null && selectedElement != null && choicePanel.activeSelf == false)
         {
             craftButton.SetActive(true);    
         }
@@ -113,14 +130,33 @@ public class AttachmentMenu : MonoBehaviour
 
     void TriggerCompiling()
     {
-        GameObject weapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
+        currentWeapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
 
-        GameStateManager.Instance.BuyWeapon(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price),weapon);
+        GameStateManager.Instance.BuyWeapon(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price), currentWeapon);
+
+        UpdateHeroCountUI();
+
+        if (GameStateManager.Instance.CurrentHeroes.Count <= GameStateManager.Instance.CurrentWeapons.Count)
+           craftMoreButton.SetActive(false);
+        choicePanel.SetActive(true);
     }
 
     private int CalculatePrice(int selectedRodPrice, int selectedAttackPrice, int selectedElementPrice)
     {
         return selectedRodPrice + selectedAttackPrice + selectedElementPrice;
         //price calculation
+    }
+
+
+    public void CraftMoreButton()
+    {
+        choicePanel.SetActive(false);
+        craftButton.SetActive(true);
+        if (currentWeapon != null)
+        {
+            currentWeapon.GetComponent<Animator>().enabled = false;
+            currentWeapon.transform.position = new Vector3(100, 100, 100);
+        }
+
     }
 }

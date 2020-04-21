@@ -21,7 +21,7 @@ public class DragandDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         {
             Ray ray;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -30,7 +30,7 @@ public class DragandDrop : MonoBehaviour
             if (isRepositioning == false)
             {
                 initialPos = transform.position;
-                if (Physics.Raycast(ray, out hit) &&  transform.gameObject == hit.transform.gameObject)
+                if( Physics.Raycast(ray, out hit, 50, 1 << 13) &&  transform.gameObject == hit.transform.gameObject)
                 {
                     isSelected = true;
                     isRepositioning = true;
@@ -48,11 +48,18 @@ public class DragandDrop : MonoBehaviour
                 {
                     target = hit1.point;
                 }
-                transform.position = Vector3.Lerp(transform.position, target, followSpeed * Time.deltaTime);
-            }        
+                if (target != Vector3.zero)
+                {
+                    transform.position = Vector3.Lerp(transform.position, target, followSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+                }
+            }
         }
 
-        if (Input.GetMouseButtonUp(1) && isRepositioning == true && isSelected)
+        if (Input.GetMouseButtonUp(0) && isRepositioning == true && isSelected)
         {
            
             isRepositioning = false;

@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
 public class GameStateManager : MonoBehaviour
 {
 
@@ -28,19 +27,17 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Stage> gameStages;
 
-    public static GameStateManager Instance { get => _gameStateManager;}
+    public static GameStateManager Instance { get => _gameStateManager; }
+    public List<GameObject> CurrentWeapons { get => currentWeapons; }
+    public List<GameObject> CurrentHeroes { get => currentHeroes; }
 
     public float spacingBetweenHeroes = 0.75f;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AddWeapon(FindObjectOfType<WeaponCreationSystem>().CreateTestWeapon());
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            StartBattle();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -77,7 +74,7 @@ public class GameStateManager : MonoBehaviour
 
         AddHero(hero1);
         AddHero(hero2);
-        AddHero(hero3);
+        AddHero(hero3); 
     }
 
     private void transitionToBattle()
@@ -111,7 +108,7 @@ public class GameStateManager : MonoBehaviour
 
         //If null reference add the test stage to game manager stage list stuff
         waveManager.currentStage = gameStages[currentStageIndex];
-       
+
         waveManager.StartCoroutine(waveManager.StartSpawning());
 
 
@@ -159,7 +156,7 @@ public class GameStateManager : MonoBehaviour
             currentHeroes.RemoveAt(movedHeroIndex);
 
         }
-        
+
     }
 
     public bool CanBuyWeapon(int price)
@@ -192,7 +189,7 @@ public class GameStateManager : MonoBehaviour
 
         StartCoroutine(LoadShopScene());
 
-       
+
     }
 
     public void WinStage(Stage wonStage)
@@ -231,7 +228,7 @@ public class GameStateManager : MonoBehaviour
         currentWeapons.Add(weapon);
     }
 
-    
+
     private void StoreWeapons()
     {
         //we make sure they don't destroy
@@ -299,7 +296,7 @@ public class GameStateManager : MonoBehaviour
         }
         for (int i = 0; i < currentUnusedHeroes.Count; i++)
         {
-            currentUnusedHeroes[i].transform.position = new Vector3(100,100,100);
+            currentUnusedHeroes[i].transform.position = new Vector3(100, 100, 100);
         }
     }
 
@@ -333,4 +330,6 @@ public class GameStateManager : MonoBehaviour
     }
 
     #endregion
+
+
 }
