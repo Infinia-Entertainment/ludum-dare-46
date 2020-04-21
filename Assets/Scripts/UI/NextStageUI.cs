@@ -15,7 +15,7 @@ public class NextStageUI : MonoBehaviour
     [SerializeField] private GameObject parentCanvas;
     [SerializeField] private List<GameObject> waveIcons = new List<GameObject>();
 
-    [SerializeField] private Dictionary<Sprite, MonsterIconData> monsterWaveData = new Dictionary<Sprite, MonsterIconData>();
+    [SerializeField] private Dictionary<Sprite, List<ElementAttribute>> monsterWaveData = new Dictionary<Sprite, List<ElementAttribute>>();
 
     private void Awake()
     {
@@ -25,31 +25,42 @@ public class NextStageUI : MonoBehaviour
         waveIcons =  GetComponentsInChildren<GameObject>().ToList();
     }
 
-    public struct MonsterIconData
-    {
-        public List<ElementAttribute> allPresentMonsterElements;
-    }
-
     private void Start()
     {
+        // Very Unpotmized Please for the love of god use bitmask later in the element types
+
+        //get unique monsters
+
+        List<Sprite> uniqueMonsters = new List<Sprite>();
+
+        foreach (MobWave wave in nextStage.Waves)
+        {
+            foreach (MobWave.Mob mob in wave.MobsInTheWave)
+            {
+                if (uniqueMonsters.Contains(mob.monsterData.monsterImage))
+                {
+                    uniqueMonsters.Add(mob.monsterData.monsterImage);
+                }
+            }
+        }
 
 
+        //for each type check that type in the foreach and 
+        foreach (Sprite monsterSprite in uniqueMonsters)
+        {
+            List<ElementAttribute> monsterElements = new List<ElementAttribute>();
 
-        //foreach (MobWave wave in nextStage.Waves)
-        //{
-        //    foreach (MobWave.Mob mob in wave.MobsInTheWave)
-        //    {
-        //        if (!monsterWaveData.ContainsKey(mob.monsterData.monsterImage))
-        //        {
-        //            monsterWaveData.Add(mob.monsterData.monsterImage,mob.monsterData.elementAttribute);
-        //        }
-        //    }
-        //    //Get all unique monsters
-
-
-        //    //Assign elements of those monsters
-
-            
-
+            foreach (MobWave wave in nextStage.Waves)
+            {
+                foreach (MobWave.Mob mob in wave.MobsInTheWave)
+                {
+                    if (mob.monsterData.monsterImage = monsterSprite)
+                    {
+                        monsterElements.Add(mob.monsterData.elementAttribute);
+                    }
+                }
+            }
+            monsterWaveData.Add(monsterSprite, monsterElements);
+        }
     }
 }
