@@ -8,8 +8,8 @@ using System.Collections;
 public class GameStateManager : MonoBehaviour
 {
 
-    [SerializeField] List<GameObject> currentWeapons = new List<GameObject>();
-    [SerializeField] List<GameObject> currentHeroes = new List<GameObject>();
+    [SerializeField] List<GameObject> _currentWeapons = new List<GameObject>();
+    [SerializeField] List<GameObject> _currentHeroes = new List<GameObject>();
 
     [SerializeField] List<GameObject> currentUnusedHeroes = new List<GameObject>();
 
@@ -30,6 +30,8 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager Instance { get => _gameStateManager;}
     public int CurrentStageIndex { get => _currentStageIndex;}
     public List<Stage> GameStages { get => _gameStages;}
+    public List<GameObject> CurrentWeapons { get => _currentWeapons;}
+    public List<GameObject> CurrentHeroes { get => _currentHeroes;}
 
     public float spacingBetweenHeroes = 0.75f;
 
@@ -116,12 +118,12 @@ public class GameStateManager : MonoBehaviour
 
     private void AssignWeaponsToHeroes()
     {
-        for (int i = 0; i < currentHeroes.Count; i++)
+        for (int i = 0; i < _currentHeroes.Count; i++)
         {
-            HeroController heroController = currentHeroes[i].GetComponent<HeroController>();
-            currentWeapons[i].GetComponent<Animator>().enabled = false;
+            HeroController heroController = _currentHeroes[i].GetComponent<HeroController>();
+            _currentWeapons[i].GetComponent<Animator>().enabled = false;
 
-            heroController.weaponObject = currentWeapons[i];
+            heroController.weaponObject = _currentWeapons[i];
             heroController.InitializeWeaponPosition();
             heroController.InitalizeWeaponData();
         }
@@ -145,14 +147,14 @@ public class GameStateManager : MonoBehaviour
 
     private void MoveUnusedHeroes()
     {
-        int numberOfunusedHeroes = currentHeroes.Count - currentWeapons.Count;
+        int numberOfunusedHeroes = _currentHeroes.Count - _currentWeapons.Count;
 
         for (int i = 0; i < numberOfunusedHeroes; i++)
         {
-            int movedHeroIndex = currentHeroes.Count - 1;
+            int movedHeroIndex = _currentHeroes.Count - 1;
 
-            currentUnusedHeroes.Add(currentHeroes[movedHeroIndex]);
-            currentHeroes.RemoveAt(movedHeroIndex);
+            currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
+            _currentHeroes.RemoveAt(movedHeroIndex);
 
         }
 
@@ -173,7 +175,7 @@ public class GameStateManager : MonoBehaviour
     {
         //returns true if there are enough heroes to buy it
 
-        if (currentWeapons.Count < currentHeroes.Count)
+        if (_currentWeapons.Count < _currentHeroes.Count)
         {
             return true;
         }
@@ -213,7 +215,7 @@ public class GameStateManager : MonoBehaviour
     #region Data_Manipulation
     public void AddHero(GameObject heroObject)
     {
-        currentHeroes.Add(heroObject);
+        _currentHeroes.Add(heroObject);
     }
 
     public void BuyWeapon(int price, GameObject weapon)
@@ -224,14 +226,14 @@ public class GameStateManager : MonoBehaviour
 
     private void AddWeapon(GameObject weapon)
     {
-        currentWeapons.Add(weapon);
+        _currentWeapons.Add(weapon);
     }
 
 
     private void StoreWeapons()
     {
         //we make sure they don't destroy
-        foreach (GameObject weaponObject in currentWeapons)
+        foreach (GameObject weaponObject in _currentWeapons)
         {
             DontDestroyOnLoad(weaponObject);
         }
@@ -239,7 +241,7 @@ public class GameStateManager : MonoBehaviour
 
     private void StoreHeroes()
     {
-        foreach (GameObject hero in currentHeroes)
+        foreach (GameObject hero in _currentHeroes)
         {
             DontDestroyOnLoad(hero);
         }
@@ -248,49 +250,49 @@ public class GameStateManager : MonoBehaviour
     private void DeleteDeadHeroes()
     {
         //Heroes get destroyed when they die otherwise we keep them
-        for (int i = 0; i < currentHeroes.Count; i++)
+        for (int i = 0; i < _currentHeroes.Count; i++)
         {
             //check if they are destroyed and clean up the node
-            if (currentHeroes[i] == null)
+            if (_currentHeroes[i] == null)
             {
-                currentHeroes.RemoveAt(i);
+                _currentHeroes.RemoveAt(i);
             }
         }
     }
 
     private void DeleteWeaponData()
     {
-        foreach (GameObject weaponObject in currentWeapons)
+        foreach (GameObject weaponObject in _currentWeapons)
         {
             Destroy(weaponObject);
         }
-        currentWeapons = new List<GameObject>();
+        _currentWeapons = new List<GameObject>();
     }
     #endregion
 
     #region Battle_Related
     private void HideHeroes()
     {
-        for (int i = 0; i < currentHeroes.Count; i++)
+        for (int i = 0; i < _currentHeroes.Count; i++)
         {
-            currentHeroes[i].transform.position = new Vector3((i + 1), 0, -10);
+            _currentHeroes[i].transform.position = new Vector3((i + 1), 0, -10);
         }
 
     }
 
     private void HideWeapons()
     {
-        for (int i = 0; i < currentWeapons.Count; i++)
+        for (int i = 0; i < _currentWeapons.Count; i++)
         {
-            currentWeapons[i].transform.position = new Vector3(-(i + 1), 0, -10);
+            _currentWeapons[i].transform.position = new Vector3(-(i + 1), 0, -10);
         }
     }
     private void InstantiateHeroUI()
     {
         Vector3 heroPosition = new Vector3(-1.5f, 0, 5);
-        for (int i = 0; i < currentHeroes.Count; i++)
+        for (int i = 0; i < _currentHeroes.Count; i++)
         {
-            currentHeroes[i].transform.position = heroPosition;
+            _currentHeroes[i].transform.position = heroPosition;
             heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
         }
         for (int i = 0; i < currentUnusedHeroes.Count; i++)

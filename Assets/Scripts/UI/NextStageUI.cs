@@ -33,7 +33,6 @@ public class NextStageUI : MonoBehaviour
     private void Start()
     {
 
-        //var uniqueMonsters = nextStage.MobsInTheWave.Where((x, i) => !x.Equals(nextStage.Waves[i - 1]));
 
 
         //foreach (MobWave wave in nextStage.Waves)
@@ -52,6 +51,5 @@ public class NextStageUI : MonoBehaviour
 
             
 
-        }
     }
 }
