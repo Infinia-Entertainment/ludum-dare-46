@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Monster Data", menuName = "New Monster Data")]
 public class MonsterData : SerializedScriptableObject
 {
+    public Sprite monsterImage;
     public ElementAttribute elementAttribute;
     public int health; //health of the monster
     public int damage; // damage to the heros
