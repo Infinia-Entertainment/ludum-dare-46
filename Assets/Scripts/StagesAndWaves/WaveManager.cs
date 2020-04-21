@@ -70,10 +70,14 @@ public class WaveManager : MonoBehaviour
 
             foreach (MobWave.Mob mob in currentWave.MobsInTheWave)
             {
-                int x = Random.Range(0, numSpawnPoints);
-                lastMonsterObject = Instantiate(mob.Prefab, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
-                lastMonsterObject.GetComponent<MonsterController>().monsterData = mob.monsterData;
-                yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
+                for (int i = 0; i < mob.count; i++)
+                {
+                    int spawnPointIndex = Random.Range(0, numSpawnPoints);
+                    lastMonsterObject = Instantiate(mob.Prefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.LookRotation(Vector3.right));
+                    lastMonsterObject.GetComponent<MonsterController>().monsterData = mob.monsterData;
+                    yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
+                }
+
             }
             yield return new WaitForSeconds(currentWave.DelayAfterWave);
         }
