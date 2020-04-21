@@ -8,7 +8,6 @@ public class MonsterController : AliveUnit
     private MonsterController monsterInFront;
 
     private float lastAttack;
-
     //Monster stats
     public MonsterData monsterData;
 

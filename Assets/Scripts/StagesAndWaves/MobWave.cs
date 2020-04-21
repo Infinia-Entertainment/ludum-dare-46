@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 using System;
 using Sirenix.Serialization;
+using GameData;
+using System.Collections.Generic;
 
+[Serializable]
 public struct MobWave
 {
 
-    public enum WaveType
+    [Serializable]
+    public struct Mob
     {
-        Monster,
-        Boss
+        [OdinSerialize] public Sprite Artwork;
+        [OdinSerialize] public MonsterData monsterData;
+        [OdinSerialize] public GameObject Prefab;
+        [OdinSerialize] public int count;
     }
 
-    [OdinSerialize] public Sprite Artwork;
-    [OdinSerialize] public WaveType Type;
-    [OdinSerialize] public GameObject Prefab;
-    [OdinSerialize] public int Count;
+    [OdinSerialize] public List<Mob> MobsInTheWave;
+
     [OdinSerialize] public float DelayInBetween;
     [OdinSerialize] public float DelayAfterWave;
 }

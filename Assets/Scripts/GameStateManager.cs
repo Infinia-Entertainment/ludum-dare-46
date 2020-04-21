@@ -107,12 +107,12 @@ public class GameStateManager : MonoBehaviour
 
         InstantiateHeroUI();
 
-
         WaveManager waveManager = FindObjectOfType<WaveManager>();
 
         //If null reference add the test stage to game manager stage list stuff
         waveManager.currentStage = gameStages[currentStageIndex];
-
+       
+        waveManager.StartCoroutine(waveManager.StartSpawning());
 
 
         yield return new WaitForEndOfFrame();
