@@ -17,13 +17,7 @@ public class GameController : MonoBehaviour
         inventory = FindObjectOfType<Inventory>();
         GenerateGrid();
     }
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ClickOnTile();
-        }
-    }
+
     void GenerateGrid()
     {
         for (int i = 0; i < gridHeight; i++)
@@ -42,26 +36,5 @@ public class GameController : MonoBehaviour
         transform.position = platformOffset;
     }
 
-    public void ClickOnTile()
-    {
-
-        Ray ray;
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.gameObject.tag == "Platform")
-            {
-                if (!hit.transform.GetComponent<Platform>().hasObject)
-                {
-                    Item heroItem = inventory.GetCurrentItem();
-                    if (heroItem != null)
-                    {
-                        hit.transform.gameObject.GetComponent<Platform>().CreateHero(heroItem.itemObject);
-                        inventory.RemoveItem(heroItem);
-                    }
-                }
-            }
-        }
-    }
+   
 }

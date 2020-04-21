@@ -63,10 +63,13 @@ public class DragandDrop : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 50, layerMask, QueryTriggerInteraction.Ignore) && hit.transform.CompareTag("Platform") )
             {
                 Platform platform = hit.transform.gameObject.GetComponent<Platform>();
-                if (!platform.hasObject) {
+                if (!platform.hasObject)
+                {
                     transform.position = hit.transform.position;
                     platform.hasObject = true;
-                    associatedPlatform.hasObject = false;
+                    if (associatedPlatform != null)
+                        associatedPlatform.hasObject = false;
+
                     associatedPlatform = platform;
                 }
                 else

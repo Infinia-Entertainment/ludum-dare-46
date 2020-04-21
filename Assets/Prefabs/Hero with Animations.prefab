@@ -10835,6 +10835,7 @@ GameObject:
   - component: {fileID: 3884664468907838977}
   - component: {fileID: 2072830742273499420}
   - component: {fileID: 1540937861300314937}
+  - component: {fileID: 5470886024712041712}
   m_Layer: 13
   m_Name: Hero with Animations
   m_TagString: Hero
@@ -10938,6 +10939,18 @@ MonoBehaviour:
   handHoldingWeapon: {fileID: 0}
   isSelected: 0
   isInitialized: 0
+--- !u!114 &5470886024712041712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189958944618117016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70a381201777a04ebae5b74340b9b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6192799648949273586
 GameObject:
   m_ObjectHideFlags: 0

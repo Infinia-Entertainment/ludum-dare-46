@@ -16,15 +16,10 @@ public class Platform : MonoBehaviour
     {
         
     }
-    public void CreateHero(GameObject heroPrefab)
+    public void AssociateHero(GameObject hero)
     {
         if (!hasObject)
-        {
-            GameObject hero = Instantiate(
-                heroPrefab,
-                transform.position,
-                heroPrefab.transform.rotation
-                );
+        {        
             hero.GetComponent<DragandDrop>().associatedPlatform = this;
             hasObject = true;
         }
