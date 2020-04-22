@@ -46,7 +46,7 @@ public class MonsterController : AliveUnit
         {
             if (!hero)
             {
-                isFrontOccupied = true;
+                isFrontOccupied = false;
             }
             return;
         }
