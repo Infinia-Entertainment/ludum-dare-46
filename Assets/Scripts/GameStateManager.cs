@@ -50,7 +50,6 @@ public class GameStateManager : MonoBehaviour
     }
     private void Awake()
     {
-        Debug.Log("Awake Happened: " + gameObject.name);
         //Singleton 
         if (_gameStateManager != null && _gameStateManager != this)
         {
