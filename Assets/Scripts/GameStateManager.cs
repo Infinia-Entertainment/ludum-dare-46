@@ -70,6 +70,8 @@ public class GameStateManager : MonoBehaviour
         blacksmithCurrentHealth = blacksmithMaxHealth;
         currentgold = 100;
 
+        Debug.Log("Added 3 heroes");
+
         GameObject hero1 = Instantiate(heroPrefab);
         GameObject hero2 = Instantiate(heroPrefab);
         GameObject hero3 = Instantiate(heroPrefab);
@@ -200,6 +202,9 @@ public class GameStateManager : MonoBehaviour
             GameObject heroObj = Instantiate(heroPrefab);
 
             AddHero(heroObj);
+
+            Debug.Log("Added a hero from stage reward");
+
         }
 
         _currentStageIndex++;

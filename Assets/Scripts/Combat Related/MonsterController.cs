@@ -44,6 +44,10 @@ public class MonsterController : AliveUnit
 
         if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13)) // 1 << 13 Hero layer
         {
+            if (!hero)
+            {
+                isFrontOccupied = true;
+            }
             return;
         }
 
