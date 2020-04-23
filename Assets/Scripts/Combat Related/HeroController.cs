@@ -99,7 +99,10 @@ public class HeroController : AliveUnit
 
     public void CarryOutAttack()
     {
-        _weapon.DoAttack(attackHitInfo);
+        if (attackHitInfo.collider)
+        {
+            _weapon.DoAttack(attackHitInfo);
+        }
     }
 
     private void DoMeleeAttackAnimation( )
