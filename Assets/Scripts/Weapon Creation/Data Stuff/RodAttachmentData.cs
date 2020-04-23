@@ -6,6 +6,6 @@ using GameData;
 public class RodAttachmentData : MonoBehaviour
 {
     public float attachmentAttackRange;
-    public int attachmentFireRate;
+    public float attachmentFireRate;
     public int attachmentdefence;
 }
