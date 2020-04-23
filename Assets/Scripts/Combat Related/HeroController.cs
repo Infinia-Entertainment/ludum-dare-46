@@ -29,7 +29,7 @@ public class HeroController : AliveUnit
 
         handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
 
-        health = 20;
+        health = maxHealth;
 
         lastAttack = Time.time;
 

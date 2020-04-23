@@ -16149,7 +16149,7 @@ MonoBehaviour:
     type: 3}
   currentgold: 0
   totalGoldFromStage: 0
-  blacksmithMaxHealth: 100
+  blacksmithMaxHealth: 1000
   blacksmithCurrentHealth: 0
   _currentStageIndex: 0
   _gameStages:
