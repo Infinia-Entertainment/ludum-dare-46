@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentAttackRange: 8
-  attachmentFireRate: 3
+  attachmentFireRate: 2.5
   attachmentdefence: 4
 --- !u!1 &6142772508963179595
 GameObject:

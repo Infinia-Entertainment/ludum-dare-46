@@ -42,6 +42,7 @@ public class HeroController : AliveUnit
     public void InitalizeWeaponData()
     {
         _weapon = weaponObject.GetComponent<StaffWeapon>();
+        defence = _weapon.Basedefence;
     }
 
 
@@ -80,18 +81,11 @@ public class HeroController : AliveUnit
         {
 
             //Just checks if attack is within range
-            if (_weapon.WeaponType == WeaponType.Melee && attackHitInfo.distance <= 2)
+            if (attackHitInfo.distance <= _weapon.AttackRange)
             {
-
-                    
                 DoMeleeAttackAnimation();
             }
-            if (_weapon.WeaponType == WeaponType.Ranged && attackHitInfo.distance <= 8)
-            {
-
-                DoRangedAttackAnimation();
-
-            }
+            
             lastAttack = Time.time;
         }
     }

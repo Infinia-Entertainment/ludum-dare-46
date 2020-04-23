@@ -17,18 +17,15 @@ public class StaffWeapon : MonoBehaviour
     [SerializeField] private MagicProjectile projectilePrefab;
 
     //Damage info
-    [SerializeField] private int _baseDamage = 10; //for now
-
-    [SerializeField] private int _adjustedToWeaponDamage;
+    [SerializeField] private int _baseDamage; //for now
+    [SerializeField] private int _baseDefence; //for now
 
     //[Range(0.0f, 2.0f)]
     [SerializeField] private float _elementDamageModifier = 0.5f;
 
     //Other weapon info
-    [SerializeField] private float _attackRate = 2f; //in seconds
+    [SerializeField] private float _attackRate; //in seconds
     [SerializeField] private float _attackRange;
-
-    [SerializeField] private int defenceModifier; //for now
 
     //[SerializeField] private float knockback; ??
 
@@ -38,6 +35,8 @@ public class StaffWeapon : MonoBehaviour
     public WeaponType WeaponType { get => _weaponType; }
     public ElementAttribute WeaponElement { get => _weaponElement; }
     public float AttackRate { get => _attackRate; }
+    public float AttackRange { get => _attackRange; }
+    public int Basedefence { get => _baseDefence; }
 
     //private WeaponBuffs[] _weaponBuffs = new WeaponBuffs[3];
 
@@ -52,39 +51,19 @@ public class StaffWeapon : MonoBehaviour
 
     #endregion Test Code Only
 
-    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement,int damage, int defence, float fireRate,float range,float elementDamageModifier)
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement,int damage, int weaponDefence, float fireRate,float range,float elementDamageModifier)
     {
         _weaponType = weaponType;
         _weaponElement = weaponElement;
         //_weaponBuffs = weaponBuffs;
 
         _baseDamage = damage;
-        //int defence;
+        _baseDefence = weaponDefence;
         _attackRate =  fireRate;
         _attackRange = range;
         _elementDamageModifier = elementDamageModifier;
 
-        switch (_weaponType)
-        {
-            case WeaponType.Melee:
-
-                _adjustedToWeaponDamage = _baseDamage * 2;
-
-                break;
-
-            case WeaponType.Ranged:
-
-                _adjustedToWeaponDamage = Mathf.RoundToInt(_baseDamage /2);
-
-                break;
-
-            default:
-                break;
-        }
-
         //ProcessBuffEffects();
-
-
     }
 
     //private void ProcessBuffEffects()
@@ -99,14 +78,14 @@ public class StaffWeapon : MonoBehaviour
             case WeaponType.Melee:
 
                 MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
-                monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+                monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
 
             case WeaponType.Ranged:
 
                 MagicProjectile projectile = Instantiate(projectilePrefab, elementTypeAttachment.transform.position, projectilePrefab.transform.rotation);
-                projectile.InitilizeProjectile(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement);
+                projectile.InitilizeProjectile(_baseDamage, _elementDamageModifier, _weaponElement);
 
                 break;
 
