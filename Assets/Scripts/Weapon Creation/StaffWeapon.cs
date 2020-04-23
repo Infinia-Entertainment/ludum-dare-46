@@ -98,19 +98,13 @@ public class StaffWeapon : MonoBehaviour
         {
             case WeaponType.Melee:
 
-                //    Not timed with animation rn
-                //   Then enable/disable collider or something with the animation
-
                 MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
-
                 monster.ReceiveDamage(CalculateDamage(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
 
             case WeaponType.Ranged:
 
-                //Not timed with animation rn,
-                //Need an animation value to trigger the attack or something
                 MagicProjectile projectile = Instantiate(projectilePrefab, elementTypeAttachment.transform.position, projectilePrefab.transform.rotation);
                 projectile.InitilizeProjectile(_adjustedToWeaponDamage, _elementDamageModifier, _weaponElement);
 

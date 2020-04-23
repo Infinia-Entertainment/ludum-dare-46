@@ -50,11 +50,11 @@ public class GameStateManager : MonoBehaviour
     }
     private void Awake()
     {
-
         //Singleton 
         if (_gameStateManager != null && _gameStateManager != this)
         {
             Destroy(this.gameObject);
+            return;
         }
         else
         {
@@ -69,6 +69,7 @@ public class GameStateManager : MonoBehaviour
     {
         blacksmithCurrentHealth = blacksmithMaxHealth;
         currentgold = 100;
+
 
         GameObject hero1 = Instantiate(heroPrefab);
         GameObject hero2 = Instantiate(heroPrefab);
@@ -200,6 +201,9 @@ public class GameStateManager : MonoBehaviour
             GameObject heroObj = Instantiate(heroPrefab);
 
             AddHero(heroObj);
+
+            Debug.Log("Added a hero from stage reward   ");
+
         }
 
         _currentStageIndex++;

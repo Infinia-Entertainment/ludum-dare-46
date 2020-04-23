@@ -8,6 +8,7 @@ public class AliveUnit : MonoBehaviour
 {
     public float armor;
     public int health;
+    public int maxHealth;
 
     ElementAttribute UnitElementType;
 

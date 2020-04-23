@@ -29,7 +29,7 @@ public class HeroController : AliveUnit
 
         handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
 
-        health = 20;
+        health = maxHealth;
 
         lastAttack = Time.time;
 
@@ -78,18 +78,16 @@ public class HeroController : AliveUnit
         //Check for attack Rate
         if (Time.time - lastAttack >= _weapon.AttackRate)
         {
-            Debug.Log("Attacked");
 
             //Just checks if attack is within range
             if (_weapon.WeaponType == WeaponType.Melee && attackHitInfo.distance <= 2)
             {
-                Debug.Log("before melee  animation");
+
                     
                 DoMeleeAttackAnimation();
             }
             if (_weapon.WeaponType == WeaponType.Ranged && attackHitInfo.distance <= 8)
             {
-                Debug.Log("before ranged animation");
 
                 DoRangedAttackAnimation();
 

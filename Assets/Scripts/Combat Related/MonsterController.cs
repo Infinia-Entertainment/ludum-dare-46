@@ -4,15 +4,21 @@ using UnityEngine;
 public class MonsterController : AliveUnit
 {
     private bool isFrontOccupied;
-    public GameObject hero;
-    private MonsterController monsterInFront;
+    [SerializeField] public GameObject hero;
+    [SerializeField] private MonsterController monsterInFront;
 
     private float lastAttack;
     //Monster stats
     public MonsterData monsterData;
 
+    LayerMask layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
+
+    float raycastLength;
+
     private void Awake()
     {
+        raycastLength = GetComponent<Collider>().bounds.size.x / 2;
+
         health = monsterData.health;
 
         lastAttack = Time.time;
@@ -25,11 +31,7 @@ public class MonsterController : AliveUnit
 
     private void Update()
     {
-
-        if (monsterInFront == null && hero == null)
-        {
-            isFrontOccupied = false;
-        }
+        
 
         Move();
 
@@ -39,13 +41,30 @@ public class MonsterController : AliveUnit
     private void CheckForAttack()
     {
         RaycastHit hitInfo;
-         //13 is Hero layer
-        
 
-        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, 10, 1 << 13)) // 1 << 13 Hero layer
+        Debug.DrawRay(transform.position, Vector3.left * raycastLength, Color.magenta);
+
+        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, raycastLength, layerMask)) 
         {
+            Debug.DrawRay(transform.position,Vector3.left * hitInfo.distance,Color.cyan);
+            //Didn't collide with either hero or monster so you can move forward
+            isFrontOccupied = false;
             return;
         }
+
+        //If did collide, check which one has is the first collision
+
+        if (hitInfo.collider.gameObject.CompareTag("Hero"))//It's a hero
+        {
+            hero = hitInfo.collider.gameObject;
+            isFrontOccupied = true;
+        }
+        else if (hitInfo.collider.gameObject.CompareTag("Monster")) //It's a monster
+        {
+            monsterInFront = hitInfo.collider.gameObject.GetComponent<MonsterController>();
+            isFrontOccupied = true;
+        }
+        
 
         //Check for attack Rate
         if (Time.time - lastAttack > monsterData.attackRate)
@@ -57,16 +76,6 @@ public class MonsterController : AliveUnit
                 hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
             }
             lastAttack = Time.time;
-        }
-    }
-
-    private void CheckNextMonster()
-    {
-        {
-            if (monsterInFront.isFrontOccupied)
-            {
-                isFrontOccupied = true;
-            }
         }
     }
 
@@ -85,45 +94,10 @@ public class MonsterController : AliveUnit
 
         transform.Translate(translation * Time.deltaTime);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Hero"))
-        {
-            hero = other.gameObject;
-            isFrontOccupied = true;
-        }
-        else if(other.gameObject.CompareTag("Monster"))
-        {
-            monsterInFront = other.gameObject.GetComponent<MonsterController>();
-            CheckNextMonster();
-        }
-
-    }
-
-    private void Ontriggerstay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Monster"))
-        {
-            monsterInFront = other.gameObject.GetComponent<MonsterController>();
-            CheckNextMonster();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Hero"))
-        {
-            isFrontOccupied = false;
-        }
-        else if (other.gameObject.CompareTag("Monster"))
-        {
-            isFrontOccupied = false;
-        }
-    }
 }
 
 /*
- * Bug: When they move and you put the hero back in the middle they stop again
- * 
- * What should happen: The ones behind the character continue going through, and infront stop (or snap back?)
+ * Refactoring to fix a bug:
+ * Check whatever is infront with a raycast instead of collisions
  */
+
