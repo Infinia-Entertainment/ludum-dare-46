@@ -26,7 +26,7 @@ MonoBehaviour:
     - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
       monsterPrefab: {fileID: 3318745735864633329, guid: 20a796d15bc80c649b4dfd165d795c50,
         type: 3}
-      count: 50
-    DelayInBetween: 2
+      count: 10
+    DelayInBetween: 1
     DelayAfterWave: 3
   heroReward: 1

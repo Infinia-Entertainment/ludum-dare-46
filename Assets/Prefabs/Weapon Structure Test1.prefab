@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbbf01c2fda7adc4ba724bc3bf1a6565, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,6 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac96d0520c9cfb42abb14ce3b1a9506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachmentAttackRange: 0
+  attachmentFireRate: 0
+  attachmentdefence: 0
 --- !u!1 &4238179120846898282
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +121,7 @@ GameObject:
   - component: {fileID: 4541516152069166551}
   - component: {fileID: 7737251450133764577}
   m_Layer: 0
-  m_Name: test Weapon
+  m_Name: Weapon Structure Test1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,10 +163,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6103128741939219082, guid: d084b210b5ae714409cfa64bb73fd386,
     type: 3}
   _baseDamage: 10
-  _adjustedToWeaponDamage: 30
-  elementDamageModifier: 0.5
+  _baseDefence: 0
+  _elementDamageModifier: 0.5
   _attackRate: 1
-  defenceModifier: 0
+  _attackRange: 0
 --- !u!1 &5905595248600158113
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +271,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e3b72570f7aaf124fba4aea6d6748742, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -315,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  attachmentDamage: 0
 --- !u!1 &7845650819301797657
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +379,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a74819a72a2c9d24bbf713dc0e2e7409, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -421,7 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982e52381912cb84bb621b2513606743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponElement: 4
+  attachmentWeaponElement: 0
+  elementModifierStrength: 0
 --- !u!1 &8662166327452327385
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8662166327452327385}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5793586722571850767}
