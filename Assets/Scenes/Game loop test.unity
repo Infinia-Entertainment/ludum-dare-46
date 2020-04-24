@@ -16154,7 +16154,7 @@ MonoBehaviour:
   _currentStageIndex: 0
   _gameStages:
   - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
-  spacingBetweenHeroes: 2.5
+  spacingBetweenHeroes: 1
 --- !u!4 &1749134374
 Transform:
   m_ObjectHideFlags: 0
