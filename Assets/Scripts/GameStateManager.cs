@@ -279,7 +279,7 @@ public class GameStateManager : MonoBehaviour
     {
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
-            _currentHeroes[i].transform.position = new Vector3((i + 1), 0, -10);
+            _currentHeroes[i].transform.position = new Vector3((i + 1), 0, -25);
         }
 
     }
@@ -293,15 +293,12 @@ public class GameStateManager : MonoBehaviour
     }
     private void InstantiateHeroUI()
     {
-        Vector3 heroPosition = new Vector3(-1.5f, 0, 5);
+        Vector3 heroPosition = new Vector3(-4, 0, 8);
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
             _currentHeroes[i].transform.position = heroPosition;
+            _currentHeroes[i].transform.eulerAngles = new Vector3(0,-90,0);
             heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
-        }
-        for (int i = 0; i < currentUnusedHeroes.Count; i++)
-        {
-            currentUnusedHeroes[i].transform.position = new Vector3(100, 100, 100);
         }
     }
 
