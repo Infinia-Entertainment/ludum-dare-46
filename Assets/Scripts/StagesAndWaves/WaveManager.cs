@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using System;
+using Sirenix.Utilities;
 
 public class WaveManager : MonoBehaviour
 {
@@ -20,11 +21,13 @@ public class WaveManager : MonoBehaviour
     public List<Transform> spawnPointsToUse;
     // Start is called before the first frame update
 
-    private GameObject lastMonsterObject;
+    private List<GameObject> spawnedMonsters = new List<GameObject>();
     private bool hasWon = false;
+    private bool lastMonsterSpawned = false;
 
     void Start()
     {
+        //lastMonsterSpawned
 
         spawnPoints = new List<Transform>();
 
@@ -54,10 +57,10 @@ public class WaveManager : MonoBehaviour
         //Add check for if the monster is 
         if (currentStage)
         {
-            if (currentStage.Waves.IndexOf(_currentWave) + 1 == currentStage.Waves.Count && lastMonsterObject == null && !hasWon)
+            if (lastMonsterSpawned && currentStage.Waves.IndexOf(_currentWave) == currentStage.Waves.Count - 1 && spawnedMonsters.IsNullOrEmpty() && !hasWon)
             {
-                GameStateManager.Instance.WinStage(currentStage);
                 hasWon = true;
+                GameStateManager.Instance.WinStage(currentStage);
             }
         }
         
@@ -72,13 +75,15 @@ public class WaveManager : MonoBehaviour
             {
                 for (int i = 0; i < mob.count; i++)
                 {
-                    int spawnPointIndex = Random.Range(0, numSpawnPoints);
-                    lastMonsterObject = Instantiate(mob.monsterPrefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.LookRotation(Vector3.right));
-                    lastMonsterObject.GetComponent<MonsterController>().monsterData = mob.monsterData;
+                    int spawnPointIndex = UnityEngine.Random.Range(0, numSpawnPoints);
+                    GameObject spawnedMonster = Instantiate(mob.monsterPrefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.LookRotation(Vector3.right));
+                    spawnedMonster.GetComponent<MonsterController>().monsterData = mob.monsterData;
+                    spawnedMonsters.Add(spawnedMonster);
                     yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
                 }
 
             }
+            lastMonsterSpawned = true;
             yield return new WaitForSeconds(currentWave.DelayAfterWave);
         }
 
