@@ -83,10 +83,24 @@ public class GameStateManager : MonoBehaviour
         GameObject hero1 = Instantiate(heroPrefab);
         GameObject hero2 = Instantiate(heroPrefab);
         GameObject hero3 = Instantiate(heroPrefab);
+        GameObject hero4 = Instantiate(heroPrefab);
+        GameObject hero5 = Instantiate(heroPrefab);
+        GameObject hero6 = Instantiate(heroPrefab);
+        GameObject hero7 = Instantiate(heroPrefab);
+        GameObject hero8 = Instantiate(heroPrefab);
+        GameObject hero9 = Instantiate(heroPrefab);
+        GameObject hero10 = Instantiate(heroPrefab);
 
         AddHero(hero1);
         AddHero(hero2);
         AddHero(hero3); 
+        AddHero(hero4); 
+        AddHero(hero5); 
+        AddHero(hero6); 
+        AddHero(hero7); 
+        AddHero(hero8); 
+        AddHero(hero9);
+        AddHero(hero10);
     }
 
     private void InitializeHeroDisplayPositions()
@@ -253,7 +267,7 @@ public class GameStateManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            UpdateWeaponDisplay();
+            //UpdateWeaponDisplay();
         }
     }
 
