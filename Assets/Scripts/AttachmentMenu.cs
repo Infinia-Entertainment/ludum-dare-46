@@ -157,6 +157,6 @@ public class AttachmentMenu : MonoBehaviour
             currentWeapon.GetComponent<Animator>().enabled = false;
             currentWeapon.transform.position = new Vector3(100, 100, 100);
         }
-
+        GameStateManager.Instance.UpdateWeaponDisplay();
     }
 }

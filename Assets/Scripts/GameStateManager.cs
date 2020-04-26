@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Sirenix.Utilities;
+
 public class GameStateManager : MonoBehaviour
 {
 
@@ -22,10 +24,13 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private int blacksmithCurrentHealth;
 
     [SerializeField] private int _currentStageIndex = 0;
+    [SerializeField] private int __currentEmptyDisplayHero = 0;
 
     private static GameStateManager _gameStateManager;
 
     [SerializeField] private List<Stage> _gameStages;
+
+    public List<Transform> _spawnPoints = new List<Transform>();
 
     public static GameStateManager Instance { get => _gameStateManager;}
     public int CurrentStageIndex { get => _currentStageIndex;}
@@ -61,10 +66,14 @@ public class GameStateManager : MonoBehaviour
             _gameStateManager = this;
         }
 
+        _spawnPoints = FindObjectOfType<SpawnPointsData>().spawnPoints;
 
         DontDestroyOnLoad(gameObject);
         InitializeFirstTime();
+
+        InitializeHeroDisplayPositions();
     }
+        
     private void InitializeFirstTime()
     {
         blacksmithCurrentHealth = blacksmithMaxHealth;
@@ -78,6 +87,16 @@ public class GameStateManager : MonoBehaviour
         AddHero(hero1);
         AddHero(hero2);
         AddHero(hero3); 
+    }
+
+    private void InitializeHeroDisplayPositions()
+    {
+        for (int i = 0; i < _currentHeroes.Count; i++)
+        {
+            _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
+            _currentHeroes[i].transform.eulerAngles = _spawnPoints[i].eulerAngles; //set rotation
+        }
+        _currentStageIndex = 0;
     }
 
     private void transitionToBattle()
@@ -231,8 +250,21 @@ public class GameStateManager : MonoBehaviour
     private void AddWeapon(GameObject weapon)
     {
         _currentWeapons.Add(weapon);
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            UpdateWeaponDisplay();
+        }
     }
 
+    public void UpdateWeaponDisplay()
+    {
+        HeroController heroController = _currentHeroes[__currentEmptyDisplayHero].GetComponent<HeroController>();
+        _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
+
+        heroController.weaponObject = _currentWeapons[_currentWeapons.Count - 1];
+        heroController.InitializeWeaponPosition();
+    }
 
     private void StoreWeapons()
     {
