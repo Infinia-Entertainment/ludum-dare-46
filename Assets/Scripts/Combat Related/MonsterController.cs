@@ -14,9 +14,13 @@ public class MonsterController : AliveUnit
     LayerMask layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
 
     float raycastLength;
+    Animator animator;
+    RaycastHit hitInfo;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+
         raycastLength = GetComponent<Collider>().bounds.size.x / 2;
 
         health = monsterData.health;
@@ -40,7 +44,6 @@ public class MonsterController : AliveUnit
 
     private void CheckForAttack()
     {
-        RaycastHit hitInfo;
 
         Debug.DrawRay(transform.position, Vector3.left * raycastLength, Color.magenta);
 
@@ -73,7 +76,7 @@ public class MonsterController : AliveUnit
             if (hitInfo.distance <= monsterData.attackDistance && isFrontOccupied)
             {
                 //attack anims etc
-                hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
+                DoAttackAnimation();
             }
             lastAttack = Time.time;
         }
@@ -86,18 +89,52 @@ public class MonsterController : AliveUnit
         if (isFrontOccupied)
         {
             translation = new Vector3(0, 0, 0);
+            animator.SetBool("isWalking",false);
+
         }
         else
         {
             translation = new Vector3(0, 0, -monsterData.speed);
+            animator.SetBool("isWalking",true);
         }
 
         transform.Translate(translation * Time.deltaTime);
     }
+
+    public override void ReceiveDamage(int damage)
+    {
+        base.ReceiveDamage(damage);
+        animator.SetTrigger("Hit");
+
+    }
+
+    protected override void CheckForHealth()
+    {
+        if (health <= 0)
+        {
+            animator.SetTrigger("Death");
+        }
+
+    }
+
+    public void FinishDeath()
+    {
+        Destroy(gameObject);
+    }
+
+
+    public void CarryOutAttack()
+    {
+        if (hitInfo.collider)
+        {
+            hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
+        }
+    }
+
+    private void DoAttackAnimation()
+    {
+        animator.SetTrigger("Attack");
+    }
 }
 
-/*
- * Refactoring to fix a bug:
- * Check whatever is infront with a raycast instead of collisions
- */
 
