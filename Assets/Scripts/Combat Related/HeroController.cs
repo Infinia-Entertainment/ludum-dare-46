@@ -1,4 +1,4 @@
-﻿using GameData;
+﻿ using GameData;
 using Sirenix.Serialization;
 using System;
 using System.Collections;
@@ -83,7 +83,14 @@ public class HeroController : AliveUnit
             //Just checks if attack is within range
             if (attackHitInfo.distance <= _weapon.AttackRange)
             {
-                DoMeleeAttackAnimation();
+                if (_weapon.WeaponType == WeaponType.Melee)
+                {
+                    DoMeleeAttackAnimation();
+                }
+                else if (_weapon.WeaponType == WeaponType.Ranged)
+                {
+                    DoRangedAttackAnimation();
+                }
             }
             
             lastAttack = Time.time;
