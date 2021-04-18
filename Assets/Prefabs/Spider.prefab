@@ -552,8 +552,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 15, z: 12}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_Size: {x: 9, y: 9, z: 9}
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!114 &5667346978762924705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,10 +566,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe824f3273664246a5dde23b1df4e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 0
+  defence: 1
   health: 90
+  maxHealth: 0
   hero: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac, type: 3}
+  monsterInFront: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+  fireMonsterMaterial: {fileID: 0}
+  iceMonsterMaterial: {fileID: 0}
+  earthMonsterMaterial: {fileID: 0}
+  lightningMonsterMaterial: {fileID: 0}
+  voidMonsterMaterial: {fileID: 0}
 --- !u!95 &810597402262459418
 Animator:
   serializedVersion: 3

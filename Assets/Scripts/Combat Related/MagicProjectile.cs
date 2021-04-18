@@ -1,4 +1,5 @@
 ﻿using GameData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -27,9 +28,10 @@ public class MagicProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("collided " + other.tag);
+
         if (other.CompareTag("Monster"))
         {
-
             MonsterController monster = other.gameObject.GetComponent<MonsterController>();
 
             monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier,_projectileElement, monster.monsterData.elementAttribute));

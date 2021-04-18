@@ -7,9 +7,17 @@ public class MonsterController : AliveUnit
     [SerializeField] public GameObject hero;
     [SerializeField] private MonsterController monsterInFront;
 
+    public MonsterData monsterData;
+
+    [SerializeField] public Material fireMonsterMaterial;
+    [SerializeField] public Material iceMonsterMaterial;
+    [SerializeField] public Material earthMonsterMaterial;
+    [SerializeField] public Material lightningMonsterMaterial;
+    [SerializeField] public Material voidMonsterMaterial;
+
+
     private float lastAttack;
     //Monster stats
-    public MonsterData monsterData;
 
     LayerMask layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
 
@@ -20,27 +28,55 @@ public class MonsterController : AliveUnit
     private void Awake()
     {
         animator = GetComponent<Animator>();
-
         raycastLength = GetComponent<Collider>().bounds.size.x / 2;
+    }
 
-        health = monsterData.health;
-
+    public void InitalizeMonsterData()
+    {
+        maxHealth = monsterData.health;
+        health = maxHealth;
         lastAttack = Time.time;
     }
 
     private void Start()
     {
         isFrontOccupied = false;
+        InitalizeMonsterData();
     }
 
     private void Update()
     {
-        
-
         Move();
-
         CheckForAttack();
+        CheckForHealth();
     }
+
+    private void PickMonsterMaterial()
+    {
+        switch (monsterData.elementAttribute)
+        {
+            case GameData.ElementAttribute.None:
+                break;
+            case GameData.ElementAttribute.Void:
+                GetComponent<MeshRenderer>().material = voidMonsterMaterial;
+                break;
+            case GameData.ElementAttribute.Fire:
+                GetComponent<MeshRenderer>().material = fireMonsterMaterial;
+                break;
+            case GameData.ElementAttribute.Earth:
+                GetComponent<MeshRenderer>().material = earthMonsterMaterial;
+                break;
+            case GameData.ElementAttribute.Ice:
+                GetComponent<MeshRenderer>().material = iceMonsterMaterial;
+                break;
+            case GameData.ElementAttribute.Lightning:
+                GetComponent<MeshRenderer>().material = lightningMonsterMaterial;
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private void CheckForAttack()
     {
@@ -94,7 +130,7 @@ public class MonsterController : AliveUnit
         }
         else
         {
-            translation = new Vector3(0, 0, -monsterData.speed);
+            translation = new Vector3(-monsterData.speed, 0, 0);
             animator.SetBool("isWalking",true);
         }
 
