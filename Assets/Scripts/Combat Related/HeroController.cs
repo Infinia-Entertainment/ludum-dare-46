@@ -65,11 +65,9 @@ public class HeroController : AliveUnit
     //!!!!!!!!!!!Do anims here!!!!!!!!!
     private void CheckForAttackRange()
     {
-
-
-        if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        if (!Physics.Raycast(transform.position + new Vector3(0,0.2f,0), transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 10, Color.red);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 10, Color.red);
             return;
         }
 

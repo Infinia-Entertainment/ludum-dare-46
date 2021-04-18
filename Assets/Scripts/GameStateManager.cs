@@ -275,6 +275,7 @@ public class GameStateManager : MonoBehaviour
     {
         HeroController heroController = _currentHeroes[__currentEmptyDisplayHero].GetComponent<HeroController>();
         _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
+        __currentEmptyDisplayHero++;
 
         heroController.weaponObject = _currentWeapons[_currentWeapons.Count - 1];
         heroController.InitializeWeaponPosition();

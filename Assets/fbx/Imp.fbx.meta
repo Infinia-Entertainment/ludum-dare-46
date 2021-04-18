@@ -7,20 +7,17 @@ ModelImporter:
       74: 2869813354147013007
     second: Imp_rig|Imp_rigAction
   - first:
-      74: -661011138713891293
-    second: Imp|Walking
+      74: -403198759910663129
+    second: Imp_Walking
   - first:
-      74: 6720303635017113406
-    second: Imp|Attack
+      74: -2192724091471740602
+    second: Imp_Attack
   - first:
-      74: -1304387373167265313
-    second: Imp|Hit
+      74: -8160443919864578709
+    second: Imp_Hit
   - first:
-      74: 4348485665485846014
-    second: Imp|Death
-  - first:
-      74: 5831308784155930551
-    second: Imp|Idle
+      74: 6721265071151495078
+    second: Imp_Death
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -79,11 +76,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Imp|Walking
+      name: Imp_Walking
       takeName: Imp_rig|Imp_rigAction
       internalID: 0
       firstFrame: 1
-      lastFrame: 24
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -108,7 +105,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Imp|Attack
+      name: Imp_Attack
       takeName: Imp_rig|Imp_rigAction
       internalID: 0
       firstFrame: 26
@@ -137,7 +134,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Imp|Hit
+      name: Imp_Hit
       takeName: Imp_rig|Imp_rigAction
       internalID: 0
       firstFrame: 50
@@ -166,40 +163,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Imp|Death
+      name: Imp_Death
       takeName: Imp_rig|Imp_rigAction
       internalID: 0
-      firstFrame: 64
+      firstFrame: 63
       lastFrame: 71
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Imp|Idle
-      takeName: Imp_rig|Imp_rigAction
-      internalID: 0
-      firstFrame: 26
-      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

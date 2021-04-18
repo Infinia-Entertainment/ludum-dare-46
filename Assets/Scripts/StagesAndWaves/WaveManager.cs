@@ -76,7 +76,7 @@ public class WaveManager : MonoBehaviour
                 for (int i = 0; i < mob.count; i++)
                 {
                     int spawnPointIndex = UnityEngine.Random.Range(0, numSpawnPoints);
-                    GameObject spawnedMonster = Instantiate(mob.monsterPrefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.LookRotation(Vector3.right));
+                    GameObject spawnedMonster = Instantiate(mob.monsterPrefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.identity);
                     spawnedMonster.GetComponent<MonsterController>().monsterData = mob.monsterData;
                     spawnedMonsters.Add(spawnedMonster);
                     yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
