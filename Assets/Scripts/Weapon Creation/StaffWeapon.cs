@@ -59,7 +59,7 @@ public class StaffWeapon : MonoBehaviour
 
         _baseDamage = damage;
         _baseDefence = weaponDefence;
-        _attackRate =  fireRate;
+        _attackRate = fireRate;
         _attackRange = range;
         _elementDamageModifier = elementDamageModifier;
 

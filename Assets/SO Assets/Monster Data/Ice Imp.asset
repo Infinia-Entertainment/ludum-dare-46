@@ -23,6 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   monsterImage: {fileID: 0}
   elementAttribute: 4
+  goldReward: 10
   health: 60
   damage: 5
   playerDamage: 10
