@@ -22,15 +22,38 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Waves:
-  - MobsInTheWave:
+  - mobsInTheWave:
     - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
       monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
         type: 3}
-      count: 4
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
     - monsterData: {fileID: 11400000, guid: 31d2ab095246bce449f841fb60374bbd, type: 2}
       monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
         type: 3}
-      count: 4
-    DelayInBetween: 1
-    DelayAfterWave: 3
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 31d2ab095246bce449f841fb60374bbd, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
+    delayAfterWave: 4
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: 31d2ab095246bce449f841fb60374bbd, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 31d2ab095246bce449f841fb60374bbd, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 0
+    delayAfterWave: 0
   heroReward: 1

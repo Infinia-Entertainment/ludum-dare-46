@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using Sirenix.Utilities;
+using Sirenix.Serialization;
 
 public class WaveManager : MonoBehaviour
 {
@@ -18,11 +19,29 @@ public class WaveManager : MonoBehaviour
     public Transform spawn4;
     public Transform spawn5;
     public List<Transform> spawnPoints;
+    private static WaveManager _waveManager;
 
-    private List<GameObject> spawnedMonsters = new List<GameObject>();
+    [OdinSerialize] public List<GameObject> spawnedMonsters = new List<GameObject>();
     private bool hasWon = false;
     private bool lastMonsterSpawned = false;
 
+    public static WaveManager Instance { get => _waveManager; }
+
+
+    private void Awake()
+    {
+        //Singleton 
+        if (_waveManager != null && _waveManager != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            _waveManager = this;
+        }
+
+    }
     void Start()
     {
         //lastMonsterSpawned
@@ -70,9 +89,10 @@ public class WaveManager : MonoBehaviour
                 yield return new WaitForSeconds(mob.delayAfterSpawn);
 
             }
-            lastMonsterSpawned = true;
             yield return new WaitForSeconds(currentWave.delayAfterWave);
         }
+
+        lastMonsterSpawned = true;
 
 
         /*if(monsterNum > 0)
