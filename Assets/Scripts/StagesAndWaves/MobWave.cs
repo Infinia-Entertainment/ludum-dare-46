@@ -13,11 +13,10 @@ public struct MobWave
     {
         [OdinSerialize] public MonsterData monsterData;
         [OdinSerialize] public GameObject monsterPrefab;
-        [OdinSerialize] public int count;
+        [OdinSerialize] public int spawnPointIndex;
+        [OdinSerialize] public float delayAfterSpawn;
     }
 
-    [OdinSerialize] public List<Mob> MobsInTheWave;
-
-    [OdinSerialize] public float DelayInBetween;
-    [OdinSerialize] public float DelayAfterWave;
+    [OdinSerialize] public List<Mob> mobsInTheWave;
+    [OdinSerialize] public float delayAfterWave;
 }

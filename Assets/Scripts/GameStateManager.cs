@@ -215,7 +215,7 @@ public class GameStateManager : MonoBehaviour
 
             AddHero(heroObj);
 
-            Debug.Log("Added a hero from stage reward   ");
+            Debug.Log("Added a hero from stage reward");
 
         }
 

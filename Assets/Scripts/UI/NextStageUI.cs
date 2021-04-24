@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NextStageUI : MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class NextStageUI : MonoBehaviour
         nextStage = GameStateManager.Instance.GameStages[GameStateManager.Instance.CurrentStageIndex];
 
         parentCanvas = GetComponent<Canvas>().gameObject;
-        waveIcons =  GetComponentsInChildren<GameObject>().ToList();
+        waveIcons = GetComponentsInChildren<GameObject>().ToList();
     }
 
     private void Start()
@@ -35,7 +34,7 @@ public class NextStageUI : MonoBehaviour
 
         foreach (MobWave wave in nextStage.Waves)
         {
-            foreach (MobWave.Mob mob in wave.MobsInTheWave)
+            foreach (MobWave.Mob mob in wave.mobsInTheWave)
             {
                 if (uniqueMonsters.Contains(mob.monsterData.monsterImage))
                 {
@@ -52,7 +51,7 @@ public class NextStageUI : MonoBehaviour
 
             foreach (MobWave wave in nextStage.Waves)
             {
-                foreach (MobWave.Mob mob in wave.MobsInTheWave)
+                foreach (MobWave.Mob mob in wave.mobsInTheWave)
                 {
                     if (mob.monsterData.monsterImage = monsterSprite)
                     {
