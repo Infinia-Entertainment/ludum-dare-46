@@ -17,6 +17,7 @@ public class MonsterController : AliveUnit
 
 
     private float lastAttack;
+    private bool isMonsterDying;
     //Monster stats
 
     LayerMask layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
@@ -47,9 +48,13 @@ public class MonsterController : AliveUnit
 
     private void Update()
     {
-        Move();
-        CheckForAttack();
-        CheckForHealth();
+        if(!isMonsterDying)
+        {
+            Move();
+            CheckForAttack();
+            CheckForHealth();
+        }
+
     }
 
     private void PickMonsterMaterial()
@@ -125,7 +130,7 @@ public class MonsterController : AliveUnit
 
         if (isFrontOccupied)
         {
-            translation = new Vector3(0, 0, 0);
+        translation = new Vector3(0, 0, 0);
             animator.SetBool("isWalking", false);
 
         }
@@ -150,6 +155,7 @@ public class MonsterController : AliveUnit
         if (health <= 0)
         {
             animator.SetTrigger("Death");
+            isMonsterDying = true;
         }
 
     }
