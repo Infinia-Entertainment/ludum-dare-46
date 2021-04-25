@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using Sirenix.Utilities;
+using Sirenix.Serialization;
 
 public class WaveManager : MonoBehaviour
 {
@@ -18,13 +19,29 @@ public class WaveManager : MonoBehaviour
     public Transform spawn4;
     public Transform spawn5;
     public List<Transform> spawnPoints;
-    public List<Transform> spawnPointsToUse;
-    // Start is called before the first frame update
+    private static WaveManager _waveManager;
 
-    private List<GameObject> spawnedMonsters = new List<GameObject>();
+    [OdinSerialize] public List<GameObject> spawnedMonsters = new List<GameObject>();
     private bool hasWon = false;
     private bool lastMonsterSpawned = false;
 
+    public static WaveManager Instance { get => _waveManager; }
+
+
+    private void Awake()
+    {
+        //Singleton 
+        if (_waveManager != null && _waveManager != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            _waveManager = this;
+        }
+
+    }
     void Start()
     {
         //lastMonsterSpawned
@@ -36,13 +53,6 @@ public class WaveManager : MonoBehaviour
         spawnPoints.Add(spawn3);
         spawnPoints.Add(spawn4);
         spawnPoints.Add(spawn5);
-
-        for (int i = 0;i < numSpawnPoints;i++)
-        {
-            spawnPointsToUse.Add(spawnPoints[i]);
-        }
-
-
     }
 
     // Update is called once per frame
@@ -63,37 +73,34 @@ public class WaveManager : MonoBehaviour
                 GameStateManager.Instance.WinStage(currentStage);
             }
         }
-        
+
     }
     public IEnumerator StartSpawning()
     {
         foreach (MobWave currentWave in currentStage.Waves)
         {
             _currentWave = currentWave;
-
-            foreach (MobWave.Mob mob in currentWave.MobsInTheWave)
+            foreach (MobWave.Mob mob in currentWave.mobsInTheWave)
             {
-                for (int i = 0; i < mob.count; i++)
-                {
-                    int spawnPointIndex = UnityEngine.Random.Range(0, numSpawnPoints);
-                    GameObject spawnedMonster = Instantiate(mob.monsterPrefab, spawnPointsToUse[spawnPointIndex].position, Quaternion.identity);
-                    spawnedMonster.GetComponent<MonsterController>().monsterData = mob.monsterData;
-                    spawnedMonsters.Add(spawnedMonster);
-                    yield return new WaitForSeconds(1 + currentWave.DelayInBetween);
-                }
+                int spawnPointIndex = mob.spawnPointIndex;
+                GameObject spawnedMonster = Instantiate(mob.monsterPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
+                spawnedMonster.GetComponent<MonsterController>().monsterData = mob.monsterData;
+                spawnedMonsters.Add(spawnedMonster);
+                yield return new WaitForSeconds(mob.delayAfterSpawn);
 
             }
-            lastMonsterSpawned = true;
-            yield return new WaitForSeconds(currentWave.DelayAfterWave);
+            yield return new WaitForSeconds(currentWave.delayAfterWave);
         }
+
+        lastMonsterSpawned = true;
 
 
         /*if(monsterNum > 0)
         {
             int x = Random.Range(0, numSpawnPoints);
-            Instantiate(monster, spawnPointsToUse[x].position, Quaternion.LookRotation(Vector3.right));
+            Instantiate(monster, spawnPoints[x].position, Quaternion.LookRotation(Vector3.right));
             monsterNum -= 1;
         }*/
-        
+
     }
 }

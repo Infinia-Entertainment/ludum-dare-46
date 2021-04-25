@@ -34,7 +34,11 @@ namespace GameData
             //Compare weapon type and monster type
             float adjustedDamage = basedamage;
 
-            if (damagingElement == ElementAttribute.Void) { }// nothing since it's neutral
+            if (damagingElement == ElementAttribute.Void)
+            { 
+                //Affects all types but less
+                adjustedDamage *= (1 + elementDamageModifier);
+            }
             else if (damagingElement == ElementAttribute.Fire)
             {
                 //Strong against Earth (or plants)
@@ -45,6 +49,7 @@ namespace GameData
             }
             else if (damagingElement == ElementAttribute.Earth)
             {
+                //Strong against Lightning
                 if (monsterElementType == ElementAttribute.Lightning)
                 {
                     adjustedDamage *= (1 + elementDamageModifier);
@@ -52,6 +57,7 @@ namespace GameData
             }
             else if (damagingElement == ElementAttribute.Ice)
             {
+                //Strong against Fire
                 if (monsterElementType == ElementAttribute.Fire)
                 {
                     adjustedDamage *= (1 + elementDamageModifier);
@@ -59,6 +65,7 @@ namespace GameData
             }
             else if (damagingElement == ElementAttribute.Lightning)
             {
+                //Strong against Ice
                 if (monsterElementType == ElementAttribute.Ice)
                 {
                     adjustedDamage *= (1 + elementDamageModifier);
@@ -66,6 +73,7 @@ namespace GameData
             }
             else if (damagingElement == ElementAttribute.Fire)
             {
+                //Strong against Earth
                 if (monsterElementType == ElementAttribute.Earth)
                 {
                     adjustedDamage *= (1 + elementDamageModifier);

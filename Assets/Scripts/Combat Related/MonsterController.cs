@@ -25,6 +25,7 @@ public class MonsterController : AliveUnit
     Animator animator;
     RaycastHit hitInfo;
 
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -83,9 +84,9 @@ public class MonsterController : AliveUnit
 
         Debug.DrawRay(transform.position, Vector3.left * raycastLength, Color.magenta);
 
-        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, raycastLength, layerMask)) 
+        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, raycastLength, layerMask))
         {
-            Debug.DrawRay(transform.position,Vector3.left * hitInfo.distance,Color.cyan);
+            Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance, Color.cyan);
             //Didn't collide with either hero or monster so you can move forward
             isFrontOccupied = false;
             return;
@@ -103,7 +104,7 @@ public class MonsterController : AliveUnit
             monsterInFront = hitInfo.collider.gameObject.GetComponent<MonsterController>();
             isFrontOccupied = true;
         }
-        
+
 
         //Check for attack Rate
         if (Time.time - lastAttack > monsterData.attackRate)
@@ -125,13 +126,13 @@ public class MonsterController : AliveUnit
         if (isFrontOccupied)
         {
             translation = new Vector3(0, 0, 0);
-            animator.SetBool("isWalking",false);
+            animator.SetBool("isWalking", false);
 
         }
         else
         {
             translation = new Vector3(-monsterData.speed, 0, 0);
-            animator.SetBool("isWalking",true);
+            animator.SetBool("isWalking", true);
         }
 
         transform.Translate(translation * Time.deltaTime);
@@ -155,6 +156,8 @@ public class MonsterController : AliveUnit
 
     public void FinishDeath()
     {
+        WaveManager.Instance.spawnedMonsters.Remove(gameObject);
+
         Destroy(gameObject);
     }
 

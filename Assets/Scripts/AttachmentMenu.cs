@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+
 public class AttachmentMenu : MonoBehaviour
 {
     public GameObject craftMoreButton;
@@ -112,8 +114,8 @@ public class AttachmentMenu : MonoBehaviour
         {
 
             craftButton.SetActive(false);
-            FindObjectOfType<BlackSmith>().TriggerCrafting();    
-            Invoke("TriggerCompiling", 2.7f); 
+            FindObjectOfType<BlackSmith>().TriggerCrafting();
+            Invoke("TriggerCompiling", 2.7f);
         }
     }
     void UpdateElements(int type)
@@ -122,9 +124,9 @@ public class AttachmentMenu : MonoBehaviour
         dropDowns[type].gameObject.SetActive(false);
 
         //Add check for if has enough money and space
-        if(selectedRod != null && selectedAttack != null && selectedElement != null && choicePanel.activeSelf == false)
+        if (selectedRod != null && selectedAttack != null && selectedElement != null && choicePanel.activeSelf == false)
         {
-            craftButton.SetActive(true);    
+            craftButton.SetActive(true);
         }
     }
 
@@ -137,7 +139,7 @@ public class AttachmentMenu : MonoBehaviour
         UpdateHeroCountUI();
 
         if (GameStateManager.Instance.CurrentHeroes.Count <= GameStateManager.Instance.CurrentWeapons.Count)
-           craftMoreButton.SetActive(false);
+            craftMoreButton.SetActive(false);
         choicePanel.SetActive(true);
     }
 

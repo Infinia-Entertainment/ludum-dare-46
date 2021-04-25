@@ -15,7 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: f6eb664b076f59841a85f156cb7ac826, type: 3}
   itemObject: {fileID: 7105329209695084894, guid: a7cb6d870f05abf42ab3249121e93b6c,
     type: 3}
-  itemName: Rod 1
-  price: 50
+  itemName: Melee lvl 1
+  price: 20
   itemDescription: Base 1
   assignedID: 0

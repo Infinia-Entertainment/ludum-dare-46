@@ -16,6 +16,6 @@ MonoBehaviour:
   itemObject: {fileID: 3078970412661537757, guid: ac7dc99a7f37b4748b8bae1afa3d43ee,
     type: 3}
   itemName: Rod 1
-  price: 0
+  price: 25
   itemDescription: Base 1
   assignedID: 2

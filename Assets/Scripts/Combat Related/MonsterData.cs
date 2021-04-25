@@ -10,6 +10,7 @@ public class MonsterData : SerializedScriptableObject
 {
     public Sprite monsterImage;
     public ElementAttribute elementAttribute;
+    public int goldReward; //health of the monster
     public int health; //health of the monster
     public int damage; // damage to the heros
     public int playerDamage; //damage dealt if they pass through
