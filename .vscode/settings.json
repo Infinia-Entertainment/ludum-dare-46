@@ -53,11 +53,5 @@
     "Temp/": true
   },
   "omnisharp.autoStart": true,
-  "omnisharp.useEditorFormattingSettings": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csharp"
-  },
-  "editor.formatOnSave": true,
-  "csharp.format.enable": true
+  "omnisharp.useEditorFormattingSettings": true
 }

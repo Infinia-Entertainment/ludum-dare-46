@@ -32,11 +32,11 @@ public class GameStateManager : MonoBehaviour
 
     public List<Transform> _spawnPoints = new List<Transform>();
 
-    public static GameStateManager Instance { get => _gameStateManager;}
-    public int CurrentStageIndex { get => _currentStageIndex;}
-    public List<Stage> GameStages { get => _gameStages;}
-    public List<GameObject> CurrentWeapons { get => _currentWeapons;}
-    public List<GameObject> CurrentHeroes { get => _currentHeroes;}
+    public static GameStateManager Instance { get => _gameStateManager; }
+    public int CurrentStageIndex { get => _currentStageIndex; }
+    public List<Stage> GameStages { get => _gameStages; }
+    public List<GameObject> CurrentWeapons { get => _currentWeapons; }
+    public List<GameObject> CurrentHeroes { get => _currentHeroes; }
 
     public float spacingBetweenHeroes = 0.75f;
 
@@ -73,18 +73,21 @@ public class GameStateManager : MonoBehaviour
 
         InitializeHeroDisplayPositions();
     }
-        
+
     private void InitializeFirstTime()
     {
         blacksmithCurrentHealth = blacksmithMaxHealth;
         currentgold = 100;
-        
+
         GameObject firstHero = Instantiate(heroPrefab);
         AddHero(firstHero);
     }
 
     private void InitializeHeroDisplayPositions()
     {
+        _spawnPoints = FindObjectOfType<SpawnPointsData>().spawnPoints;
+
+
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
             _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
@@ -93,13 +96,11 @@ public class GameStateManager : MonoBehaviour
         _currentStageIndex = 0;
     }
 
-    private void transitionToBattle()
+    private void TransitionToBattle()
     {
         StoreWeapons();
         StoreHeroes();
-
         MoveUnusedHeroes();
-
         StartCoroutine(LoadBattleScene());
     }
 
@@ -119,13 +120,10 @@ public class GameStateManager : MonoBehaviour
 
         InstantiateHeroUI();
 
-        WaveManager waveManager = FindObjectOfType<WaveManager>();
-
         //If null reference add the test stage to game manager stage list stuff
-        waveManager.currentStage = _gameStages[_currentStageIndex];
-       
-        waveManager.StartCoroutine(waveManager.StartSpawning());
+        WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
 
+        WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
 
         yield return new WaitForEndOfFrame();
     }
@@ -152,6 +150,7 @@ public class GameStateManager : MonoBehaviour
             yield return null;
         // Wait a frame so every Awake and Start method is called
 
+        InitializeHeroDisplayPositions();
         CalculateGold();
 
         blacksmithCurrentHealth = blacksmithMaxHealth;
@@ -203,12 +202,11 @@ public class GameStateManager : MonoBehaviour
         DeleteWeaponData();
 
         StartCoroutine(LoadShopScene());
-
-
     }
 
     public void WinStage(Stage wonStage)
     {
+        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
         for (int i = 0; i < wonStage.heroReward; i++)
         {
             GameObject heroObj = Instantiate(heroPrefab);
@@ -226,7 +224,7 @@ public class GameStateManager : MonoBehaviour
 
     public void StartBattle()
     {
-        transitionToBattle();
+        TransitionToBattle();
     }
 
     #region Data_Manipulation
@@ -324,7 +322,7 @@ public class GameStateManager : MonoBehaviour
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
             _currentHeroes[i].transform.position = heroPosition;
-            _currentHeroes[i].transform.eulerAngles = new Vector3(0,-90,0);
+            _currentHeroes[i].transform.eulerAngles = new Vector3(0, -90, 0);
             heroPosition = new Vector3(heroPosition.x + spacingBetweenHeroes, heroPosition.y, heroPosition.z);
         }
     }
@@ -342,7 +340,6 @@ public class GameStateManager : MonoBehaviour
     private void LoseGame()
     {
         SceneManager.LoadScene(0);
-
         Debug.Log("You lost the game dingus");
     }
 
@@ -351,10 +348,8 @@ public class GameStateManager : MonoBehaviour
     #region Shop_Related
     private void CalculateGold()
     {
-        int baseGold = 100 * _currentStageIndex;
-
+        int baseGold = 100 * (_currentStageIndex + 1);
         currentgold = baseGold + totalGoldFromStage;
-
         totalGoldFromStage = 0;
     }
 

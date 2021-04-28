@@ -10,6 +10,8 @@ public class BlacksmithDamager : MonoBehaviour
         {
             MonsterController monster = other.gameObject.GetComponent<MonsterController>();
 
+            Debug.Log(GameStateManager.Instance);
+            Debug.Log(monster.monsterData.playerDamage);
             GameStateManager.Instance.DamageBlacksmith(monster.monsterData.playerDamage);
         }
     }
