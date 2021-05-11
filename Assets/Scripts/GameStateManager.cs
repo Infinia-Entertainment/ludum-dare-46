@@ -10,21 +10,21 @@ using Sirenix.Utilities;
 public class GameStateManager : MonoBehaviour
 {
 
-    [SerializeField] List<GameObject> _currentWeapons = new List<GameObject>();
-    [SerializeField] List<GameObject> _currentHeroes = new List<GameObject>();
+    [SerializeField] private List<GameObject> _currentWeapons = new List<GameObject>();
+    [SerializeField] private List<GameObject> _currentHeroes = new List<GameObject>();
 
-    [SerializeField] List<GameObject> currentUnusedHeroes = new List<GameObject>();
+    [SerializeField] private List<GameObject> _currentUnusedHeroes = new List<GameObject>();
 
-    [SerializeField] GameObject heroPrefab;
+    [SerializeField] private GameObject _heroPrefab;
 
-    [SerializeField] private int currentgold;
-    [SerializeField] private int totalGoldFromStage;
+    [SerializeField] private int _currentGold;
+    [SerializeField] private int _totalGoldFromStage;
 
-    [SerializeField] private int blacksmithMaxHealth = 100;
-    [SerializeField] private int blacksmithCurrentHealth;
+    [SerializeField] private int _blacksmithMaxHealth = 100;
+    [SerializeField] private int _blacksmithCurrentHealth;
 
     [SerializeField] private int _currentStageIndex = 0;
-    [SerializeField] private int __currentEmptyDisplayHero = 0;
+    [SerializeField] private int _currentEmptyDisplayHero = 0;
 
     private static GameStateManager _gameStateManager;
 
@@ -76,10 +76,10 @@ public class GameStateManager : MonoBehaviour
 
     private void InitializeFirstTime()
     {
-        blacksmithCurrentHealth = blacksmithMaxHealth;
-        currentgold = 100;
+        _blacksmithCurrentHealth = _blacksmithMaxHealth;
+        _currentGold = 100;
 
-        GameObject firstHero = Instantiate(heroPrefab);
+        GameObject firstHero = Instantiate(_heroPrefab);
         AddHero(firstHero);
     }
 
@@ -153,7 +153,7 @@ public class GameStateManager : MonoBehaviour
         InitializeHeroDisplayPositions();
         CalculateGold();
 
-        blacksmithCurrentHealth = blacksmithMaxHealth;
+        _blacksmithCurrentHealth = _blacksmithMaxHealth;
 
         yield return new WaitForEndOfFrame();
     }
@@ -166,7 +166,7 @@ public class GameStateManager : MonoBehaviour
         {
             int movedHeroIndex = _currentHeroes.Count - 1;
 
-            currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
+            _currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
             _currentHeroes.RemoveAt(movedHeroIndex);
 
         }
@@ -177,7 +177,7 @@ public class GameStateManager : MonoBehaviour
     {
         //returns true if there are enough heroes to buy it
 
-        if (currentgold <= price)
+        if (_currentGold <= price)
         {
             return true;
         }
@@ -209,7 +209,7 @@ public class GameStateManager : MonoBehaviour
         WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
         for (int i = 0; i < wonStage.heroReward; i++)
         {
-            GameObject heroObj = Instantiate(heroPrefab);
+            GameObject heroObj = Instantiate(_heroPrefab);
 
             AddHero(heroObj);
 
@@ -233,11 +233,7 @@ public class GameStateManager : MonoBehaviour
         _currentHeroes.Add(heroObject);
     }
 
-    public void BuyWeapon(int price, GameObject weapon)
-    {
-        AddWeapon(weapon);
-        currentgold -= price;
-    }
+
 
     private void AddWeapon(GameObject weapon)
     {
@@ -251,9 +247,9 @@ public class GameStateManager : MonoBehaviour
 
     public void UpdateWeaponDisplay()
     {
-        HeroController heroController = _currentHeroes[__currentEmptyDisplayHero].GetComponent<HeroController>();
+        HeroController heroController = _currentHeroes[_currentEmptyDisplayHero].GetComponent<HeroController>();
         _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
-        __currentEmptyDisplayHero++;
+        _currentEmptyDisplayHero++;
 
         heroController.weaponObject = _currentWeapons[_currentWeapons.Count - 1];
         heroController.InitializeWeaponPosition();
@@ -329,9 +325,9 @@ public class GameStateManager : MonoBehaviour
 
     public void DamageBlacksmith(int damage)
     {
-        blacksmithCurrentHealth -= damage;
+        _blacksmithCurrentHealth -= damage;
 
-        if (blacksmithCurrentHealth <= 0)
+        if (_blacksmithCurrentHealth <= 0)
         {
             LoseGame();
         }
@@ -346,11 +342,29 @@ public class GameStateManager : MonoBehaviour
     #endregion
 
     #region Shop_Related
+
+    public bool IsAffordable(int price)
+    {
+        return (price <= _currentGold) ? true : false;
+    }
+    public void BuyWeapon(int price, GameObject weapon)
+    {
+        if (IsAffordable(price))
+        {
+            AddWeapon(weapon);
+            _currentGold -= price;
+        }
+        else
+        {
+            Debug.LogError("Not enough gold to buy (You shouldn't be able to buy if so)");
+        }
+    }
+
     private void CalculateGold()
     {
         int baseGold = 100 * (_currentStageIndex + 1);
-        currentgold = baseGold + totalGoldFromStage;
-        totalGoldFromStage = 0;
+        _currentGold = baseGold + _totalGoldFromStage;
+        _totalGoldFromStage = 0;
     }
 
     #endregion
