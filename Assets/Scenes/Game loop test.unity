@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 113926686}
   - component: {fileID: 113926685}
   - component: {fileID: 113926684}
+  - component: {fileID: 113926687}
   m_Layer: 5
   m_Name: Start Battle
   m_TagString: Untagged
@@ -594,8 +595,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1749134373}
-        m_MethodName: StartBattle
+      - m_Target: {fileID: 113926687}
+        m_MethodName: StartBattleButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -641,6 +642,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113926682}
   m_CullTransparentMesh: 0
+--- !u!114 &113926687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113926682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782065149604cd747b52fd1b56964dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &118391834
 GameObject:
   m_ObjectHideFlags: 0
@@ -16678,15 +16691,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentWeapons: []
   _currentHeroes: []
-  currentUnusedHeroes: []
-  heroPrefab: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac,
+  _currentUnusedHeroes: []
+  _heroPrefab: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac,
     type: 3}
-  currentgold: 0
-  totalGoldFromStage: 0
-  blacksmithMaxHealth: 1000
-  blacksmithCurrentHealth: 0
+  _currentGold: 0
+  _totalGoldFromStage: 0
+  _blacksmithMaxHealth: 100
+  _blacksmithCurrentHealth: 0
   _currentStageIndex: 0
-  __currentEmptyDisplayHero: 0
+  _currentEmptyDisplayHero: 0
   _gameStages:
   - {fileID: 11400000, guid: 3ba5f5e9db37db346a8ac1b72d07a601, type: 2}
   - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
