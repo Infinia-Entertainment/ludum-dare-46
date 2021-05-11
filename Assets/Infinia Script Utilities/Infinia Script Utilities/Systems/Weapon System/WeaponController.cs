@@ -6,7 +6,7 @@ using UnityEngine;
 using Sirenix.Serialization;
 using WeaponSystem;
 
-namespace Weapon
+namespace WeaponSystem.Weapon
 {
     public class WeaponController : MonoBehaviour
     {

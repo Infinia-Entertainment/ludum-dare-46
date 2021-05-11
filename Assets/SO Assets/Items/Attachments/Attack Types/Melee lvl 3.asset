@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539b6fa2deb4dcf499079b81e9540df1, type: 3}
+  m_Name: Melee lvl 3
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: a94ed21d6ab57384896d55bef2fd50eb, type: 3}
+  itemObject: {fileID: 8438500433588522839, guid: 119ff000bc205ed49b20b52fd9f819c8,
+    type: 3}
+  itemName: Melee lvl 3
+  price: 60
+  itemDescription: Base 1
+  assignedID: 2
