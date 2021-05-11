@@ -112,7 +112,6 @@ public class AttachmentMenu : MonoBehaviour
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
         {
-
             craftButton.SetActive(false);
             FindObjectOfType<BlackSmith>().TriggerCrafting();
             Invoke("TriggerCompiling", 2.7f);
@@ -124,10 +123,13 @@ public class AttachmentMenu : MonoBehaviour
         dropDowns[type].gameObject.SetActive(false);
 
         //Add check for if has enough money and space
-        if (selectedRod != null && selectedAttack != null && selectedElement != null && choicePanel.activeSelf == false)
+        if (selectedRod != null && selectedAttack != null && selectedElement != null && !choicePanel.activeSelf
+         && GameStateManager.Instance.IsAffordable(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price))
+         )
         {
             craftButton.SetActive(true);
         }
+        else craftButton.SetActive(false);
     }
 
     void TriggerCompiling()
@@ -146,7 +148,6 @@ public class AttachmentMenu : MonoBehaviour
     private int CalculatePrice(int selectedRodPrice, int selectedAttackPrice, int selectedElementPrice)
     {
         return selectedRodPrice + selectedAttackPrice + selectedElementPrice;
-        //price calculation
     }
 
 
