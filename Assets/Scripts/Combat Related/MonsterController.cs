@@ -112,7 +112,7 @@ public class MonsterController : AliveUnit
         if (Time.time - _lastAttack > monsterData.attackRate)
         {
             //Just checks if attack is within range
-            if (_hitInfo.distance <= monsterData.attackDistance && _isFrontOccupied)
+            if (_hitInfo.distance <= monsterData.attackDistance && _isFrontOccupied && hero != null)
             {
                 //attack anims etc
                 DoAttackAnimation();
