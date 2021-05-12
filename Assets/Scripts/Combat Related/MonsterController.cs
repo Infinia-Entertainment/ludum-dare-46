@@ -98,7 +98,7 @@ public class MonsterController : AliveUnit
         if (_hitInfo.collider.gameObject.CompareTag("Monster")) //It's a monster
         {
             _monsterInFront = _hitInfo.collider.gameObject.GetComponent<MonsterController>();
-            _isFrontOccupied = true;
+            if (!_monsterInFront._isMonsterDying) _isFrontOccupied = true;
         }
         else if (_hitInfo.collider.gameObject.CompareTag("Hero"))//It's a hero
         {
