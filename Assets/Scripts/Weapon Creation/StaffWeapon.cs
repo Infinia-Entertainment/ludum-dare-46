@@ -5,7 +5,7 @@ using static GameData.GameFunctions;
 
 public class StaffWeapon : MonoBehaviour
 {
-    
+
     //[SerializeField] public GameObject heroOwner;
 
     //Prefab references
@@ -51,7 +51,7 @@ public class StaffWeapon : MonoBehaviour
 
     #endregion Test Code Only
 
-    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement,int damage, int weaponDefence, float fireRate,float range,float elementDamageModifier)
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement, int damage, int weaponDefence, float fireRate, float range, float elementDamageModifier)
     {
         _weaponType = weaponType;
         _weaponElement = weaponElement;

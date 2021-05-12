@@ -19,7 +19,7 @@ public class MagicProjectile : MonoBehaviour
         transform.Translate(translation * Time.deltaTime);
     }
 
-    public void InitilizeProjectile(int damage,float elementDamageModifier, ElementAttribute elementAttribute)
+    public void InitilizeProjectile(int damage, float elementDamageModifier, ElementAttribute elementAttribute)
     {
         _baseDamage = damage;
         _elementDamageModifier = elementDamageModifier;
@@ -34,7 +34,7 @@ public class MagicProjectile : MonoBehaviour
         {
             MonsterController monster = other.gameObject.GetComponent<MonsterController>();
 
-            monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier,_projectileElement, monster.monsterData.elementAttribute));
+            monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier, _projectileElement, monster.monsterData.elementAttribute));
 
             //other.gameObject.GetComponent<AliveUnit>().ReceiveDamage(damage);
 
