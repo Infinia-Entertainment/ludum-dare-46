@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
 
     public Stage currentStage;
     public MobWave _currentWave;
+    private int _waveCount;
     public int numSpawnPoints;
     public Transform spawn1;
     public Transform spawn2;
@@ -26,7 +27,7 @@ public class WaveManager : MonoBehaviour
     private bool lastMonsterSpawned = false;
 
     public static WaveManager Instance { get => _waveManager; }
-
+    public int WaveCount { get; }
 
     private void Awake()
     {
