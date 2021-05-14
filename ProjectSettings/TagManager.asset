@@ -8,7 +8,7 @@ TagManager:
   - Platform
   - Canvas
   - Monster
-  - Game Battle UI
+  - Wave Spawner Positions
   layers:
   - Default
   - TransparentFX

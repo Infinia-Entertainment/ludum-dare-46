@@ -14,11 +14,6 @@ public class WaveManager : MonoBehaviour
     public MobWave _currentWave;
     private int _waveCount;
     public int numSpawnPoints;
-    public Transform spawn1;
-    public Transform spawn2;
-    public Transform spawn3;
-    public Transform spawn4;
-    public Transform spawn5;
     public List<Transform> spawnPoints;
     private static WaveManager _waveManager;
 
@@ -41,19 +36,17 @@ public class WaveManager : MonoBehaviour
         {
             _waveManager = this;
         }
+        DontDestroyOnLoad(gameObject);
 
     }
     void Start()
     {
-        //lastMonsterSpawned
+        GameObject[] spawners = GameObject.FindGameObjectsWithTag("Wave Spawner Positions");
 
-        spawnPoints = new List<Transform>();
-
-        spawnPoints.Add(spawn1);
-        spawnPoints.Add(spawn2);
-        spawnPoints.Add(spawn3);
-        spawnPoints.Add(spawn4);
-        spawnPoints.Add(spawn5);
+        foreach (GameObject spawner in spawners)
+        {
+            spawnPoints.Add(spawner.transform);
+        }
     }
 
     // Update is called once per frame
