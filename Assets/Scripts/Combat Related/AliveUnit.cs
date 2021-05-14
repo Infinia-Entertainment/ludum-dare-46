@@ -33,7 +33,7 @@ public class AliveUnit : MonoBehaviour
         
         health -= Mathf.FloorToInt((damage/defence) * damage);
         CheckForHealth();
-        Debug.Log(gameObject.name + " got damaged for " + damage + " damage");
+        //Debug.Log(gameObject.name + " got damaged for " + damage + " damage");
     }
 
 }

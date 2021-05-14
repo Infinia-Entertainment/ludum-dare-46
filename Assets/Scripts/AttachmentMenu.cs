@@ -135,7 +135,6 @@ public class AttachmentMenu : MonoBehaviour
     void TriggerCompiling()
     {
         currentWeapon = FindObjectOfType<WeaponCreationSystem>().CreateWeapon(selectedRod.itemObject, selectedAttack.itemObject, selectedElement.itemObject);
-        Debug.Log(currentWeapon);
         GameStateManager.Instance.BuyWeapon(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price), currentWeapon);
 
         UpdateHeroCountUI();

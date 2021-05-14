@@ -45,10 +45,6 @@ public class WeaponCreationSystem : MonoBehaviour
         AttackTypeAttachmentData attackTypeAttachmentData = weapon.attackTypeAttachment.GetComponent<AttackTypeAttachmentData>();
 
 
-        //Debug.Log(attackTypeAttachmentData);
-        //Debug.Log(rodAttachmentData);
-        //Debug.Log(elementTypeAttachmentData);
-
         weapon.InitializeWeapon(
             weaponType,
             weaponElement,
@@ -87,9 +83,6 @@ public class WeaponCreationSystem : MonoBehaviour
 
     public GameObject CreateTestWeapon()
     {
-
-
-
         return CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
     }
 

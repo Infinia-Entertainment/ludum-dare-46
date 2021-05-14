@@ -60,11 +60,6 @@ public class WaveManager : MonoBehaviour
     void Update()
     {
 
-        //Debug.Log(currentStage);
-        //Debug.Log(currentStage.Waves);
-        //Debug.Log(currentStage.Waves.IndexOf(_currentWave));
-
-
         //Add check for if the monster is 
         if (currentStage)
         {

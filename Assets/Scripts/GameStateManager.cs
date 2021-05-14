@@ -93,7 +93,6 @@ public class GameStateManager : MonoBehaviour
             _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
             _currentHeroes[i].transform.eulerAngles = _spawnPoints[i].eulerAngles; //set rotation
         }
-        _currentStageIndex = 0;
     }
 
     private void TransitionToBattle()
@@ -215,7 +214,6 @@ public class GameStateManager : MonoBehaviour
 
             AddHero(heroObj);
 
-            Debug.Log("Added a hero from stage reward");
 
         }
 

@@ -46,7 +46,6 @@ public class StaffWeapon : MonoBehaviour
     {
         _weaponType = WeaponType.Melee;
         _weaponElement = ElementAttribute.Ice;
-        Debug.Log("initialized");
     }
 
     #endregion Test Code Only

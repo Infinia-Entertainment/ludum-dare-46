@@ -97,7 +97,6 @@ public class HeroController : AliveUnit
 
     private void DoRangedAttackAnimation( )
     {
-        Debug.Log("ranged animation");
         animator.SetTrigger("Range attack");
 
     }
