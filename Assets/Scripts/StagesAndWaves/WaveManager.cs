@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour
     private bool lastMonsterSpawned = false;
 
     public static WaveManager Instance { get => _waveManager; }
-    public int WaveCount { get; }
+    public int WaveCount { get => _waveCount; }
 
     private void Awake()
     {
@@ -73,8 +73,10 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator StartSpawning()
     {
+        _waveCount = 0;
         foreach (MobWave currentWave in currentStage.Waves)
         {
+            _waveCount++;
             _currentWave = currentWave;
             foreach (MobWave.Mob mob in currentWave.mobsInTheWave)
             {
