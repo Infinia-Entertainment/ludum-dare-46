@@ -8,6 +8,11 @@ using TMPro;
 public class AttachmentMenu : MonoBehaviour
 {
     public GameObject craftMoreButton;
+    public GameObject craftButton;
+    public GameObject craftButton2;
+    public GameObject choicePanel;
+    public GameObject moreCraftingPanel;
+    public GameObject currentWeapon;
 
     [SerializeField] private TMP_Text heroCountText;
     private const string heroCountDescription = "Armed: ";
@@ -24,11 +29,7 @@ public class AttachmentMenu : MonoBehaviour
     Item selectedAttack;
     Item selectedElement;
 
-    public GameObject craftButton;
 
-    public GameObject currentWeapon;
-
-    public GameObject choicePanel;
 
     private void Start()
     {
@@ -112,7 +113,8 @@ public class AttachmentMenu : MonoBehaviour
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
         {
-            craftButton.SetActive(false);
+            if (moreCraftingPanel.activeSelf) craftButton2.SetActive(false);
+            else craftButton.SetActive(false);
             FindObjectOfType<BlackSmith>().TriggerCrafting();
             Invoke("TriggerCompiling", 2.7f);
         }
@@ -127,9 +129,14 @@ public class AttachmentMenu : MonoBehaviour
          && GameStateManager.Instance.IsAffordable(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price))
          )
         {
-            craftButton.SetActive(true);
+            if (moreCraftingPanel.activeSelf) craftButton2.SetActive(true);
+            else craftButton.SetActive(true);
         }
-        else craftButton.SetActive(false);
+        else
+        {
+            if (moreCraftingPanel.activeSelf) craftButton2.SetActive(false);
+            else craftButton.SetActive(false);
+        }
     }
 
     void TriggerCompiling()
@@ -153,7 +160,16 @@ public class AttachmentMenu : MonoBehaviour
     public void CraftMoreButton()
     {
         choicePanel.SetActive(false);
-        craftButton.SetActive(true);
+        moreCraftingPanel.SetActive(true);
+
+        if (selectedRod != null && selectedAttack != null && selectedElement != null && !choicePanel.activeSelf
+         && GameStateManager.Instance.IsAffordable(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price))
+         )
+        {
+            craftButton2.SetActive(true);
+        }
+        else craftButton2.SetActive(false);
+
         if (currentWeapon != null)
         {
             currentWeapon.GetComponent<Animator>().enabled = false;
