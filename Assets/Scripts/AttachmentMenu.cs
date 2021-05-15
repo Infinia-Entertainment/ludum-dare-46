@@ -148,7 +148,7 @@ public class AttachmentMenu : MonoBehaviour
 
         if (GameStateManager.Instance.CurrentHeroes.Count <= GameStateManager.Instance.CurrentWeapons.Count)
             craftMoreButton.SetActive(false);
-        choicePanel.SetActive(true);
+        if (!moreCraftingPanel.activeSelf) choicePanel.SetActive(true);
     }
 
     private int CalculatePrice(int selectedRodPrice, int selectedAttackPrice, int selectedElementPrice)
