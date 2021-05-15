@@ -12,11 +12,8 @@ public class MonsterController : AliveUnit
     private Animator _animator;
     private RaycastHit _hitInfo;
     [SerializeField] private MonsterController _monsterInFront;
-    [SerializeField] private Material fireMonsterMaterial;
-    [SerializeField] private Material iceMonsterMaterial;
-    [SerializeField] private Material earthMonsterMaterial;
-    [SerializeField] private Material lightningMonsterMaterial;
-    [SerializeField] private Material voidMonsterMaterial;
+
+    [SerializeField] private MonsterElementMaterialData _monsterElementMaterialData;
     [SerializeField] private GameObject hero;
 
     public MonsterData monsterData;
@@ -60,19 +57,19 @@ public class MonsterController : AliveUnit
             case GameData.ElementAttribute.None:
                 break;
             case GameData.ElementAttribute.Void:
-                GetComponent<MeshRenderer>().material = voidMonsterMaterial;
+                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.voidMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Fire:
-                GetComponent<MeshRenderer>().material = fireMonsterMaterial;
+                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.fireMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Earth:
-                GetComponent<MeshRenderer>().material = earthMonsterMaterial;
+                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.earthMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Ice:
-                GetComponent<MeshRenderer>().material = iceMonsterMaterial;
+                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.iceMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Lightning:
-                GetComponent<MeshRenderer>().material = lightningMonsterMaterial;
+                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.lightningMonsterMaterial;
                 break;
             default:
                 break;

@@ -12200,17 +12200,11 @@ MonoBehaviour:
   defence: 1
   health: 0
   maxHealth: 20
+  _monsterInFront: {fileID: 0}
+  _monsterElementMaterialData: {fileID: 11400000, guid: 2970a004312bef743adf3549e7effd30,
+    type: 2}
   hero: {fileID: 0}
-  monsterInFront: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
-  fireMonsterMaterial: {fileID: 2100000, guid: 5baf009d44de51641b8228511f1f7e8c, type: 2}
-  iceMonsterMaterial: {fileID: 2100000, guid: 20d2f9a5d9b696e4b80c51df09e78b5f, type: 2}
-  earthMonsterMaterial: {fileID: 2100000, guid: 9eea3ea13bbc9004bab459ccafad57b2,
-    type: 2}
-  lightningMonsterMaterial: {fileID: 2100000, guid: b6e7486f18e0bec4bb320ac7846959ef,
-    type: 2}
-  voidMonsterMaterial: {fileID: 2100000, guid: 6f94c07b4c6e26a4bbbce6d7d08255f4, type: 2}
-  raycastLength: 1
 --- !u!95 &4051080576030779985
 Animator:
   serializedVersion: 3

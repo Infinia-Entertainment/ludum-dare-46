@@ -536,8 +536,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
-  - {fileID: 2664968620798066284}
   - {fileID: 4413095582307820589}
+  - {fileID: 2664968620798066284}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -569,14 +569,11 @@ MonoBehaviour:
   defence: 1
   health: 90
   maxHealth: 0
-  hero: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac, type: 3}
-  monsterInFront: {fileID: 0}
+  _monsterInFront: {fileID: 0}
+  _monsterElementMaterialData: {fileID: 11400000, guid: 2970a004312bef743adf3549e7effd30,
+    type: 2}
+  hero: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
-  fireMonsterMaterial: {fileID: 0}
-  iceMonsterMaterial: {fileID: 0}
-  earthMonsterMaterial: {fileID: 0}
-  lightningMonsterMaterial: {fileID: 0}
-  voidMonsterMaterial: {fileID: 0}
 --- !u!95 &810597402262459418
 Animator:
   serializedVersion: 3
@@ -654,7 +651,7 @@ GameObject:
   - component: {fileID: 874720687845503459}
   m_Layer: 12
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -667,11 +664,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3718153558157816164}
   m_LocalRotation: {x: -2.5194829e-24, y: 0.7071068, z: 2.5194829e-24, w: 0.7071068}
-  m_LocalPosition: {x: -2.1506696e-23, y: 1.4950334, z: 0.00000010878433}
+  m_LocalPosition: {x: 0, y: 1.4950334, z: 0}
   m_LocalScale: {x: 1.6605169, y: 0.9286113, z: 1.3079314}
   m_Children: []
   m_Father: {fileID: 1753541212290889186}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &874720687845503459
 SkinnedMeshRenderer:
@@ -691,7 +688,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 20d2f9a5d9b696e4b80c51df09e78b5f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1470,7 +1467,7 @@ GameObject:
   - component: {fileID: 2664968620798066284}
   m_Layer: 12
   m_Name: Armature
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1496,7 +1493,7 @@ Transform:
   - {fileID: 2475330201783482529}
   - {fileID: 190460340104389217}
   m_Father: {fileID: 1753541212290889186}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6751215261665571747
 GameObject:

@@ -80,9 +80,7 @@ public class GameStateManager : MonoBehaviour
         _currentGold = 100;
 
         GameObject firstHero = Instantiate(_heroPrefab);
-        GameObject firstHeros = Instantiate(_heroPrefab);
         AddHero(firstHero);
-        AddHero(firstHeros);
     }
 
     private void InitializeHeroDisplayPositions()
