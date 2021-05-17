@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7271974573005993498}
   - component: {fileID: 4998201715261185735}
   m_Layer: 0
-  m_Name: Imp transparent
+  m_Name: Next Monster Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 4051640923178100841}
   - component: {fileID: 4051640923178100843}
   - component: {fileID: 4051640923178100842}
+  - component: {fileID: 2832248593494279503}
   m_Layer: 5
   m_Name: Monster Type Panel
   m_TagString: Untagged
@@ -156,6 +157,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2832248593494279503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051640923178100840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2081e453983ef2646b18414cbfc26601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterSprite: {fileID: 4998201715261185735}
+  elementType: {fileID: 746985054203913425}
 --- !u!1 &4918201673399781865
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +182,7 @@ GameObject:
   - component: {fileID: 1163900651280541596}
   - component: {fileID: 746985054203913425}
   m_Layer: 0
-  m_Name: Fire1
+  m_Name: Monster Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
