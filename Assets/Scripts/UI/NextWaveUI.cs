@@ -8,7 +8,7 @@ using GameData;
 public class NextWaveUI : MonoBehaviour
 {
     [SerializeField] private GameObject _nextMonsterUICellPrefab;
-
+    [SerializeField] private GameObject _contentGameObject;
     [SerializeField] private Sprite fireElementSprite;
     [SerializeField] private Sprite earthElementSprite;
     [SerializeField] private Sprite lightningElementSprite;
@@ -18,16 +18,18 @@ public class NextWaveUI : MonoBehaviour
 
     public struct MonsterFilterData
     {
-        public MonsterFilterData(MonsterType monsterType, ElementAttribute elementAttribute, bool isABossMonster)
+        public MonsterFilterData(MonsterType monsterType, ElementAttribute elementAttribute, bool isABossMonster, Sprite monsterImage)
         {
             this.monsterType = monsterType;
             this.elementAttribute = elementAttribute;
             this.isABossMonster = isABossMonster;
+            this.monsterImage = monsterImage;
         }
 
         public MonsterType monsterType;
         public ElementAttribute elementAttribute;
         public bool isABossMonster;
+        public Sprite monsterImage;
     }
 
     void Start()
@@ -60,6 +62,37 @@ public class NextWaveUI : MonoBehaviour
                 break;
             }
         }
+
+        foreach (MonsterFilterData mobData in filteredMonsters)
+        {
+            Sprite spriteToAssign;
+
+            switch (mobData.elementAttribute)
+            {
+                case ElementAttribute.Void:
+                    spriteToAssign = voidElementSprite;
+                    break;
+                case ElementAttribute.Earth:
+                    spriteToAssign = earthElementSprite;
+                    break;
+                case ElementAttribute.Ice:
+                    spriteToAssign = iceElementSprite;
+                    break;
+                case ElementAttribute.Fire:
+                    spriteToAssign = fireElementSprite;
+                    break;
+                case ElementAttribute.Lightning:
+                    spriteToAssign = lightningElementSprite;
+                    break;
+                default:
+                    spriteToAssign = fireElementSprite;
+                    break;
+
+            }
+
+            GameObject cellUI = Instantiate(_nextMonsterUICellPrefab, _contentGameObject.transform);
+            cellUI.GetComponent<NextWaveMonsterUICell>().InitializeCell(mobData.monsterImage, spriteToAssign);
+        }
     }
 
     private void AddMobToFilteredList(MobWave.Mob mob)
@@ -68,7 +101,8 @@ public class NextWaveUI : MonoBehaviour
             new MonsterFilterData(
                 mob.monsterData.monsterType,
                 mob.monsterData.elementAttribute,
-                mob.monsterData.isABossMonster)
+                mob.monsterData.isABossMonster,
+                mob.monsterData.monsterImage)
         );
     }
 

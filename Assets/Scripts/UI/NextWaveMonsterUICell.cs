@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class NextWaveMonsterUICell : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer monsterSprite;
-    [SerializeField] SpriteRenderer elementType;
+    [SerializeField] SpriteRenderer monsterSpriteRenderer;
+    [SerializeField] SpriteRenderer elementTypeSpriteRenderer;
+
+    void Start()
+    {
+
+    }
+    public void InitializeCell(Sprite monsterSprite, Sprite elementTypeSprite)
+    {
+        monsterSpriteRenderer.sprite = monsterSprite;
+        elementTypeSpriteRenderer.sprite = elementTypeSprite;
+    }
 }
