@@ -8,7 +8,11 @@ namespace GameData
         Ranged
     }
 
-    //I'll just reuse this for enemy as well
+    public enum MonsterType
+    {
+        Imp,
+        //Spider,//might be added later xd
+    }
     public enum ElementAttribute
     {
         None,
@@ -35,7 +39,7 @@ namespace GameData
             float adjustedDamage = basedamage;
 
             if (damagingElement == ElementAttribute.Void)
-            { 
+            {
                 //Affects all types but less
                 adjustedDamage *= (1 + elementDamageModifier);
             }

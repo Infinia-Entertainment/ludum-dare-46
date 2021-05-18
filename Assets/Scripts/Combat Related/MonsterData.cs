@@ -9,22 +9,10 @@ using UnityEngine;
 public class MonsterData : SerializedScriptableObject
 {
 
-    public MonsterData(MonsterData data)
-    {
-        monsterImage = data.monsterImage;
-        elementAttribute = data.elementAttribute;
-        goldReward = data.goldReward;
-        health = data.health;
-        damage = data.damage;
-        playerDamage = data.playerDamage;
-        speed = data.speed;
-        defence = data.defence;
-        attackRate = data.attackRate;
-        attackDistance = data.attackDistance;
-    }
-
     public Sprite monsterImage;
     public ElementAttribute elementAttribute;
+    public MonsterType monsterType;
+    public bool isABossMonster; //This is used by some UI and may later affect monster behaviour or functions
     public int goldReward; //health of the monster
     public int health; //health of the monster
     public int damage; // damage to the heros
@@ -33,4 +21,5 @@ public class MonsterData : SerializedScriptableObject
     public float defence;
     public float attackRate;
     public float attackDistance;
+
 }

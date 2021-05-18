@@ -21,8 +21,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  monsterImage: {fileID: 0}
+  monsterImage: {fileID: 21300000, guid: 11dacc3a316c78a4da0da33e80eca9c3, type: 3}
   elementAttribute: 2
+  monsterType: 0
+  isABossMonster: 0
   goldReward: 10
   health: 60
   damage: 5
