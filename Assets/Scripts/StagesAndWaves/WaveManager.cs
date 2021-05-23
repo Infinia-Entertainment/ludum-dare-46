@@ -94,4 +94,14 @@ public class WaveManager : MonoBehaviour
         }*/
 
     }
+
+    public void RemoveMonsterFromList(GameObject monsterObj, MonsterData monsterData, bool isLastDamageFromHero)
+    {
+        if (isLastDamageFromHero)
+        {
+            GameStateManager.Instance.IncrementMonsterKillCount();
+            GameStateManager.Instance.AddGoldFromMonster(monsterData.goldReward);
+        }
+        spawnedMonsters.Remove(monsterObj);
+    }
 }

@@ -18,7 +18,6 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private GameObject _heroPrefab;
 
     [SerializeField] private int _currentGold;
-    [SerializeField] private int _totalGoldFromStage;
 
     [SerializeField] private int _blacksmithMaxHealth = 100;
     [SerializeField] private int _blacksmithCurrentHealth;
@@ -30,6 +29,8 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Stage> _gameStages;
 
+
+
     public List<Transform> _spawnPoints = new List<Transform>();
 
     public static GameStateManager Instance { get => _gameStateManager; }
@@ -37,8 +38,14 @@ public class GameStateManager : MonoBehaviour
     public List<Stage> GameStages { get => _gameStages; }
     public List<GameObject> CurrentWeapons { get => _currentWeapons; }
     public List<GameObject> CurrentHeroes { get => _currentHeroes; }
-
     public float spacingBetweenHeroes = 0.75f;
+
+    [Header("Stage Result Stats")]
+    [SerializeField] private int _monsterDamageDone;
+    [SerializeField] private int _monstersKilled;
+    [SerializeField] private int _damageReceived;
+    [SerializeField] private int _monstersPassed;
+    [SerializeField] private int _totalGoldFromStage;
 
     private void Update()
     {
@@ -122,6 +129,7 @@ public class GameStateManager : MonoBehaviour
         //If null reference add the test stage to game manager stage list stuff
         WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
 
+        ResetBattleStats();
         FindObjectOfType<BattleSceneUI>().EnableUI();
 
         WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
@@ -196,30 +204,12 @@ public class GameStateManager : MonoBehaviour
         else return false;
     }
 
-    private void transitionToShop()
+    public void TransitionToShop()
     {
         DeleteDeadHeroes();
         StoreHeroes();
         DeleteWeaponData();
-
         StartCoroutine(LoadShopScene());
-    }
-
-    public void WinStage(Stage wonStage)
-    {
-        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
-        for (int i = 0; i < wonStage.heroReward; i++)
-        {
-            GameObject heroObj = Instantiate(_heroPrefab);
-
-            AddHero(heroObj);
-
-
-        }
-
-        _currentStageIndex++;
-
-        transitionToShop();
     }
 
     public void StartBattle()
@@ -232,9 +222,6 @@ public class GameStateManager : MonoBehaviour
     {
         _currentHeroes.Add(heroObject);
     }
-
-
-
     private void AddWeapon(GameObject weapon)
     {
         _currentWeapons.Add(weapon);
@@ -296,6 +283,35 @@ public class GameStateManager : MonoBehaviour
     #endregion
 
     #region Battle_Related
+    public void WinStage(Stage wonStage)
+    {
+        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
+        for (int i = 0; i < wonStage.heroReward; i++)
+        {
+            GameObject heroObj = Instantiate(_heroPrefab);
+            AddHero(heroObj);
+        }
+
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(true, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+
+        _currentStageIndex++;
+    }
+
+    private void LoseGame()
+    {
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(false, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+
+        SceneManager.LoadScene(0);
+    }
+
     private void HideHeroes()
     {
         for (int i = 0; i < _currentHeroes.Count; i++)
@@ -323,8 +339,20 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void ResetBattleStats()
+    {
+
+        _monsterDamageDone = 0;
+        _monstersKilled = 0;
+        _damageReceived = 0;
+        _monstersPassed = 0;
+        _totalGoldFromStage = 0;
+    }
     public void DamageBlacksmith(int damage)
     {
+
+        _damageReceived += damage;
+        _monstersPassed++;
         _blacksmithCurrentHealth -= damage;
 
         if (_blacksmithCurrentHealth <= 0)
@@ -332,16 +360,35 @@ public class GameStateManager : MonoBehaviour
             LoseGame();
         }
     }
-
-    private void LoseGame()
-    {
-        SceneManager.LoadScene(0);
-        Debug.Log("You lost the game dingus");
-    }
-
     #endregion
 
     #region Shop_Related
+
+    public void AddGoldFromMonster(int goldToAdd)
+    {
+        _totalGoldFromStage += goldToAdd;
+    }
+
+    public void AddMonsterDamageDone(int damage)
+    {
+        Debug.Log($"Damage added: {damage}");
+        _monsterDamageDone += damage;
+    }
+
+    public void AddDamageReceived(int damage)
+    {
+        _damageReceived += damage;
+    }
+
+    public void IncrementMonsterKillCount()
+    {
+        _monstersKilled++;
+    }
+
+    public void IncrementMonsterPassedCount()
+    {
+        _monstersPassed++;
+    }
 
     public bool IsAffordable(int price)
     {

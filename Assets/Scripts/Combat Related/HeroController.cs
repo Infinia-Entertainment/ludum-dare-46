@@ -1,4 +1,4 @@
-﻿ using GameData;
+﻿using GameData;
 using Sirenix.Serialization;
 using System;
 using System.Collections;
@@ -65,7 +65,7 @@ public class HeroController : AliveUnit
     //!!!!!!!!!!!Do anims here!!!!!!!!!
     private void CheckForAttackRange()
     {
-        if (!Physics.Raycast(transform.position + new Vector3(0,0.2f,0), transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        if (!Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 10, Color.red);
             return;
@@ -90,15 +90,14 @@ public class HeroController : AliveUnit
                     DoRangedAttackAnimation();
                 }
             }
-            
+
             lastAttack = Time.time;
         }
     }
 
-    private void DoRangedAttackAnimation( )
+    private void DoRangedAttackAnimation()
     {
         animator.SetTrigger("Range attack");
-
     }
 
     public void CarryOutAttack()
@@ -109,7 +108,7 @@ public class HeroController : AliveUnit
         }
     }
 
-    private void DoMeleeAttackAnimation( )
+    private void DoMeleeAttackAnimation()
     {
         animator.SetTrigger("Melee attack");
     }
@@ -118,7 +117,6 @@ public class HeroController : AliveUnit
     {
         base.ReceiveDamage(damage);
         animator.SetTrigger("IsHit");
-
     }
 
     protected override void CheckForHealth()
@@ -127,7 +125,6 @@ public class HeroController : AliveUnit
         {
             animator.SetTrigger("Death");
         }
-
     }
 
     public void FinishDeath()
@@ -135,8 +132,4 @@ public class HeroController : AliveUnit
         Destroy(gameObject);
     }
 
-    private void OnMouseOver()
-    {
-        Debug.Log(gameObject.name + " has been selected");
-    }
 }

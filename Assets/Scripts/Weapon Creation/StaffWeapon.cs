@@ -77,7 +77,7 @@ public class StaffWeapon : MonoBehaviour
             case WeaponType.Melee:
 
                 MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
-                monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+                monster.ReceiveDamageFromHero(CalculateDamage(_baseDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
 
                 break;
 

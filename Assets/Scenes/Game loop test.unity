@@ -11311,7 +11311,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1217907010}
   m_HandleRect: {fileID: 1217907009}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17820,16 +17820,20 @@ MonoBehaviour:
   _heroPrefab: {fileID: 6189958944618117016, guid: 58e0cc9338c31584197202f79b8ae8ac,
     type: 3}
   _currentGold: 0
-  _totalGoldFromStage: 0
   _blacksmithMaxHealth: 100
   _blacksmithCurrentHealth: 0
   _currentStageIndex: 0
   _currentEmptyDisplayHero: 0
   _gameStages:
-  - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
   - {fileID: 11400000, guid: 3ba5f5e9db37db346a8ac1b72d07a601, type: 2}
+  - {fileID: 11400000, guid: b8ee6b6f43fe8f545b5ad78c61a95e07, type: 2}
   _spawnPoints: []
   spacingBetweenHeroes: 1
+  _monsterDamageDone: 0
+  _monstersKilled: 0
+  _damageReceived: 0
+  _monstersPassed: 0
+  _totalGoldFromStage: 0
 --- !u!4 &1749134374
 Transform:
   m_ObjectHideFlags: 0
@@ -19284,7 +19288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0030212402}
+  m_AnchoredPosition: {x: 0, y: 0.009185791}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2126205283
