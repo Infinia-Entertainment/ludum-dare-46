@@ -28,13 +28,11 @@ public class MagicProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collided " + other.tag);
-
         if (other.CompareTag("Monster"))
         {
             MonsterController monster = other.gameObject.GetComponent<MonsterController>();
 
-            monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier, _projectileElement, monster.monsterData.elementAttribute));
+            monster.ReceiveDamageFromHero(CalculateDamage(_baseDamage, _elementDamageModifier, _projectileElement, monster.monsterData.elementAttribute));
 
             //other.gameObject.GetComponent<AliveUnit>().ReceiveDamage(damage);
 

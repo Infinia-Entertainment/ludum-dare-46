@@ -18,7 +18,6 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private GameObject _heroPrefab;
 
     [SerializeField] private int _currentGold;
-    [SerializeField] private int _totalGoldFromStage;
 
     [SerializeField] private int _blacksmithMaxHealth = 100;
     [SerializeField] private int _blacksmithCurrentHealth;
@@ -30,6 +29,8 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Stage> _gameStages;
 
+
+
     public List<Transform> _spawnPoints = new List<Transform>();
 
     public static GameStateManager Instance { get => _gameStateManager; }
@@ -37,8 +38,14 @@ public class GameStateManager : MonoBehaviour
     public List<Stage> GameStages { get => _gameStages; }
     public List<GameObject> CurrentWeapons { get => _currentWeapons; }
     public List<GameObject> CurrentHeroes { get => _currentHeroes; }
-
     public float spacingBetweenHeroes = 0.75f;
+
+    [Header("Stage Result Stats")]
+    [SerializeField] private int _monsterDamageDone;
+    [SerializeField] private int _monstersKilled;
+    [SerializeField] private int _damageReceived;
+    [SerializeField] private int _monstersPassed;
+    [SerializeField] private int _totalGoldFromStage;
 
     private void Update()
     {
@@ -70,7 +77,6 @@ public class GameStateManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         InitializeFirstTime();
-
         InitializeHeroDisplayPositions();
     }
 
@@ -78,6 +84,7 @@ public class GameStateManager : MonoBehaviour
     {
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
         _currentGold = 100;
+
 
         GameObject firstHero = Instantiate(_heroPrefab);
         AddHero(firstHero);
@@ -122,6 +129,7 @@ public class GameStateManager : MonoBehaviour
         //If null reference add the test stage to game manager stage list stuff
         WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
 
+        ResetBattleStats();
         FindObjectOfType<BattleSceneUI>().EnableUI();
 
         WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
@@ -169,9 +177,7 @@ public class GameStateManager : MonoBehaviour
 
             _currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
             _currentHeroes.RemoveAt(movedHeroIndex);
-
         }
-
     }
 
     public bool CanBuyWeapon(int price)
@@ -196,30 +202,12 @@ public class GameStateManager : MonoBehaviour
         else return false;
     }
 
-    private void transitionToShop()
+    public void TransitionToShop()
     {
         DeleteDeadHeroes();
         StoreHeroes();
         DeleteWeaponData();
-
         StartCoroutine(LoadShopScene());
-    }
-
-    public void WinStage(Stage wonStage)
-    {
-        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
-        for (int i = 0; i < wonStage.heroReward; i++)
-        {
-            GameObject heroObj = Instantiate(_heroPrefab);
-
-            AddHero(heroObj);
-
-
-        }
-
-        _currentStageIndex++;
-
-        transitionToShop();
     }
 
     public void StartBattle()
@@ -232,9 +220,6 @@ public class GameStateManager : MonoBehaviour
     {
         _currentHeroes.Add(heroObject);
     }
-
-
-
     private void AddWeapon(GameObject weapon)
     {
         _currentWeapons.Add(weapon);
@@ -247,6 +232,7 @@ public class GameStateManager : MonoBehaviour
 
     public void UpdateWeaponDisplay()
     {
+        //TODO: add unused heroes back
         HeroController heroController = _currentHeroes[_currentEmptyDisplayHero].GetComponent<HeroController>();
         _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
         _currentEmptyDisplayHero++;
@@ -285,6 +271,22 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void DeleteAllHeroes()
+    {
+        for (int i = 0; i < _currentHeroes.Count; i++)
+        {
+            //check if they are destroyed and clean up the node
+            if (_currentHeroes[i] == null)
+            {
+                _currentHeroes.RemoveAt(i);
+            }
+            else
+            {
+                Destroy(_currentHeroes[i]);
+                _currentHeroes.RemoveAt(i);
+            }
+        }
+    }
     private void DeleteWeaponData()
     {
         foreach (GameObject weaponObject in _currentWeapons)
@@ -296,6 +298,56 @@ public class GameStateManager : MonoBehaviour
     #endregion
 
     #region Battle_Related
+    public void WinStage(Stage wonStage)
+    {
+        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
+        for (int i = 0; i < wonStage.heroReward; i++)
+        {
+            GameObject heroObj = Instantiate(_heroPrefab);
+            AddHero(heroObj);
+        }
+
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(true, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+
+        _currentStageIndex++;
+    }
+
+    private void LoseGame()
+    {
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(false, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+    }
+
+    public void RestartGame()
+    {
+        ResetBattleStats();
+        DeleteAllHeroes();
+        DeleteWeaponData();
+        StartCoroutine(LoadRestartedScene());
+    }
+
+    private IEnumerator LoadRestartedScene()
+    {
+        // Start loading the scene
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        // Wait until the level finish loading
+        while (!asyncLoadLevel.isDone)
+            yield return null;
+        // Wait a frame so every Awake and Start method is called
+        yield return new WaitForEndOfFrame();
+
+        InitializeFirstTime();
+        InitializeHeroDisplayPositions();
+
+        yield return new WaitForEndOfFrame();
+    }
     private void HideHeroes()
     {
         for (int i = 0; i < _currentHeroes.Count; i++)
@@ -323,26 +375,52 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void ResetBattleStats()
+    {
+
+        _monsterDamageDone = 0;
+        _monstersKilled = 0;
+        _damageReceived = 0;
+        _monstersPassed = 0;
+        _totalGoldFromStage = 0;
+    }
     public void DamageBlacksmith(int damage)
     {
+
+        _damageReceived += damage;
+        _monstersPassed++;
         _blacksmithCurrentHealth -= damage;
 
         if (_blacksmithCurrentHealth <= 0)
         {
+            WaveManager.Instance.RemoveAllMonsters();
             LoseGame();
         }
-    }
-
-    private void LoseGame()
-    {
-        SceneManager.LoadScene(0);
-        Debug.Log("You lost the game dingus");
     }
 
     #endregion
 
     #region Shop_Related
-
+    public void AddGoldFromMonster(int goldToAdd)
+    {
+        _totalGoldFromStage += goldToAdd;
+    }
+    public void AddMonsterDamageDone(int damage)
+    {
+        _monsterDamageDone += damage;
+    }
+    public void AddDamageReceived(int damage)
+    {
+        _damageReceived += damage;
+    }
+    public void IncrementMonsterKillCount()
+    {
+        _monstersKilled++;
+    }
+    public void IncrementMonsterPassedCount()
+    {
+        _monstersPassed++;
+    }
     public bool IsAffordable(int price)
     {
         return (price <= _currentGold) ? true : false;
@@ -359,15 +437,11 @@ public class GameStateManager : MonoBehaviour
             Debug.LogError("Not enough gold to buy (You shouldn't be able to buy if so)");
         }
     }
-
     private void CalculateGold()
     {
         int baseGold = 100 * (_currentStageIndex + 1);
         _currentGold = baseGold + _totalGoldFromStage;
         _totalGoldFromStage = 0;
     }
-
     #endregion
-
-
 }

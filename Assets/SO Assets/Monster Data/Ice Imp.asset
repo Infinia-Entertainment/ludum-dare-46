@@ -26,7 +26,7 @@ MonoBehaviour:
   monsterType: 0
   isABossMonster: 0
   goldReward: 10
-  health: 60
+  health: 10
   damage: 5
   playerDamage: 10
   speed: 1

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AliveUnit : MonoBehaviour
 {
-    public float defence = 1;
+    public float defence = 0;
     public int health;
     public int maxHealth;
 
@@ -23,17 +23,8 @@ public class AliveUnit : MonoBehaviour
 
     public virtual void ReceiveDamage(int damage)
     {
-        //defence and damage
-        //i want defence to **reduce** the damage not substract it
-
-        //20 damage /40 defence = 0.5 * 20 = 10 damage
-        //20 damage /50 defence = 0.4 * 20 = 8 damage
-        //30 damage /40 defence = 0.75 * 30 = round(22.5) --> 22
-        //30 damage /50 defence = 0.6 * 30 = 18 
-        
-        health -= Mathf.FloorToInt((damage/defence) * damage);
+        health -= Mathf.FloorToInt((damage * (100 / (100 + defence)))); //pretty basic, but works 
         CheckForHealth();
-        //Debug.Log(gameObject.name + " got damaged for " + damage + " damage");
     }
 
 }

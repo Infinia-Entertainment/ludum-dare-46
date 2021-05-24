@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class MonsterController : AliveUnit
 {
-    private bool _isFrontOccupied;
     private float _lastAttack;
-    private bool _isMonsterDying;
-    private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
     private float _raycastLength;
+    private bool _isFrontOccupied;
+    private bool _isMonsterDying;
+    private bool _isLastDamageFromHero;
+    private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
     private Collider _monsterCollider;
     private Animator _animator;
     private RaycastHit _hitInfo;
@@ -32,6 +33,7 @@ public class MonsterController : AliveUnit
         maxHealth = monsterData.health;
         health = maxHealth;
         _lastAttack = Time.time;
+
     }
 
     private void Start()
@@ -47,7 +49,6 @@ public class MonsterController : AliveUnit
             CheckForAttack();
             CheckForHealth();
         }
-
     }
 
     private void PickMonsterMaterial()
@@ -139,9 +140,16 @@ public class MonsterController : AliveUnit
 
     public override void ReceiveDamage(int damage)
     {
+        _isLastDamageFromHero = false;
         base.ReceiveDamage(damage);
         _animator.SetTrigger("Hit");
-
+    }
+    public void ReceiveDamageFromHero(int damage)
+    {
+        _isLastDamageFromHero = true;
+        GameStateManager.Instance.AddMonsterDamageDone(damage);
+        base.ReceiveDamage(damage);
+        _animator.SetTrigger("Hit");
     }
 
     protected override void CheckForHealth()
@@ -151,12 +159,11 @@ public class MonsterController : AliveUnit
             _animator.SetTrigger("Death");
             _isMonsterDying = true;
         }
-
     }
 
     public void FinishDeath()
     {
-        WaveManager.Instance.spawnedMonsters.Remove(gameObject);
+        WaveManager.Instance.RemoveMonsterFromList(gameObject, monsterData, _isLastDamageFromHero);
 
         Destroy(gameObject);
     }

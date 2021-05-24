@@ -11,7 +11,7 @@ public class BlacksmithDamager : MonoBehaviour
             MonsterController monster = other.gameObject.GetComponent<MonsterController>();
             GameStateManager.Instance.DamageBlacksmith(monster.monsterData.playerDamage);
 
-            monster.FinishDeath();
+            monster.ReceiveDamage(999999999);
         }
     }
 }
