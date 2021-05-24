@@ -10932,9 +10932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e366530ca2ebbe54eb34d5ac8c962be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 0
-  health: 1000
-  maxHealth: 1000
+  defence: 0
+  health: 100
+  maxHealth: 100
   weaponObject: {fileID: 4238179120846898282, guid: 079e9d34ed9fd2147962cef8e2a1bf6b,
     type: 3}
   handHoldingWeapon: {fileID: 0}

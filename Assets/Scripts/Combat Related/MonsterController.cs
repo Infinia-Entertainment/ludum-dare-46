@@ -11,6 +11,7 @@ public class MonsterController : AliveUnit
     private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
     private Collider _monsterCollider;
     private Animator _animator;
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     private RaycastHit _hitInfo;
     [SerializeField] private MonsterController _monsterInFront;
 
@@ -30,10 +31,10 @@ public class MonsterController : AliveUnit
 
     public void InitalizeMonsterData()
     {
+        PickMonsterMaterial();
         maxHealth = monsterData.health;
         health = maxHealth;
         _lastAttack = Time.time;
-
     }
 
     private void Start()
@@ -53,24 +54,25 @@ public class MonsterController : AliveUnit
 
     private void PickMonsterMaterial()
     {
+
         switch (monsterData.elementAttribute)
         {
             case GameData.ElementAttribute.None:
                 break;
             case GameData.ElementAttribute.Void:
-                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.voidMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.voidMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Fire:
-                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.fireMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.fireMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Earth:
-                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.earthMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.earthMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Ice:
-                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.iceMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.iceMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Lightning:
-                GetComponent<MeshRenderer>().material = _monsterElementMaterialData.lightningMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.lightningMonsterMaterial;
                 break;
             default:
                 break;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7596442fe287d6241bd89d132172ad0f, type: 3}
-  m_Name: Fire Imp
+  m_Name: Void Imp lvl 1
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,14 +22,14 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   monsterImage: {fileID: 21300000, guid: 11dacc3a316c78a4da0da33e80eca9c3, type: 3}
-  elementAttribute: 2
+  elementAttribute: 1
   monsterType: 0
   isABossMonster: 0
-  goldReward: 10
-  health: 10
+  goldReward: 12
+  health: 20
   damage: 5
   playerDamage: 10
   speed: 1
-  defence: 10
+  defence: 0
   attackRate: 2
   attackDistance: 1
