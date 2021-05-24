@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7596442fe287d6241bd89d132172ad0f, type: 3}
-  m_Name: Ice Imp
+  m_Name: Ice Imp lvl 2
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -25,11 +25,11 @@ MonoBehaviour:
   elementAttribute: 4
   monsterType: 0
   isABossMonster: 0
-  goldReward: 10
-  health: 10
-  damage: 5
-  playerDamage: 10
+  goldReward: 26
+  health: 50
+  damage: 15
+  playerDamage: 20
   speed: 1
   defence: 10
-  attackRate: 2
+  attackRate: 1.75
   attackDistance: 1
