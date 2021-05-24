@@ -16,6 +16,7 @@ public class AttachmentMenu : MonoBehaviour
 
     [SerializeField] private TMP_Text heroCountText;
     [SerializeField] private TMP_Text currentGoldCountText;
+    [SerializeField] private TMP_Text itemCraftPriceText;
     private const string heroCountDescription = "Armed: ";
 
     public Image[] attachmentImages;
@@ -115,6 +116,12 @@ public class AttachmentMenu : MonoBehaviour
     {
         currentGoldCountText.text = $"Current Gold: {GameStateManager.Instance.CurrentGold}";
     }
+
+    public void UpdateCraftPriceUI(int itemPrice)
+    {
+        itemCraftPriceText.text = $"Item Craft Price: {itemPrice}";
+    }
+
     public void Craft()
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
@@ -131,12 +138,20 @@ public class AttachmentMenu : MonoBehaviour
         dropDowns[type].gameObject.SetActive(false);
 
         //Add check for if has enough money and space
-        if (selectedRod != null && selectedAttack != null && selectedElement != null && !choicePanel.activeSelf
-         && GameStateManager.Instance.IsAffordable(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price))
-         )
+        if (selectedRod != null && selectedAttack != null && selectedElement != null && !choicePanel.activeSelf)
         {
-            if (moreCraftingPanel.activeSelf) craftButton2.SetActive(true);
-            else craftButton.SetActive(true);
+            UpdateCraftPriceUI(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price));
+
+            if (GameStateManager.Instance.IsAffordable(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price)))
+            {
+                if (moreCraftingPanel.activeSelf) craftButton2.SetActive(true);
+                else craftButton.SetActive(true);
+            }
+            else
+            {
+                if (moreCraftingPanel.activeSelf) craftButton2.SetActive(false);
+                else craftButton.SetActive(false);
+            }
         }
         else
         {
@@ -144,6 +159,7 @@ public class AttachmentMenu : MonoBehaviour
             else craftButton.SetActive(false);
         }
     }
+
 
     void TriggerCompiling()
     {
