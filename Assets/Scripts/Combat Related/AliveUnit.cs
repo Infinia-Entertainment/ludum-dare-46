@@ -23,7 +23,7 @@ public class AliveUnit : MonoBehaviour
 
     public virtual void ReceiveDamage(int damage)
     {
-        health -= Mathf.FloorToInt((damage * (100 / (100 + defence)))); //pretty basic, but works
+        health -= Mathf.FloorToInt((damage * (100 / (100 + defence)))); //pretty basic, but works 
         CheckForHealth();
     }
 

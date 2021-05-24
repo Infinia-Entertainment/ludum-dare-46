@@ -77,7 +77,6 @@ public class GameStateManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         InitializeFirstTime();
-
         InitializeHeroDisplayPositions();
     }
 
@@ -85,6 +84,7 @@ public class GameStateManager : MonoBehaviour
     {
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
         _currentGold = 100;
+
 
         GameObject firstHero = Instantiate(_heroPrefab);
         AddHero(firstHero);
@@ -177,9 +177,7 @@ public class GameStateManager : MonoBehaviour
 
             _currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
             _currentHeroes.RemoveAt(movedHeroIndex);
-
         }
-
     }
 
     public bool CanBuyWeapon(int price)
@@ -234,6 +232,7 @@ public class GameStateManager : MonoBehaviour
 
     public void UpdateWeaponDisplay()
     {
+        //TODO: add unused heroes back
         HeroController heroController = _currentHeroes[_currentEmptyDisplayHero].GetComponent<HeroController>();
         _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
         _currentEmptyDisplayHero++;
@@ -272,6 +271,22 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void DeleteAllHeroes()
+    {
+        for (int i = 0; i < _currentHeroes.Count; i++)
+        {
+            //check if they are destroyed and clean up the node
+            if (_currentHeroes[i] == null)
+            {
+                _currentHeroes.RemoveAt(i);
+            }
+            else
+            {
+                Destroy(_currentHeroes[i]);
+                _currentHeroes.RemoveAt(i);
+            }
+        }
+    }
     private void DeleteWeaponData()
     {
         foreach (GameObject weaponObject in _currentWeapons)
@@ -308,10 +323,31 @@ public class GameStateManager : MonoBehaviour
 
         //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
         battleUI.InitializResultUI(false, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
-
-        SceneManager.LoadScene(0);
     }
 
+    public void RestartGame()
+    {
+        ResetBattleStats();
+        DeleteAllHeroes();
+        DeleteWeaponData();
+        StartCoroutine(LoadRestartedScene());
+    }
+
+    private IEnumerator LoadRestartedScene()
+    {
+        // Start loading the scene
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        // Wait until the level finish loading
+        while (!asyncLoadLevel.isDone)
+            yield return null;
+        // Wait a frame so every Awake and Start method is called
+        yield return new WaitForEndOfFrame();
+
+        InitializeFirstTime();
+        InitializeHeroDisplayPositions();
+
+        yield return new WaitForEndOfFrame();
+    }
     private void HideHeroes()
     {
         for (int i = 0; i < _currentHeroes.Count; i++)
@@ -357,39 +393,34 @@ public class GameStateManager : MonoBehaviour
 
         if (_blacksmithCurrentHealth <= 0)
         {
+            WaveManager.Instance.RemoveAllMonsters();
             LoseGame();
         }
     }
+
     #endregion
 
     #region Shop_Related
-
     public void AddGoldFromMonster(int goldToAdd)
     {
         _totalGoldFromStage += goldToAdd;
     }
-
     public void AddMonsterDamageDone(int damage)
     {
-        Debug.Log($"Damage added: {damage}");
         _monsterDamageDone += damage;
     }
-
     public void AddDamageReceived(int damage)
     {
         _damageReceived += damage;
     }
-
     public void IncrementMonsterKillCount()
     {
         _monstersKilled++;
     }
-
     public void IncrementMonsterPassedCount()
     {
         _monstersPassed++;
     }
-
     public bool IsAffordable(int price)
     {
         return (price <= _currentGold) ? true : false;
@@ -406,15 +437,11 @@ public class GameStateManager : MonoBehaviour
             Debug.LogError("Not enough gold to buy (You shouldn't be able to buy if so)");
         }
     }
-
     private void CalculateGold()
     {
         int baseGold = 100 * (_currentStageIndex + 1);
         _currentGold = baseGold + _totalGoldFromStage;
         _totalGoldFromStage = 0;
     }
-
     #endregion
-
-
 }

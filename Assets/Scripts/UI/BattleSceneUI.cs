@@ -14,6 +14,7 @@ public class BattleSceneUI : MonoBehaviour
     [SerializeField] private float timeToWriteEntireText;
     [SerializeField] private GameObject gameResultPanel;
     [SerializeField] private TMP_Text gameResultText;
+    [SerializeField] private TMP_Text gameResultButtonText;
     [SerializeField] private TMP_Text monstersKilledCounterText;
     [SerializeField] private TMP_Text damageDoneCounterText;
     [SerializeField] private TMP_Text monstersPassedCounterText;
@@ -43,6 +44,7 @@ public class BattleSceneUI : MonoBehaviour
         if (isAnimatingGameResultText)
         {
             gameResultText.text = hasWon ? "Victory!" : "Defeat!";
+            gameResultButtonText.text = hasWon ? "Next Stage" : "Restart";
 
 
             if (animTimer <= timeToWriteEntireText)
@@ -108,5 +110,9 @@ public class BattleSceneUI : MonoBehaviour
         gameResultPanel.SetActive(true);
     }
 
-
+    public void GameResultButton()
+    {
+        if (hasWon) GameStateManager.Instance.TransitionToShop();
+        else GameStateManager.Instance.RestartGame();
+    }
 }

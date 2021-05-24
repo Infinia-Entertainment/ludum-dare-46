@@ -34,7 +34,6 @@ public class MonsterController : AliveUnit
         health = maxHealth;
         _lastAttack = Time.time;
 
-        Debug.Log(health);
     }
 
     private void Start()
@@ -157,11 +156,9 @@ public class MonsterController : AliveUnit
     {
         if (health <= 0)
         {
-            Debug.Log($"dying   {health}");
             _animator.SetTrigger("Death");
             _isMonsterDying = true;
         }
-
     }
 
     public void FinishDeath()
