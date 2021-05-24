@@ -9,7 +9,6 @@ using Sirenix.Utilities;
 
 public class GameStateManager : MonoBehaviour
 {
-
     [SerializeField] private List<GameObject> _currentWeapons = new List<GameObject>();
     [SerializeField] private List<GameObject> _currentHeroes = new List<GameObject>();
 
@@ -38,6 +37,8 @@ public class GameStateManager : MonoBehaviour
     public List<Stage> GameStages { get => _gameStages; }
     public List<GameObject> CurrentWeapons { get => _currentWeapons; }
     public List<GameObject> CurrentHeroes { get => _currentHeroes; }
+    public int CurrentGold { get => _currentGold; }
+
     public float spacingBetweenHeroes = 0.75f;
 
     [Header("Stage Result Stats")]
