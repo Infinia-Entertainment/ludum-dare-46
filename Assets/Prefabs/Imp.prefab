@@ -12200,6 +12200,7 @@ MonoBehaviour:
   defence: 1
   health: 0
   maxHealth: 20
+  _meshRenderer: {fileID: 2628107527587174205}
   _monsterInFront: {fileID: 0}
   _monsterElementMaterialData: {fileID: 11400000, guid: 2970a004312bef743adf3549e7effd30,
     type: 2}
