@@ -15,6 +15,7 @@ public class AttachmentMenu : MonoBehaviour
     public GameObject currentWeapon;
 
     [SerializeField] private TMP_Text heroCountText;
+    [SerializeField] private TMP_Text currentGoldCountText;
     private const string heroCountDescription = "Armed: ";
 
     public Image[] attachmentImages;
@@ -34,6 +35,7 @@ public class AttachmentMenu : MonoBehaviour
     private void Start()
     {
         UpdateHeroCountUI();
+        UpdateCurrentGoldCountUI();
     }
     public void SlotClicked(int slotType = 1)
     {
@@ -109,6 +111,10 @@ public class AttachmentMenu : MonoBehaviour
         GameStateManager gameManager = GameStateManager.Instance;
         heroCountText.text = heroCountDescription + gameManager.CurrentWeapons.Count.ToString() + "/" + gameManager.CurrentHeroes.Count.ToString();
     }
+    public void UpdateCurrentGoldCountUI()
+    {
+        currentGoldCountText.text = $"Current Gold: {GameStateManager.Instance.CurrentGold}";
+    }
     public void Craft()
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
@@ -145,6 +151,7 @@ public class AttachmentMenu : MonoBehaviour
         GameStateManager.Instance.BuyWeapon(CalculatePrice(selectedRod.price, selectedAttack.price, selectedElement.price), currentWeapon);
 
         UpdateHeroCountUI();
+        UpdateCurrentGoldCountUI();
 
         if (GameStateManager.Instance.CurrentHeroes.Count <= GameStateManager.Instance.CurrentWeapons.Count)
             craftMoreButton.SetActive(false);
