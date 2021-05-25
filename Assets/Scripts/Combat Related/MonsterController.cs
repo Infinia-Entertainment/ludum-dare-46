@@ -9,7 +9,7 @@ public class MonsterController : AliveUnit
     private bool _isMonsterDying;
     private bool _isLastDamageFromHero;
     private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
-    private Collider _monsterCollider;
+    private BoxCollider _monsterCollider;
     private Animator _animator;
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     private RaycastHit _hitInfo;
@@ -25,16 +25,26 @@ public class MonsterController : AliveUnit
     {
         _isFrontOccupied = false;
         _animator = GetComponent<Animator>();
-        _monsterCollider = GetComponent<Collider>();
+        _monsterCollider = GetComponent<BoxCollider>();
         _raycastLength = _monsterCollider.bounds.size.x / 2;
     }
 
     public void InitalizeMonsterData()
     {
         PickMonsterMaterial();
+        MorphIntoBoss();
         maxHealth = monsterData.health;
         health = maxHealth;
         _lastAttack = Time.time;
+    }
+
+    private void MorphIntoBoss()
+    {
+        if (monsterData.isABossMonster)
+        {
+            transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            _monsterCollider.size = new Vector3(0.725f, 0.725f, 0.725f);
+        }
     }
 
     private void Start()

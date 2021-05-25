@@ -12130,9 +12130,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4676764223662754273}
   - component: {fileID: 216974089490790029}
-  - component: {fileID: 1203545771368884982}
   - component: {fileID: 1173451110593265012}
   - component: {fileID: 4051080576030779985}
+  - component: {fileID: 4038464582204140183}
   m_Layer: 12
   m_Name: Imp
   m_TagString: Monster
@@ -12172,19 +12172,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1203545771368884982
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7998595817620121964}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1173451110593265012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12225,6 +12212,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &4038464582204140183
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998595817620121964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &8022373769801055999
 GameObject:
   m_ObjectHideFlags: 0
