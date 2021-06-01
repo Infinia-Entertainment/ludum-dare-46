@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f99e031b5594b4b99abe04a943bd8f, type: 3}
+  m_Name: 4rd Stage
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Waves:
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: 90c585c43401cd1459fe778ae529d482, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 90c585c43401cd1459fe778ae529d482, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: e8f3f2d7ffbe6d9458c79fb27e80a5cc, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 79ee5389685cb1d4fb34642b921d49ac, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    delayAfterWave: 6
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 90c585c43401cd1459fe778ae529d482, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 90c585c43401cd1459fe778ae529d482, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    delayAfterWave: 5
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: 5b6c243fdfa341b4ab7d0d0f775ec48d, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: e8f3f2d7ffbe6d9458c79fb27e80a5cc, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: d47652d9bf10ca540ab32896525f768a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
+    delayAfterWave: 0
+  heroReward: 1

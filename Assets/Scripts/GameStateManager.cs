@@ -162,8 +162,10 @@ public class GameStateManager : MonoBehaviour
 
         InitializeHeroDisplayPositions();
         CalculateGold();
+        FindObjectOfType<AttachmentMenu>().UpdateCurrentGoldCountUI();
 
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
+        _currentEmptyDisplayHero = 0;
 
         yield return new WaitForEndOfFrame();
     }

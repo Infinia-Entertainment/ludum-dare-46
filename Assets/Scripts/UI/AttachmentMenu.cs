@@ -114,6 +114,7 @@ public class AttachmentMenu : MonoBehaviour
     }
     public void UpdateCurrentGoldCountUI()
     {
+        Debug.Log("updated gold UI");
         currentGoldCountText.text = $"Current Gold: {GameStateManager.Instance.CurrentGold}";
     }
 
@@ -130,8 +131,11 @@ public class AttachmentMenu : MonoBehaviour
             else craftButton.SetActive(false);
             FindObjectOfType<BlackSmith>().TriggerCrafting();
             Invoke("TriggerCompiling", 2.7f);
+            GameStateManager.Instance.Invoke("UpdateWeaponDisplay", 5.2f);
+
         }
     }
+
     void UpdateElements(int type)
     {
         attachmentImages[type].enabled = true;
@@ -197,6 +201,7 @@ public class AttachmentMenu : MonoBehaviour
         {
             currentWeapon.GetComponent<Animator>().enabled = false;
         }
-        GameStateManager.Instance.UpdateWeaponDisplay();
     }
+
+
 }

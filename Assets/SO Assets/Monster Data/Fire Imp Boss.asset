@@ -25,11 +25,11 @@ MonoBehaviour:
   elementAttribute: 2
   monsterType: 0
   isABossMonster: 1
-  goldReward: 35
-  health: 100
-  damage: 20
+  goldReward: 50
+  health: 120
+  damage: 25
   playerDamage: 50
   speed: 0.5
   defence: 20
-  attackRate: 1.5
+  attackRate: 2.5
   attackDistance: 1

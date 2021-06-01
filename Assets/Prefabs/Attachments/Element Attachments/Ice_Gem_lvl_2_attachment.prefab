@@ -94,4 +94,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentWeaponElement: 4
-  elementModifierStrength: 0
+  elementModifierStrength: 1
