@@ -114,7 +114,6 @@ public class AttachmentMenu : MonoBehaviour
     }
     public void UpdateCurrentGoldCountUI()
     {
-        Debug.Log("updated gold UI");
         currentGoldCountText.text = $"Current Gold: {GameStateManager.Instance.CurrentGold}";
     }
 
@@ -132,7 +131,6 @@ public class AttachmentMenu : MonoBehaviour
             FindObjectOfType<BlackSmith>().TriggerCrafting();
             Invoke("TriggerCompiling", 2.7f);
             GameStateManager.Instance.Invoke("UpdateWeaponDisplay", 5.2f);
-
         }
     }
 

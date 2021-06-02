@@ -10,7 +10,7 @@ public class HeroController : AliveUnit
 {
     [SerializeField] public GameObject weaponObject;
     [SerializeField] private GameObject handHoldingWeapon;
-
+    [SerializeField] private DragAndDrop dragAndDrop;
     private StaffWeapon _weapon;
 
     float lastAttack;
@@ -132,4 +132,13 @@ public class HeroController : AliveUnit
         Destroy(gameObject);
     }
 
+    public void DisableDragger()
+    {
+        dragAndDrop.enabled = false;
+    }
+
+    public void EnableDragger()
+    {
+        dragAndDrop.enabled = true;
+    }
 }

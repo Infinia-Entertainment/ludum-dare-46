@@ -52,9 +52,9 @@ public class NextWaveUI : MonoBehaviour
 
                 foreach (MonsterFilterData filterData in filteredMonsters)
                 {
-                    if (CompareMobs(filterData, mob)) goto monsterAlreadyStored;
+                    //FIXME: prematurely exist the loop, more unique mobs possible after first check
+                    if (IsSameMob(filterData, mob)) goto monsterAlreadyStored;
                     else isUniqueMob = true;
-
                 }
                 if (isUniqueMob) AddMobToFilteredList(mob);
 
@@ -63,8 +63,11 @@ public class NextWaveUI : MonoBehaviour
             }
         }
 
+
         foreach (MonsterFilterData mobData in filteredMonsters)
         {
+            Debug.Log(mobData);
+
             Sprite spriteToAssign;
 
             switch (mobData.elementAttribute)
@@ -106,7 +109,7 @@ public class NextWaveUI : MonoBehaviour
         );
     }
 
-    private bool CompareMobs(MonsterFilterData filterData, MobWave.Mob mob)
+    private bool IsSameMob(MonsterFilterData filterData, MobWave.Mob mob)
     {
         return (filterData.monsterType == mob.monsterData.monsterType
         && filterData.elementAttribute == mob.monsterData.elementAttribute

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragandDrop : MonoBehaviour
+public class DragAndDrop : MonoBehaviour
 {
     float followSpeed = 17f;
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class DragandDrop : MonoBehaviour
             {
                 initialPos = transform.position;
                 initialRot = transform.rotation.y;
-                if( Physics.Raycast(ray, out hit, 50, 1 << 13) &&  transform.gameObject == hit.transform.gameObject)
+                if (Physics.Raycast(ray, out hit, 50, 1 << 13) && transform.gameObject == hit.transform.gameObject)
                 {
                     isSelected = true;
                     isRepositioning = true;
@@ -51,31 +51,31 @@ public class DragandDrop : MonoBehaviour
                 if (target != Vector3.zero)
                 {
                     transform.position = Vector3.Lerp(transform.position, target, followSpeed * Time.deltaTime);
-                    transform.eulerAngles = new Vector3 (0,-180,0);
+                    transform.eulerAngles = new Vector3(0, -180, 0);
                 }
                 else
                 {
                     transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
-                    transform.eulerAngles = new Vector3 (0,-90,0);
+                    transform.eulerAngles = new Vector3(0, -90, 0);
                 }
             }
         }
 
         if (Input.GetMouseButtonUp(0) && isRepositioning == true && isSelected)
         {
-           
+
             isRepositioning = false;
             int layerMask = 1 << 8;
             Ray ray;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 50, layerMask, QueryTriggerInteraction.Ignore) && hit.transform.CompareTag("Platform") )
+            if (Physics.Raycast(ray, out hit, 50, layerMask, QueryTriggerInteraction.Ignore) && hit.transform.CompareTag("Platform"))
             {
                 Platform platform = hit.transform.gameObject.GetComponent<Platform>();
                 if (!platform.hasObject)
                 {
                     transform.position = hit.transform.position;
-                    transform.eulerAngles = new Vector3 (0,-180,0);
+                    transform.eulerAngles = new Vector3(0, -180, 0);
 
                     platform.hasObject = true;
 
@@ -95,5 +95,20 @@ public class DragandDrop : MonoBehaviour
 
             isSelected = false;
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public override bool Equals(object other)
+    {
+        return base.Equals(other);
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
     }
 }

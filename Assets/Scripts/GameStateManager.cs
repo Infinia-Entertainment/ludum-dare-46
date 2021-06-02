@@ -98,8 +98,12 @@ public class GameStateManager : MonoBehaviour
 
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
+            HeroController heroController = _currentHeroes[i].GetComponent<HeroController>();
+
             _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
             _currentHeroes[i].transform.eulerAngles = _spawnPoints[i].eulerAngles; //set rotation
+
+            heroController.DisableDragger();
         }
     }
 
@@ -122,21 +126,18 @@ public class GameStateManager : MonoBehaviour
 
         HideHeroes();
         HideWeapons();
-
         AssignWeaponsToHeroes();
-
         InstantiateHeroUI();
-
-        //If null reference add the test stage to game manager stage list stuff
-        WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
-
         ResetBattleStats();
         FindObjectOfType<BattleSceneUI>().EnableUI();
 
+        WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
         WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
 
         yield return new WaitForEndOfFrame();
     }
+
+
 
     private void AssignWeaponsToHeroes()
     {
@@ -148,6 +149,7 @@ public class GameStateManager : MonoBehaviour
             heroController.weaponObject = _currentWeapons[i];
             heroController.InitializeWeaponPosition();
             heroController.InitalizeWeaponData();
+            heroController.EnableDragger();
         }
     }
 

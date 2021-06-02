@@ -10938,6 +10938,7 @@ MonoBehaviour:
   weaponObject: {fileID: 4238179120846898282, guid: 079e9d34ed9fd2147962cef8e2a1bf6b,
     type: 3}
   handHoldingWeapon: {fileID: 0}
+  dragAndDrop: {fileID: 2072830742273499420}
   isSelected: 0
   isInitialized: 0
 --- !u!114 &5470886024712041712
