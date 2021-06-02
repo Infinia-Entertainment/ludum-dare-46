@@ -41,7 +41,7 @@ public class NextWaveUI : MonoBehaviour
             foreach (MobWave.Mob mob in wave.mobsInTheWave)
             {
 
-                bool isUniqueMob = false;
+                bool isUniqueMob = true;
 
                 //add and skip the fist mob as it's always unique
                 if (filteredMonsters.Count == 0)
@@ -52,14 +52,13 @@ public class NextWaveUI : MonoBehaviour
 
                 foreach (MonsterFilterData filterData in filteredMonsters)
                 {
-                    //FIXME: prematurely exist the loop, more unique mobs possible after first check
-                    if (IsSameMob(filterData, mob)) goto monsterAlreadyStored;
-                    else isUniqueMob = true;
+                    if (IsSameMob(filterData, mob))
+                    {
+                        isUniqueMob = false;
+                        break;
+                    }
                 }
                 if (isUniqueMob) AddMobToFilteredList(mob);
-
-                monsterAlreadyStored:
-                break;
             }
         }
 
