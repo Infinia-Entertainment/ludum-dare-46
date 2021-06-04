@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 3e197bbe20f4ace4aa7546e8fcba4fba,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -432,20 +432,45 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wave Spawner Positions
       objectReference: {fileID: 0}
+    - target: {fileID: 8712362914059890623, guid: 6b317ba28e3d6364d86e9ef15885556b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712362914175159493, guid: 6b317ba28e3d6364d86e9ef15885556b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8712362914175159498, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
       propertyPath: m_TagString
       value: Wave Spawner Positions
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712362914309004072, guid: 6b317ba28e3d6364d86e9ef15885556b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8712362914309004073, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
       propertyPath: m_TagString
       value: Wave Spawner Positions
       objectReference: {fileID: 0}
+    - target: {fileID: 8712362914598613292, guid: 6b317ba28e3d6364d86e9ef15885556b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8712362914598613293, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
       propertyPath: m_TagString
       value: Wave Spawner Positions
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712362915875136940, guid: 6b317ba28e3d6364d86e9ef15885556b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8712362915875136941, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
@@ -465,7 +490,7 @@ PrefabInstance:
     - target: {fileID: 8712362915941295633, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.8000002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8712362915941295633, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
