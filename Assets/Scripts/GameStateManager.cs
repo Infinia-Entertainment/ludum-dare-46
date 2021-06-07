@@ -28,8 +28,6 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Stage> _gameStages;
 
-
-
     public List<Transform> _spawnPoints = new List<Transform>();
 
     public static GameStateManager Instance { get => _gameStateManager; }
@@ -185,6 +183,15 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void MoveUnusedHeroesBack()
+    {
+        for (int i = _currentUnusedHeroes.Count - 1; i >= 0; i--)
+        {
+            _currentHeroes.Add(_currentUnusedHeroes[i]);
+            _currentUnusedHeroes.RemoveAt(i);
+        }
+    }
+
     public bool CanBuyWeapon(int price)
     {
         //returns true if there are enough heroes to buy it
@@ -210,6 +217,7 @@ public class GameStateManager : MonoBehaviour
     public void TransitionToShop()
     {
         DeleteDeadHeroes();
+        MoveUnusedHeroesBack();
         StoreHeroes();
         DeleteWeaponData();
         StartCoroutine(LoadShopScene());

@@ -50,7 +50,7 @@ public class StaffWeapon : MonoBehaviour
 
     #endregion Test Code Only
 
-    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement, int damage, int weaponDefence, float fireRate, float range, float elementDamageModifier)
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement, int damage, int weaponDefence, float fireRate, float meleeRange, float magicRange, float elementDamageModifier)
     {
         _weaponType = weaponType;
         _weaponElement = weaponElement;
@@ -59,7 +59,7 @@ public class StaffWeapon : MonoBehaviour
         _baseDamage = damage;
         _baseDefence = weaponDefence;
         _attackRate = fireRate;
-        _attackRange = range;
+        _attackRange = (weaponType == WeaponType.Melee) ? meleeRange : magicRange;
         _elementDamageModifier = elementDamageModifier;
 
         //ProcessBuffEffects();

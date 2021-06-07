@@ -11756,7 +11756,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1217907010}
   m_HandleRect: {fileID: 1217907009}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -19811,7 +19811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0021972656}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2126205283
@@ -20033,6 +20033,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14cf156f988d0b04faae9313aad4a9cd, type: 2}
   - {fileID: 11400000, guid: 81e6ccfd2f688234c89bc7d5b0a5af7e, type: 2}
   - {fileID: 11400000, guid: cbbea57a207934e488ac60c803020b83, type: 2}
+  rodButton: {fileID: 2035224813}
+  attackButton: {fileID: 1909504691}
+  elemetButton: {fileID: 272878782}
   dropDowns:
   - {fileID: 1347643745}
   - {fileID: 1386037296}

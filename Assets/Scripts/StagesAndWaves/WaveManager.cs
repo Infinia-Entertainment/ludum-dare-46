@@ -67,6 +67,9 @@ public class WaveManager : MonoBehaviour
     public IEnumerator StartSpawning()
     {
         _waveCount = 0;
+
+        yield return new WaitForSeconds(5f);
+
         foreach (MobWave currentWave in currentStage.Waves)
         {
             _waveCount++;

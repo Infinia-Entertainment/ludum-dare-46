@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 3e197bbe20f4ace4aa7546e8fcba4fba,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -330,7 +330,7 @@ PrefabInstance:
     - target: {fileID: 1097267819008483752, guid: 2e2bfe48dd648fa419d65d1d85f0f31d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1097267819008483752, guid: 2e2bfe48dd648fa419d65d1d85f0f31d,
         type: 3}
@@ -480,7 +480,7 @@ PrefabInstance:
     - target: {fileID: 8712362915941295633, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 8712362915941295633, guid: 6b317ba28e3d6364d86e9ef15885556b,
         type: 3}
@@ -949,7 +949,7 @@ PrefabInstance:
     - target: {fileID: 7671274441282707343, guid: 4a22afc10d74f85418af066816906d35,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.5
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 7671274441282707343, guid: 4a22afc10d74f85418af066816906d35,
         type: 3}
@@ -959,7 +959,7 @@ PrefabInstance:
     - target: {fileID: 7671274441282707343, guid: 4a22afc10d74f85418af066816906d35,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.72
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7671274441282707343, guid: 4a22afc10d74f85418af066816906d35,
         type: 3}
@@ -2910,7 +2910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878346002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.017, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464440816}
