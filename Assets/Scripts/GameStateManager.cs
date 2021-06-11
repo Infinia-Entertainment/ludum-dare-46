@@ -38,13 +38,33 @@ public class GameStateManager : MonoBehaviour
     public int CurrentGold { get => _currentGold; }
 
     public float spacingBetweenHeroes = 0.75f;
-
+    [Space()]
     [Header("Stage Result Stats")]
     [SerializeField] private int _monsterDamageDone;
     [SerializeField] private int _monstersKilled;
     [SerializeField] private int _damageReceived;
     [SerializeField] private int _monstersPassed;
     [SerializeField] private int _totalGoldFromStage;
+
+
+    [Space()]
+    [Header("Gradient date")]
+    [SerializeField] public Gradient fireGradient;
+    [SerializeField] public Gradient lightningGradient;
+    [SerializeField] public Gradient iceGradient;
+    [SerializeField] public Gradient earthGradient;
+    [SerializeField] public Gradient voidGradient;
+
+    // GradientColorKey[] fireColorKey =
+    // {
+    //         new GradientColorKey(Color.red,0.0f),
+    //     };
+    // GradientAlphaKey[] fireAlphaKey =
+    // {
+    //         new GradientAlphaKey(1.0f, 0.0f),
+    //         new GradientAlphaKey(1.0f, 9.0f),
+    //         new GradientAlphaKey(0.0f, 1.0f),
+    // };
 
     private void Update()
     {
@@ -130,12 +150,10 @@ public class GameStateManager : MonoBehaviour
         FindObjectOfType<BattleSceneUI>().EnableUI();
 
         WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
-        WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
+        //WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
 
         yield return new WaitForEndOfFrame();
     }
-
-
 
     private void AssignWeaponsToHeroes()
     {
@@ -457,4 +475,28 @@ public class GameStateManager : MonoBehaviour
         _totalGoldFromStage = 0;
     }
     #endregion
+
+    #region Other_Utilities
+
+    public Gradient GetGradientFromElement(GameData.ElementAttribute elementAttribute)
+    {
+        switch (elementAttribute)
+        {
+            case GameData.ElementAttribute.Fire:
+                return fireGradient;
+            case GameData.ElementAttribute.Earth:
+                return earthGradient;
+            case GameData.ElementAttribute.Ice:
+                return iceGradient;
+            case GameData.ElementAttribute.Lightning:
+                return lightningGradient;
+            case GameData.ElementAttribute.Void:
+                return voidGradient;
+            default:
+                return fireGradient;
+
+        }
+    }
+    #endregion
+
 }

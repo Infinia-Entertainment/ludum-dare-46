@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.VFX;
 using static GameData.GameFunctions;
 
 public class MagicProjectile : MonoBehaviour
 {
     private int _baseDamage;
     private float _elementDamageModifier;
-    ElementAttribute _projectileElement;
+    [SerializeField] private VisualEffect _projectileVFX;
 
+    ElementAttribute _projectileElement;
     Vector3 translation = new Vector3(0, 2.5f, 0);
 
     private void Update()
@@ -24,6 +26,7 @@ public class MagicProjectile : MonoBehaviour
         _baseDamage = damage;
         _elementDamageModifier = elementDamageModifier;
         _projectileElement = elementAttribute;
+        _projectileVFX.SetGradient("Particle Gradient", GameStateManager.Instance.GetGradientFromElement(_projectileElement));
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MonsterController : AliveUnit
 {
@@ -14,9 +15,9 @@ public class MonsterController : AliveUnit
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     private RaycastHit _hitInfo;
     [SerializeField] private MonsterController _monsterInFront;
-
     [SerializeField] private MonsterElementMaterialData _monsterElementMaterialData;
     [SerializeField] private GameObject hero;
+    [SerializeField] private VisualEffect _projectileVFX;
 
     public MonsterData monsterData;
 
@@ -33,6 +34,7 @@ public class MonsterController : AliveUnit
     {
         PickMonsterMaterial();
         MorphIntoBoss();
+        _projectileVFX.SetGradient("Particle Gradient", GameStateManager.Instance.GetGradientFromElement(monsterData.elementAttribute));
         maxHealth = monsterData.health;
         health = maxHealth;
         _lastAttack = Time.time;

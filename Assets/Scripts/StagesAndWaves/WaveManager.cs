@@ -11,10 +11,11 @@ public class WaveManager : MonoBehaviour
 
 
     public Stage currentStage;
-    public MobWave _currentWave;
     private int _waveCount;
     public int numSpawnPoints;
     public List<Transform> spawnPoints;
+    [SerializeField] private GameObject startBattleButton;
+    public MobWave _currentWave;
     private static WaveManager _waveManager;
 
     [OdinSerialize] public List<GameObject> spawnedMonsters = new List<GameObject>();
@@ -68,7 +69,7 @@ public class WaveManager : MonoBehaviour
     {
         _waveCount = 0;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
 
         foreach (MobWave currentWave in currentStage.Waves)
         {
@@ -96,6 +97,12 @@ public class WaveManager : MonoBehaviour
             monsterNum -= 1;
         }*/
 
+    }
+
+    public void StartBattle()
+    {
+        StartCoroutine(StartSpawning());
+        startBattleButton.SetActive(false);
     }
 
     public void RemoveAllMonsters()

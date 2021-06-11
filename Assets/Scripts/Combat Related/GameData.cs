@@ -31,8 +31,14 @@ namespace GameData
         ElementModifier
     }
 
+
+
+
     public static class GameFunctions
     {
+
+
+
         public static int CalculateDamage(int basedamage, float elementDamageModifier, ElementAttribute damagingElement, ElementAttribute monsterElementType)
         {
             //Compare weapon type and monster type
@@ -86,5 +92,7 @@ namespace GameData
 
             return Mathf.RoundToInt(adjustedDamage);
         }
+
+
     }
 }
