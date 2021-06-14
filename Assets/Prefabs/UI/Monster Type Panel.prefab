@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterSpriteRenderer: {fileID: 4998201715261185735}
   elementTypeSpriteRenderer: {fileID: 746985054203913425}
+  bossIconObj: {fileID: 7532302563524269487}
 --- !u!1 &4918201673399781865
 GameObject:
   m_ObjectHideFlags: 0
