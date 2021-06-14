@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -21,7 +21,9 @@ public class MonsterController : AliveUnit
 
     public MonsterData monsterData;
 
+    //comment
     private bool _isMonsterStopped = false;
+
     private void Awake()
     {
         _isFrontOccupied = false;

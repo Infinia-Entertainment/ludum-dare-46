@@ -93,7 +93,7 @@ public class NextWaveUI : MonoBehaviour
             }
 
             GameObject cellUI = Instantiate(_nextMonsterUICellPrefab, _contentGameObject.transform);
-            cellUI.GetComponent<NextWaveMonsterUICell>().InitializeCell(mobData.monsterImage, spriteToAssign);
+            cellUI.GetComponent<NextWaveMonsterUICell>().InitializeCell(mobData.monsterImage, spriteToAssign, mobData.isABossMonster);
         }
     }
 

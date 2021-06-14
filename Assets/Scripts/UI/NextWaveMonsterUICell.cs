@@ -6,9 +6,12 @@ public class NextWaveMonsterUICell : MonoBehaviour
 {
     [SerializeField] SpriteRenderer monsterSpriteRenderer;
     [SerializeField] SpriteRenderer elementTypeSpriteRenderer;
-    public void InitializeCell(Sprite monsterSprite, Sprite elementTypeSprite)
+    [SerializeField] GameObject bossIconObj;
+
+    public void InitializeCell(Sprite monsterSprite, Sprite elementTypeSprite,bool isABossMonster)
     {
         monsterSpriteRenderer.sprite = monsterSprite;
         elementTypeSpriteRenderer.sprite = elementTypeSprite;
+        bossIconObj.SetActive(isABossMonster);
     }
 }
