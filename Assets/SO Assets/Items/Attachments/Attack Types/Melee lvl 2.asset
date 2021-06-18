@@ -16,6 +16,6 @@ MonoBehaviour:
   itemObject: {fileID: 467175976479881525, guid: 7698864794e69e244a182d5b97b685d4,
     type: 3}
   itemName: Melee lvl 2
-  price: 40
+  price: 45
   itemDescription: Base 1
   assignedID: 1

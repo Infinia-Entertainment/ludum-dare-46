@@ -8,30 +8,33 @@ using UnityEngine.XR;
 
 public class HeroController : AliveUnit
 {
-    [SerializeField] public GameObject weaponObject;
-    [SerializeField] private GameObject handHoldingWeapon;
-    [SerializeField] private DragAndDrop dragAndDrop;
-    private StaffWeapon _weapon;
-
-    float lastAttack;
-    RaycastHit attackHitInfo;
-
-    Animator animator;
-
     public bool isSelected;
     public bool isInitialized;
-
+    public GameObject weaponObject;
     public StaffWeapon Weapon { get => _weapon; }
+
+    [SerializeField] private GameObject _handHoldingWeapon;
+    [SerializeField] private AudioClip _heroDamagedSound;
+
+    private DragAndDrop _dragAndDrop;
+    private Animator _animator;
+    private AudioSource _audioSource;
+    
+    private float _lastAttack;
+    private RaycastHit _attackHitInfo;
+    private StaffWeapon _weapon;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+        _dragAndDrop = GetComponent<DragAndDrop>();
 
-        handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
+        _handHoldingWeapon = GetComponentInChildren<WeaponHolder>().gameObject;
 
         health = maxHealth;
 
-        lastAttack = Time.time;
+        _lastAttack = Time.time;
 
 
         //test only
@@ -45,11 +48,9 @@ public class HeroController : AliveUnit
         defence = _weapon.Basedefence;
     }
 
-
-
     public void InitializeWeaponPosition()
     {
-        weaponObject.transform.parent = handHoldingWeapon.transform;
+        weaponObject.transform.parent = _handHoldingWeapon.transform;
         weaponObject.transform.localPosition = new Vector3(0.147f, 0.576f, 0.08f);
         weaponObject.transform.localEulerAngles = new Vector3(80f, -2.59f, 48f);
     }
@@ -65,21 +66,21 @@ public class HeroController : AliveUnit
     //!!!!!!!!!!!Do anims here!!!!!!!!!
     private void CheckForAttackRange()
     {
-        if (!Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.TransformDirection(Vector3.left), out attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
+        if (!Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), transform.TransformDirection(Vector3.left), out _attackHitInfo, 10, 1 << 12)) // 1 << 12 Monster Layer
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 10, Color.red);
             return;
         }
 
-        //Debug.Log(attackHitInfo.collider.gameObject);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * attackHitInfo.distance, Color.green);
+        //Debug.Log(_attackHitInfo.collider.gameObject);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * _attackHitInfo.distance, Color.green);
 
         //Check for attack Rate
-        if (Time.time - lastAttack >= _weapon.AttackRate)
+        if (Time.time - _lastAttack >= _weapon.AttackRate)
         {
 
             //Just checks if attack is within range
-            if (attackHitInfo.distance <= _weapon.AttackRange)
+            if (_attackHitInfo.distance <= _weapon.AttackRange)
             {
                 if (_weapon.WeaponType == WeaponType.Melee)
                 {
@@ -91,39 +92,40 @@ public class HeroController : AliveUnit
                 }
             }
 
-            lastAttack = Time.time;
+            _lastAttack = Time.time;
         }
     }
 
     private void DoRangedAttackAnimation()
     {
-        animator.SetTrigger("Range attack");
+        _animator.SetTrigger("Range attack");
     }
 
     public void CarryOutAttack()
     {
-        if (attackHitInfo.collider)
+        if (_attackHitInfo.collider)
         {
-            _weapon.DoAttack(attackHitInfo);
+            _weapon.DoAttack(_attackHitInfo);
         }
     }
 
     private void DoMeleeAttackAnimation()
     {
-        animator.SetTrigger("Melee attack");
+        _animator.SetTrigger("Melee attack");
     }
 
     public override void ReceiveDamage(int damage)
     {
         base.ReceiveDamage(damage);
-        animator.SetTrigger("IsHit");
+        _audioSource.PlayOneShot(_heroDamagedSound);
+        _animator.SetTrigger("IsHit");
     }
 
     protected override void CheckForHealth()
     {
         if (health <= 0)
         {
-            animator.SetTrigger("Death");
+            _animator.SetTrigger("Death");
         }
     }
 
@@ -134,11 +136,13 @@ public class HeroController : AliveUnit
 
     public void DisableDragger()
     {
-        dragAndDrop.enabled = false;
+        _dragAndDrop.enabled = false;
     }
 
     public void EnableDragger()
     {
-        dragAndDrop.enabled = true;
+        _dragAndDrop.enabled = true;
     }
+
+
 }

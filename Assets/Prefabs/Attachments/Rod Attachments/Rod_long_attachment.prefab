@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac96d0520c9cfb42abb14ce3b1a9506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentMeleeAttackRange: 5
+  attachmentMeleeAttackRange: 4
   attachmentMagicAttackRange: 8
   attachmentFireRate: 2.5
   attachmentdefence: 4

@@ -12,12 +12,16 @@ public class MonsterController : AliveUnit
     private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
     private BoxCollider _monsterCollider;
     private Animator _animator;
+    private AudioSource _audioSource;
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     private RaycastHit _hitInfo;
     [SerializeField] private MonsterController _monsterInFront;
     [SerializeField] private MonsterElementMaterialData _monsterElementMaterialData;
     [SerializeField] private GameObject hero;
     [SerializeField] private VisualEffect _projectileVFX;
+    [SerializeField] private AudioClip _monsterDamageSound;
+    [SerializeField] private AudioClip _monsterDeathSound;
+    [SerializeField] private AudioClip _monsterAttackSound;
 
     public MonsterData monsterData;
 
@@ -28,6 +32,7 @@ public class MonsterController : AliveUnit
     {
         _isFrontOccupied = false;
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
         _monsterCollider = GetComponent<BoxCollider>();
         _raycastLength = _monsterCollider.bounds.size.x / 2;
     }
@@ -165,6 +170,7 @@ public class MonsterController : AliveUnit
         _isLastDamageFromHero = true;
         GameStateManager.Instance.AddMonsterDamageDone(damage);
         base.ReceiveDamage(damage);
+        AudioSource.PlayClipAtPoint(_monsterDamageSound, transform.position, 0.3f);
         _animator.SetTrigger("Hit");
     }
 
@@ -172,6 +178,7 @@ public class MonsterController : AliveUnit
     {
         if (health <= 0)
         {
+            AudioSource.PlayClipAtPoint(_monsterDeathSound, transform.position, 0.5f);
             _animator.SetTrigger("Death");
             _isMonsterDying = true;
         }
@@ -189,6 +196,7 @@ public class MonsterController : AliveUnit
     {
         if (_hitInfo.collider)
         {
+            _audioSource.PlayOneShot(_monsterAttackSound);
             _hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
         }
     }

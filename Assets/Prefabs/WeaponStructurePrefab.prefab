@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  attachmentDamage: 0
 --- !u!1 &119991746711950250
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982e52381912cb84bb621b2513606743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponElement: 4
+  attachmentWeaponElement: 0
+  elementModifierStrength: 0
 --- !u!1 &119991746940550019
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac96d0520c9cfb42abb14ce3b1a9506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachmentMeleeAttackRange: 0
+  attachmentMagicAttackRange: 0
+  attachmentFireRate: 0
+  attachmentdefence: 0
 --- !u!1 &119991748214671791
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,8 +423,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 119991748214671794}
-  - component: {fileID: 119991748214671789}
+  - component: {fileID: -8523234447848579104}
   - component: {fileID: 119991748214671788}
+  - component: {fileID: 119991748214671789}
   m_Layer: 0
   m_Name: WeaponStructurePrefab
   m_TagString: Untagged
@@ -443,29 +450,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &119991748214671789
-MonoBehaviour:
+--- !u!82 &-8523234447848579104
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119991748214671791}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bccbd2412d1abb84c9a01659c6e7e684, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rodAttachment: {fileID: 119991747658431786}
-  attackTypeAttachment: {fileID: 119991746245917952}
-  elementTypeAttachment: {fileID: 119991746711950250}
-  buffAttachments: []
-  projectilePrefab: {fileID: 6103128741939219082, guid: d084b210b5ae714409cfa64bb73fd386,
-    type: 3}
-  _baseDamage: 10
-  _adjustedToWeaponDamage: 30
-  _elementDamageModifier: 0.5
-  _attackRate: 1
-  defenceModifier: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &119991748214671788
 Animator:
   serializedVersion: 3
@@ -485,3 +565,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &119991748214671789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119991748214671791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccbd2412d1abb84c9a01659c6e7e684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rodAttachment: {fileID: 119991747658431786}
+  attackTypeAttachment: {fileID: 119991746245917952}
+  elementTypeAttachment: {fileID: 119991746711950250}
+  buffAttachments: []
+  projectilePrefab: {fileID: 6103128741939219082, guid: d084b210b5ae714409cfa64bb73fd386,
+    type: 3}
+  _baseDamage: 10
+  _baseDefence: 0
+  _elementDamageModifier: 0.5
+  _attackRate: 1
+  _attackRange: 0
+  _fireAttackSound: {fileID: 8300000, guid: db9e27fd8fed79b4b9cc8a5e19c32293, type: 3}
+  _iceAttackSound: {fileID: 8300000, guid: 2d1bb39fbd7a3fe40bc71daa15cb01f3, type: 3}
+  _earthAttackSound: {fileID: 8300000, guid: 7369cdc35b7641643b1ffe65c8996034, type: 3}
+  _lightningAttackSound: {fileID: 8300000, guid: 693ba3b46db52fc4a95560337aad7fcc,
+    type: 3}
+  _voidAttackSound: {fileID: 8300000, guid: 5478dc5447a92744db9d20d3f9d25ad0, type: 3}
