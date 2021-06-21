@@ -32,22 +32,17 @@ public class WeaponCreationSystem : MonoBehaviour
         Destroy(weapon.attackTypeAttachment);
         Destroy(weapon.elementTypeAttachment);
 
-        weapon.rodAttachment = Instantiate(rodPrefab, weaponPrefab.transform.position, Quaternion.identity,weaponPrefab.transform);
-        weapon.attackTypeAttachment =  Instantiate(attackTypePrefab, weaponPrefab.transform.position, Quaternion.identity,weaponPrefab.transform);
+        weapon.rodAttachment = Instantiate(rodPrefab, weaponPrefab.transform.position, Quaternion.identity, weaponPrefab.transform);
+        weapon.attackTypeAttachment = Instantiate(attackTypePrefab, weaponPrefab.transform.position, Quaternion.identity, weaponPrefab.transform);
         weapon.elementTypeAttachment = Instantiate(elementTypePrefab, weaponPrefab.transform.position, Quaternion.identity, weaponPrefab.transform);
 
         //RodData stuff = rodPrefab.GetComponent<RodAttachmentData>().weaponType;
         WeaponType weaponType = attackTypePrefab.GetComponent<AttackTypeAttachmentData>().weaponType;
         ElementAttribute weaponElement = elementTypePrefab.GetComponent<ElementTypeAttachmentData>().attachmentWeaponElement;
 
-        RodAttachmentData rodAttachmentData = weapon.rodAttachment.GetComponent<RodAttachmentData>() ;
+        RodAttachmentData rodAttachmentData = weapon.rodAttachment.GetComponent<RodAttachmentData>();
         ElementTypeAttachmentData elementTypeAttachmentData = weapon.elementTypeAttachment.GetComponent<ElementTypeAttachmentData>();
         AttackTypeAttachmentData attackTypeAttachmentData = weapon.attackTypeAttachment.GetComponent<AttackTypeAttachmentData>();
-
-
-        //Debug.Log(attackTypeAttachmentData);
-        //Debug.Log(rodAttachmentData);
-        //Debug.Log(elementTypeAttachmentData);
 
         weapon.InitializeWeapon(
             weaponType,
@@ -55,21 +50,19 @@ public class WeaponCreationSystem : MonoBehaviour
             attackTypeAttachmentData.attachmentDamage,
             rodAttachmentData.attachmentdefence,
             rodAttachmentData.attachmentFireRate,
-            rodAttachmentData.attachmentAttackRange,
+            rodAttachmentData.attachmentMeleeAttackRange,
+            rodAttachmentData.attachmentMagicAttackRange,
             elementTypeAttachmentData.elementModifierStrength);
 
-
-        ConstructWeapon(weapon , rodPrefab, attackTypePrefab, elementTypePrefab); //Construct the visual stuff
-
-
-        return weaponPrefab; //
+        ConstructWeapon(weapon, rodPrefab, attackTypePrefab, elementTypePrefab); //Construct the visual stuff
+        return weaponPrefab;
     }
 
     /// <summary>
     /// Changes the prefabs to the appropriate ones and makes stuff work and go brrrrrr
     /// </summary>
     /// <param name="staffWeapon"></param>
-    private void ConstructWeapon(StaffWeapon staffWeapon,GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
+    private void ConstructWeapon(StaffWeapon staffWeapon, GameObject rodPrefab, GameObject attackTypePrefab, GameObject elementTypePrefab)
     {
 
         Transform attackTypeTranform;
@@ -87,9 +80,6 @@ public class WeaponCreationSystem : MonoBehaviour
 
     public GameObject CreateTestWeapon()
     {
-
-
-
         return CreateWeapon(selectedRodAttachment, selectedAttackTypeAttachment, selectedElementTypeAttachment);
     }
 

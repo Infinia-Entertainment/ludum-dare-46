@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -9,7 +9,6 @@ using Sirenix.Utilities;
 
 public class GameStateManager : MonoBehaviour
 {
-
     [SerializeField] private List<GameObject> _currentWeapons = new List<GameObject>();
     [SerializeField] private List<GameObject> _currentHeroes = new List<GameObject>();
 
@@ -18,7 +17,6 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private GameObject _heroPrefab;
 
     [SerializeField] private int _currentGold;
-    [SerializeField] private int _totalGoldFromStage;
 
     [SerializeField] private int _blacksmithMaxHealth = 100;
     [SerializeField] private int _blacksmithCurrentHealth;
@@ -37,8 +35,36 @@ public class GameStateManager : MonoBehaviour
     public List<Stage> GameStages { get => _gameStages; }
     public List<GameObject> CurrentWeapons { get => _currentWeapons; }
     public List<GameObject> CurrentHeroes { get => _currentHeroes; }
+    public int CurrentGold { get => _currentGold; }
 
     public float spacingBetweenHeroes = 0.75f;
+    [Space()]
+    [Header("Stage Result Stats")]
+    [SerializeField] private int _monsterDamageDone;
+    [SerializeField] private int _monstersKilled;
+    [SerializeField] private int _damageReceived;
+    [SerializeField] private int _monstersPassed;
+    [SerializeField] private int _totalGoldFromStage;
+
+
+    [Space()]
+    [Header("Gradient date")]
+    [SerializeField] public Gradient fireGradient;
+    [SerializeField] public Gradient lightningGradient;
+    [SerializeField] public Gradient iceGradient;
+    [SerializeField] public Gradient earthGradient;
+    [SerializeField] public Gradient voidGradient;
+
+    // GradientColorKey[] fireColorKey =
+    // {
+    //         new GradientColorKey(Color.red,0.0f),
+    //     };
+    // GradientAlphaKey[] fireAlphaKey =
+    // {
+    //         new GradientAlphaKey(1.0f, 0.0f),
+    //         new GradientAlphaKey(1.0f, 9.0f),
+    //         new GradientAlphaKey(0.0f, 1.0f),
+    // };
 
     private void Update()
     {
@@ -70,7 +96,6 @@ public class GameStateManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         InitializeFirstTime();
-
         InitializeHeroDisplayPositions();
     }
 
@@ -78,6 +103,7 @@ public class GameStateManager : MonoBehaviour
     {
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
         _currentGold = 100;
+
 
         GameObject firstHero = Instantiate(_heroPrefab);
         AddHero(firstHero);
@@ -90,10 +116,13 @@ public class GameStateManager : MonoBehaviour
 
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
+            HeroController heroController = _currentHeroes[i].GetComponent<HeroController>();
+
             _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
             _currentHeroes[i].transform.eulerAngles = _spawnPoints[i].eulerAngles; //set rotation
+
+            heroController.DisableDragger();
         }
-        _currentStageIndex = 0;
     }
 
     private void TransitionToBattle()
@@ -115,15 +144,13 @@ public class GameStateManager : MonoBehaviour
 
         HideHeroes();
         HideWeapons();
-
         AssignWeaponsToHeroes();
-
         InstantiateHeroUI();
+        ResetBattleStats();
+        FindObjectOfType<BattleSceneUI>().EnableUI();
 
-        //If null reference add the test stage to game manager stage list stuff
         WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
-
-        WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
+        //WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
 
         yield return new WaitForEndOfFrame();
     }
@@ -138,6 +165,7 @@ public class GameStateManager : MonoBehaviour
             heroController.weaponObject = _currentWeapons[i];
             heroController.InitializeWeaponPosition();
             heroController.InitalizeWeaponData();
+            heroController.EnableDragger();
         }
     }
 
@@ -152,8 +180,10 @@ public class GameStateManager : MonoBehaviour
 
         InitializeHeroDisplayPositions();
         CalculateGold();
+        FindObjectOfType<AttachmentMenu>().UpdateCurrentGoldCountUI();
 
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
+        _currentEmptyDisplayHero = 0;
 
         yield return new WaitForEndOfFrame();
     }
@@ -168,9 +198,16 @@ public class GameStateManager : MonoBehaviour
 
             _currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
             _currentHeroes.RemoveAt(movedHeroIndex);
-
         }
+    }
 
+    private void MoveUnusedHeroesBack()
+    {
+        for (int i = _currentUnusedHeroes.Count - 1; i >= 0; i--)
+        {
+            _currentHeroes.Add(_currentUnusedHeroes[i]);
+            _currentUnusedHeroes.RemoveAt(i);
+        }
     }
 
     public bool CanBuyWeapon(int price)
@@ -195,31 +232,13 @@ public class GameStateManager : MonoBehaviour
         else return false;
     }
 
-    private void transitionToShop()
+    public void TransitionToShop()
     {
         DeleteDeadHeroes();
+        MoveUnusedHeroesBack();
         StoreHeroes();
         DeleteWeaponData();
-
         StartCoroutine(LoadShopScene());
-    }
-
-    public void WinStage(Stage wonStage)
-    {
-        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
-        for (int i = 0; i < wonStage.heroReward; i++)
-        {
-            GameObject heroObj = Instantiate(_heroPrefab);
-
-            AddHero(heroObj);
-
-            Debug.Log("Added a hero from stage reward");
-
-        }
-
-        _currentStageIndex++;
-
-        transitionToShop();
     }
 
     public void StartBattle()
@@ -232,9 +251,6 @@ public class GameStateManager : MonoBehaviour
     {
         _currentHeroes.Add(heroObject);
     }
-
-
-
     private void AddWeapon(GameObject weapon)
     {
         _currentWeapons.Add(weapon);
@@ -247,6 +263,7 @@ public class GameStateManager : MonoBehaviour
 
     public void UpdateWeaponDisplay()
     {
+        //TODO: add unused heroes back
         HeroController heroController = _currentHeroes[_currentEmptyDisplayHero].GetComponent<HeroController>();
         _currentWeapons[_currentWeapons.Count - 1].GetComponent<Animator>().enabled = false;
         _currentEmptyDisplayHero++;
@@ -285,6 +302,22 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void DeleteAllHeroes()
+    {
+        for (int i = 0; i < _currentHeroes.Count; i++)
+        {
+            //check if they are destroyed and clean up the node
+            if (_currentHeroes[i] == null)
+            {
+                _currentHeroes.RemoveAt(i);
+            }
+            else
+            {
+                Destroy(_currentHeroes[i]);
+                _currentHeroes.RemoveAt(i);
+            }
+        }
+    }
     private void DeleteWeaponData()
     {
         foreach (GameObject weaponObject in _currentWeapons)
@@ -296,6 +329,56 @@ public class GameStateManager : MonoBehaviour
     #endregion
 
     #region Battle_Related
+    public void WinStage(Stage wonStage)
+    {
+        WaveManager.Instance.StopCoroutine(WaveManager.Instance.StartSpawning());
+        for (int i = 0; i < wonStage.heroReward; i++)
+        {
+            GameObject heroObj = Instantiate(_heroPrefab);
+            AddHero(heroObj);
+        }
+
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(true, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+
+        _currentStageIndex++;
+    }
+
+    private void LoseGame()
+    {
+        BattleSceneUI battleUI = FindObjectOfType<BattleSceneUI>();
+        battleUI.EnableResultUI();
+
+        //Debug.Log($" {_monstersKilled} {_monsterDamageDone} {_monstersPassed} {_damageReceived} {_totalGoldFromStage}");
+        battleUI.InitializResultUI(false, _monstersKilled, _monsterDamageDone, _monstersPassed, _damageReceived, _totalGoldFromStage);
+    }
+
+    public void RestartGame()
+    {
+        ResetBattleStats();
+        DeleteAllHeroes();
+        DeleteWeaponData();
+        StartCoroutine(LoadRestartedScene());
+    }
+
+    private IEnumerator LoadRestartedScene()
+    {
+        // Start loading the scene
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        // Wait until the level finish loading
+        while (!asyncLoadLevel.isDone)
+            yield return null;
+        // Wait a frame so every Awake and Start method is called
+        yield return new WaitForEndOfFrame();
+
+        InitializeFirstTime();
+        InitializeHeroDisplayPositions();
+
+        yield return new WaitForEndOfFrame();
+    }
     private void HideHeroes()
     {
         for (int i = 0; i < _currentHeroes.Count; i++)
@@ -323,26 +406,52 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    private void ResetBattleStats()
+    {
+
+        _monsterDamageDone = 0;
+        _monstersKilled = 0;
+        _damageReceived = 0;
+        _monstersPassed = 0;
+        _totalGoldFromStage = 0;
+    }
     public void DamageBlacksmith(int damage)
     {
+
+        _damageReceived += damage;
+        _monstersPassed++;
         _blacksmithCurrentHealth -= damage;
 
         if (_blacksmithCurrentHealth <= 0)
         {
+            WaveManager.Instance.RemoveAllMonsters();
             LoseGame();
         }
-    }
-
-    private void LoseGame()
-    {
-        SceneManager.LoadScene(0);
-        Debug.Log("You lost the game dingus");
     }
 
     #endregion
 
     #region Shop_Related
-
+    public void AddGoldFromMonster(int goldToAdd)
+    {
+        _totalGoldFromStage += goldToAdd;
+    }
+    public void AddMonsterDamageDone(int damage)
+    {
+        _monsterDamageDone += damage;
+    }
+    public void AddDamageReceived(int damage)
+    {
+        _damageReceived += damage;
+    }
+    public void IncrementMonsterKillCount()
+    {
+        _monstersKilled++;
+    }
+    public void IncrementMonsterPassedCount()
+    {
+        _monstersPassed++;
+    }
     public bool IsAffordable(int price)
     {
         return (price <= _currentGold) ? true : false;
@@ -359,15 +468,35 @@ public class GameStateManager : MonoBehaviour
             Debug.LogError("Not enough gold to buy (You shouldn't be able to buy if so)");
         }
     }
-
     private void CalculateGold()
     {
         int baseGold = 100 * (_currentStageIndex + 1);
         _currentGold = baseGold + _totalGoldFromStage;
         _totalGoldFromStage = 0;
     }
-
     #endregion
 
+    #region Other_Utilities
+
+    public Gradient GetGradientFromElement(GameData.ElementAttribute elementAttribute)
+    {
+        switch (elementAttribute)
+        {
+            case GameData.ElementAttribute.Fire:
+                return fireGradient;
+            case GameData.ElementAttribute.Earth:
+                return earthGradient;
+            case GameData.ElementAttribute.Ice:
+                return iceGradient;
+            case GameData.ElementAttribute.Lightning:
+                return lightningGradient;
+            case GameData.ElementAttribute.Void:
+                return voidGradient;
+            default:
+                return fireGradient;
+
+        }
+    }
+    #endregion
 
 }

@@ -11,14 +11,15 @@ public class WaveManager : MonoBehaviour
 
 
     public Stage currentStage;
-    public MobWave _currentWave;
+    private int _waveCount;
     public int numSpawnPoints;
-    public Transform spawn1;
-    public Transform spawn2;
-    public Transform spawn3;
-    public Transform spawn4;
-    public Transform spawn5;
-    public List<Transform> spawnPoints;
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
+    public Transform spawnPoint4;
+    public Transform spawnPoint5;
+    [SerializeField] private GameObject startBattleButton;
+    public MobWave _currentWave;
     private static WaveManager _waveManager;
 
     [OdinSerialize] public List<GameObject> spawnedMonsters = new List<GameObject>();
@@ -26,7 +27,8 @@ public class WaveManager : MonoBehaviour
     private bool lastMonsterSpawned = false;
 
     public static WaveManager Instance { get => _waveManager; }
-
+    public int WaveCount { get => _waveCount; }
+    [SerializeField] private List<Transform> spawnPoints;
 
     private void Awake()
     {
@@ -40,29 +42,21 @@ public class WaveManager : MonoBehaviour
         {
             _waveManager = this;
         }
+        DontDestroyOnLoad(gameObject);
 
     }
     void Start()
     {
-        //lastMonsterSpawned
-
-        spawnPoints = new List<Transform>();
-
-        spawnPoints.Add(spawn1);
-        spawnPoints.Add(spawn2);
-        spawnPoints.Add(spawn3);
-        spawnPoints.Add(spawn4);
-        spawnPoints.Add(spawn5);
+        spawnPoints.Add(spawnPoint1);
+        spawnPoints.Add(spawnPoint2);
+        spawnPoints.Add(spawnPoint3);
+        spawnPoints.Add(spawnPoint4);
+        spawnPoints.Add(spawnPoint5);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //Debug.Log(currentStage);
-        //Debug.Log(currentStage.Waves);
-        //Debug.Log(currentStage.Waves.IndexOf(_currentWave));
-
 
         //Add check for if the monster is 
         if (currentStage)
@@ -77,8 +71,13 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator StartSpawning()
     {
+        _waveCount = 0;
+
+        yield return new WaitForSeconds(1f);
+
         foreach (MobWave currentWave in currentStage.Waves)
         {
+            _waveCount++;
             _currentWave = currentWave;
             foreach (MobWave.Mob mob in currentWave.mobsInTheWave)
             {
@@ -102,5 +101,29 @@ public class WaveManager : MonoBehaviour
             monsterNum -= 1;
         }*/
 
+    }
+
+    public void StartBattle()
+    {
+        StartCoroutine(StartSpawning());
+        startBattleButton.SetActive(false);
+    }
+
+    public void RemoveAllMonsters()
+    {
+        foreach (GameObject monster in spawnedMonsters)
+        {
+            Destroy(monster);
+        }
+    }
+
+    public void RemoveMonsterFromList(GameObject monsterObj, MonsterData monsterData, bool isLastDamageFromHero)
+    {
+        if (isLastDamageFromHero)
+        {
+            GameStateManager.Instance.IncrementMonsterKillCount();
+            GameStateManager.Instance.AddGoldFromMonster(monsterData.goldReward);
+        }
+        spawnedMonsters.Remove(monsterObj);
     }
 }

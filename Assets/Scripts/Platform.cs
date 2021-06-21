@@ -14,13 +14,13 @@ public class Platform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void AssociateHero(GameObject hero)
     {
         if (!hasObject)
-        {        
-            hero.GetComponent<DragandDrop>().associatedPlatform = this;
+        {
+            hero.GetComponent<DragAndDrop>().associatedPlatform = this;
             hasObject = true;
         }
     }

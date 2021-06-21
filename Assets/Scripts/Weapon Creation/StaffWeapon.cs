@@ -5,7 +5,7 @@ using static GameData.GameFunctions;
 
 public class StaffWeapon : MonoBehaviour
 {
-    
+
     //[SerializeField] public GameObject heroOwner;
 
     //Prefab references
@@ -28,6 +28,14 @@ public class StaffWeapon : MonoBehaviour
     [SerializeField] private float _attackRange;
 
     //[SerializeField] private float knockback; ??
+    [SerializeField] private AudioClip _fireAttackSound;
+    [SerializeField] private AudioClip _iceAttackSound;
+    [SerializeField] private AudioClip _earthAttackSound;
+    [SerializeField] private AudioClip _lightningAttackSound;
+    [SerializeField] private AudioClip _voidAttackSound;
+
+    private AudioSource audioSource;
+
 
     private WeaponType _weaponType;
     private ElementAttribute _weaponElement;
@@ -46,12 +54,16 @@ public class StaffWeapon : MonoBehaviour
     {
         _weaponType = WeaponType.Melee;
         _weaponElement = ElementAttribute.Ice;
-        Debug.Log("initialized");
     }
 
     #endregion Test Code Only
 
-    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement,int damage, int weaponDefence, float fireRate,float range,float elementDamageModifier)
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void InitializeWeapon(WeaponType weaponType, ElementAttribute weaponElement, int damage, int weaponDefence, float fireRate, float meleeRange, float magicRange, float elementDamageModifier)
     {
         _weaponType = weaponType;
         _weaponElement = weaponElement;
@@ -60,7 +72,7 @@ public class StaffWeapon : MonoBehaviour
         _baseDamage = damage;
         _baseDefence = weaponDefence;
         _attackRate = fireRate;
-        _attackRange = range;
+        _attackRange = (weaponType == WeaponType.Melee) ? meleeRange : magicRange;
         _elementDamageModifier = elementDamageModifier;
 
         //ProcessBuffEffects();
@@ -78,7 +90,8 @@ public class StaffWeapon : MonoBehaviour
             case WeaponType.Melee:
 
                 MonsterController monster = monsterHitInfo.collider.gameObject.GetComponent<MonsterController>();
-                monster.ReceiveDamage(CalculateDamage(_baseDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+                monster.ReceiveDamageFromHero(CalculateDamage(_baseDamage, _elementDamageModifier, _weaponElement, monster.monsterData.elementAttribute));
+                PlayAttackSound();
 
                 break;
 
@@ -86,6 +99,7 @@ public class StaffWeapon : MonoBehaviour
 
                 MagicProjectile projectile = Instantiate(projectilePrefab, elementTypeAttachment.transform.position, projectilePrefab.transform.rotation);
                 projectile.InitilizeProjectile(_baseDamage, _elementDamageModifier, _weaponElement);
+                PlayAttackSound();
 
                 break;
 
@@ -97,5 +111,29 @@ public class StaffWeapon : MonoBehaviour
     public void IdleWeaponAnimation()
     {
         GetComponent<Animator>().SetTrigger("Idle");
+    }
+
+    private void PlayAttackSound()
+    {
+        switch (WeaponElement)
+        {
+            case ElementAttribute.Fire:
+                audioSource.PlayOneShot(_fireAttackSound);
+                break;
+            case ElementAttribute.Ice:
+                audioSource.PlayOneShot(_iceAttackSound);
+                break;
+            case ElementAttribute.Earth:
+                audioSource.PlayOneShot(_earthAttackSound);
+                break;
+            case ElementAttribute.Lightning:
+                audioSource.PlayOneShot(_lightningAttackSound);
+                break;
+            case ElementAttribute.Void:
+                audioSource.PlayOneShot(_voidAttackSound);
+                break;
+            default:
+                break;
+        }
     }
 }

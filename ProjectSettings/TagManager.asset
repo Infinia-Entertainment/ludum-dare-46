@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Canvas
   - Monster
+  - Wave Spawner Positions
   layers:
   - Default
   - TransparentFX

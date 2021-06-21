@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f99e031b5594b4b99abe04a943bd8f, type: 3}
+  m_Name: 5th Stage
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Waves:
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 294af9d02d26f6b4b957addc71bac274, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 79ee5389685cb1d4fb34642b921d49ac, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 6d89858c5ee0fb5499034c3ee89d9c1e, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: 79ee5389685cb1d4fb34642b921d49ac, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 6d89858c5ee0fb5499034c3ee89d9c1e, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    delayAfterWave: 6
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: d47652d9bf10ca540ab32896525f768a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: 975ae30ee1448be4592b45bd50fa59e4, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 0
+    delayAfterWave: 8
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 0
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 2
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
+    delayAfterWave: 4
+  - mobsInTheWave:
+    - monsterData: {fileID: 11400000, guid: a2c5964b73ba9654bbfab7627754d55a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: a2c5964b73ba9654bbfab7627754d55a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 2
+    - monsterData: {fileID: 11400000, guid: a2c5964b73ba9654bbfab7627754d55a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 1
+      delayAfterSpawn: 0
+    - monsterData: {fileID: 11400000, guid: a2c5964b73ba9654bbfab7627754d55a, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 3
+      delayAfterSpawn: 2
+    delayAfterWave: 0
+  heroReward: 1

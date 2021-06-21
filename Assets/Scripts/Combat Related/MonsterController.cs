@@ -1,82 +1,97 @@
-﻿using System;
+using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MonsterController : AliveUnit
 {
-    private bool isFrontOccupied;
-    [SerializeField] public GameObject hero;
-    [SerializeField] private MonsterController monsterInFront;
+    private float _lastAttack;
+    private float _raycastLength;
+    private bool _isFrontOccupied;
+    private bool _isMonsterDying;
+    private bool _isLastDamageFromHero;
+    private LayerMask _layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
+    private BoxCollider _monsterCollider;
+    private Animator _animator;
+    private AudioSource _audioSource;
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
+    private RaycastHit _hitInfo;
+    [SerializeField] private MonsterController _monsterInFront;
+    [SerializeField] private MonsterElementMaterialData _monsterElementMaterialData;
+    [SerializeField] private GameObject hero;
+    [SerializeField] private VisualEffect _projectileVFX;
+    [SerializeField] private AudioClip _monsterDamageSound;
+    [SerializeField] private AudioClip _monsterDeathSound;
+    [SerializeField] private AudioClip _monsterAttackSound;
 
     public MonsterData monsterData;
 
-    [SerializeField] public Material fireMonsterMaterial;
-    [SerializeField] public Material iceMonsterMaterial;
-    [SerializeField] public Material earthMonsterMaterial;
-    [SerializeField] public Material lightningMonsterMaterial;
-    [SerializeField] public Material voidMonsterMaterial;
-
-
-    private float lastAttack;
-    private bool isMonsterDying;
-    //Monster stats
-
-    LayerMask layerMask = 1 << 12 | 1 << 13; // Hero and Monster layer combined
-
-    float raycastLength;
-    Animator animator;
-    RaycastHit hitInfo;
-
+    //comment
+    private bool _isMonsterStopped = false;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        raycastLength = GetComponent<Collider>().bounds.size.x / 2;
+        _isFrontOccupied = false;
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+        _monsterCollider = GetComponent<BoxCollider>();
+        _raycastLength = _monsterCollider.bounds.size.x / 2;
     }
 
     public void InitalizeMonsterData()
     {
+        PickMonsterMaterial();
+        MorphIntoBoss();
+        _projectileVFX.SetGradient("Particle Gradient", GameStateManager.Instance.GetGradientFromElement(monsterData.elementAttribute));
         maxHealth = monsterData.health;
         health = maxHealth;
-        lastAttack = Time.time;
+        _lastAttack = Time.time;
+    }
+
+    private void MorphIntoBoss()
+    {
+        if (monsterData.isABossMonster)
+        {
+            transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            _monsterCollider.size = new Vector3(0.725f, 0.725f, 0.725f);
+        }
     }
 
     private void Start()
     {
-        isFrontOccupied = false;
         InitalizeMonsterData();
     }
 
     private void Update()
     {
-        if(!isMonsterDying)
+        if (!_isMonsterDying)
         {
             Move();
             CheckForAttack();
             CheckForHealth();
         }
-
     }
 
     private void PickMonsterMaterial()
     {
+
         switch (monsterData.elementAttribute)
         {
             case GameData.ElementAttribute.None:
                 break;
             case GameData.ElementAttribute.Void:
-                GetComponent<MeshRenderer>().material = voidMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.voidMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Fire:
-                GetComponent<MeshRenderer>().material = fireMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.fireMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Earth:
-                GetComponent<MeshRenderer>().material = earthMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.earthMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Ice:
-                GetComponent<MeshRenderer>().material = iceMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.iceMonsterMaterial;
                 break;
             case GameData.ElementAttribute.Lightning:
-                GetComponent<MeshRenderer>().material = lightningMonsterMaterial;
+                _meshRenderer.material = _monsterElementMaterialData.lightningMonsterMaterial;
                 break;
             default:
                 break;
@@ -87,40 +102,41 @@ public class MonsterController : AliveUnit
     private void CheckForAttack()
     {
 
-        Debug.DrawRay(transform.position, Vector3.left * raycastLength, Color.magenta);
+        Debug.DrawRay(_monsterCollider.bounds.center, Vector3.left * _raycastLength, Color.magenta);
 
-        if (!Physics.Raycast(transform.position, Vector3.left, out hitInfo, raycastLength, layerMask))
+        if (!Physics.Raycast(_monsterCollider.bounds.center, Vector3.left, out _hitInfo, _raycastLength, _layerMask))
         {
-            Debug.DrawRay(transform.position, Vector3.left * hitInfo.distance, Color.cyan);
+            Debug.DrawRay(_monsterCollider.bounds.center, Vector3.left * _hitInfo.distance, Color.cyan);
             //Didn't collide with either hero or monster so you can move forward
-            isFrontOccupied = false;
+            _isFrontOccupied = false;
             return;
         }
 
         //If did collide, check which one has is the first collision
 
-        if (hitInfo.collider.gameObject.CompareTag("Hero"))//It's a hero
+        if (_hitInfo.collider.gameObject.CompareTag("Monster")) //It's a monster
         {
-            hero = hitInfo.collider.gameObject;
-            isFrontOccupied = true;
+            _monsterInFront = _hitInfo.collider.gameObject.GetComponent<MonsterController>();
+            if (!_monsterInFront._isMonsterDying) _isFrontOccupied = true;
         }
-        else if (hitInfo.collider.gameObject.CompareTag("Monster")) //It's a monster
+        else if (_hitInfo.collider.gameObject.CompareTag("Hero"))//It's a hero
         {
-            monsterInFront = hitInfo.collider.gameObject.GetComponent<MonsterController>();
-            isFrontOccupied = true;
+            hero = _hitInfo.collider.gameObject;
+            _isFrontOccupied = true;
         }
+
 
 
         //Check for attack Rate
-        if (Time.time - lastAttack > monsterData.attackRate)
+        if (Time.time - _lastAttack > monsterData.attackRate)
         {
             //Just checks if attack is within range
-            if (hitInfo.distance <= monsterData.attackDistance && isFrontOccupied)
+            if (_hitInfo.distance <= monsterData.attackDistance && _isFrontOccupied && hero != null)
             {
                 //attack anims etc
                 DoAttackAnimation();
             }
-            lastAttack = Time.time;
+            _lastAttack = Time.time;
         }
     }
 
@@ -128,16 +144,16 @@ public class MonsterController : AliveUnit
     {
         Vector3 translation;
 
-        if (isFrontOccupied)
+        if (_isFrontOccupied || _isMonsterStopped)
         {
-        translation = new Vector3(0, 0, 0);
-            animator.SetBool("isWalking", false);
+            translation = new Vector3(0, 0, 0);
+            _animator.SetBool("isWalking", false);
 
         }
         else
         {
             translation = new Vector3(-monsterData.speed, 0, 0);
-            animator.SetBool("isWalking", true);
+            _animator.SetBool("isWalking", true);
         }
 
         transform.Translate(translation * Time.deltaTime);
@@ -145,24 +161,32 @@ public class MonsterController : AliveUnit
 
     public override void ReceiveDamage(int damage)
     {
+        _isLastDamageFromHero = false;
         base.ReceiveDamage(damage);
-        animator.SetTrigger("Hit");
-
+        _animator.SetTrigger("Hit");
+    }
+    public void ReceiveDamageFromHero(int damage)
+    {
+        _isLastDamageFromHero = true;
+        GameStateManager.Instance.AddMonsterDamageDone(damage);
+        base.ReceiveDamage(damage);
+        AudioSource.PlayClipAtPoint(_monsterDamageSound, transform.position, 0.3f);
+        _animator.SetTrigger("Hit");
     }
 
     protected override void CheckForHealth()
     {
         if (health <= 0)
         {
-            animator.SetTrigger("Death");
-            isMonsterDying = true;
+            AudioSource.PlayClipAtPoint(_monsterDeathSound, transform.position, 0.5f);
+            _animator.SetTrigger("Death");
+            _isMonsterDying = true;
         }
-
     }
 
     public void FinishDeath()
     {
-        WaveManager.Instance.spawnedMonsters.Remove(gameObject);
+        WaveManager.Instance.RemoveMonsterFromList(gameObject, monsterData, _isLastDamageFromHero);
 
         Destroy(gameObject);
     }
@@ -170,15 +194,22 @@ public class MonsterController : AliveUnit
 
     public void CarryOutAttack()
     {
-        if (hitInfo.collider)
+        if (_hitInfo.collider)
         {
-            hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
+            _audioSource.PlayOneShot(_monsterAttackSound);
+            _hitInfo.collider.gameObject.GetComponent<AliveUnit>().ReceiveDamage(monsterData.damage);
         }
     }
 
     private void DoAttackAnimation()
     {
-        animator.SetTrigger("Attack");
+        _animator.SetTrigger("Attack");
+    }
+
+    [ContextMenu("Stop Monster")]
+    private void StopMonster()
+    {
+        _isMonsterStopped = true;
     }
 }
 
