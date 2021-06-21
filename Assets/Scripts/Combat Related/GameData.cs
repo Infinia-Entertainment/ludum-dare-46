@@ -31,8 +31,14 @@ namespace GameData
         ElementModifier
     }
 
+
+
+
     public static class GameFunctions
     {
+
+
+
         public static int CalculateDamage(int basedamage, float elementDamageModifier, ElementAttribute damagingElement, ElementAttribute monsterElementType)
         {
             //Compare weapon type and monster type
@@ -75,16 +81,11 @@ namespace GameData
                     adjustedDamage *= (1 + elementDamageModifier);
                 }
             }
-            else if (damagingElement == ElementAttribute.Fire)
-            {
-                //Strong against Earth
-                if (monsterElementType == ElementAttribute.Earth)
-                {
-                    adjustedDamage *= (1 + elementDamageModifier);
-                }
-            }
+           
 
             return Mathf.RoundToInt(adjustedDamage);
         }
+
+
     }
 }

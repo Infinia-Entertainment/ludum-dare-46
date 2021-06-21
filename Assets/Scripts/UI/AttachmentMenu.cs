@@ -18,13 +18,14 @@ public class AttachmentMenu : MonoBehaviour
     [SerializeField] private TMP_Text currentGoldCountText;
     [SerializeField] private TMP_Text itemCraftPriceText;
     private const string heroCountDescription = "Armed: ";
-
     public Image[] attachmentImages;
 
     public Item[] rodAttachments;
     public Item[] attackAttachments;
     public Item[] elementAttachments;
-
+    public Button rodButton;
+    public Button attackButton;
+    public Button elemetButton;
     public TMP_Dropdown[] dropDowns;
 
     Item selectedRod;
@@ -40,7 +41,6 @@ public class AttachmentMenu : MonoBehaviour
     }
     public void SlotClicked(int slotType = 1)
     {
-
         switch (slotType)
         {
             case 1:
@@ -122,6 +122,33 @@ public class AttachmentMenu : MonoBehaviour
         itemCraftPriceText.text = $"Item Craft Price: {itemPrice}";
     }
 
+
+    public void DisableButtons()
+    {
+        rodButton.interactable = false;
+        attackButton.interactable = false;
+        elemetButton.interactable = false;
+
+        foreach (TMP_Dropdown dropDown in dropDowns)
+        {
+            dropDown.interactable = false;
+        }
+
+    }
+
+    public void EnableButtons()
+    {
+        rodButton.interactable = true;
+        attackButton.interactable = true;
+        elemetButton.interactable = true;
+
+        foreach (TMP_Dropdown dropDown in dropDowns)
+        {
+            dropDown.interactable = true;
+        }
+
+    }
+
     public void Craft()
     {
         if (selectedRod.itemObject != null && selectedAttack.itemObject != null && selectedElement.itemObject != null)
@@ -129,9 +156,13 @@ public class AttachmentMenu : MonoBehaviour
             if (moreCraftingPanel.activeSelf) craftButton2.SetActive(false);
             else craftButton.SetActive(false);
             FindObjectOfType<BlackSmith>().TriggerCrafting();
+            DisableButtons();
             Invoke("TriggerCompiling", 2.7f);
+            GameStateManager.Instance.Invoke("UpdateWeaponDisplay", 5.2f);
+            Invoke("EnableButtons", 5.2f);
         }
     }
+
     void UpdateElements(int type)
     {
         attachmentImages[type].enabled = true;
@@ -197,6 +228,7 @@ public class AttachmentMenu : MonoBehaviour
         {
             currentWeapon.GetComponent<Animator>().enabled = false;
         }
-        GameStateManager.Instance.UpdateWeaponDisplay();
     }
+
+
 }

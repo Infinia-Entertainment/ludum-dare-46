@@ -115,4 +115,6 @@ public class BattleSceneUI : MonoBehaviour
         if (hasWon) GameStateManager.Instance.TransitionToShop();
         else GameStateManager.Instance.RestartGame();
     }
+
+
 }

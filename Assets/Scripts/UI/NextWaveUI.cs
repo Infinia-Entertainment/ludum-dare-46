@@ -41,7 +41,7 @@ public class NextWaveUI : MonoBehaviour
             foreach (MobWave.Mob mob in wave.mobsInTheWave)
             {
 
-                bool isUniqueMob = false;
+                bool isUniqueMob = true;
 
                 //add and skip the fist mob as it's always unique
                 if (filteredMonsters.Count == 0)
@@ -52,19 +52,21 @@ public class NextWaveUI : MonoBehaviour
 
                 foreach (MonsterFilterData filterData in filteredMonsters)
                 {
-                    if (CompareMobs(filterData, mob)) goto monsterAlreadyStored;
-                    else isUniqueMob = true;
-
+                    if (IsSameMob(filterData, mob))
+                    {
+                        isUniqueMob = false;
+                        break;
+                    }
                 }
                 if (isUniqueMob) AddMobToFilteredList(mob);
-
-                monsterAlreadyStored:
-                break;
             }
         }
 
+
         foreach (MonsterFilterData mobData in filteredMonsters)
         {
+            Debug.Log(mobData);
+
             Sprite spriteToAssign;
 
             switch (mobData.elementAttribute)
@@ -91,7 +93,7 @@ public class NextWaveUI : MonoBehaviour
             }
 
             GameObject cellUI = Instantiate(_nextMonsterUICellPrefab, _contentGameObject.transform);
-            cellUI.GetComponent<NextWaveMonsterUICell>().InitializeCell(mobData.monsterImage, spriteToAssign);
+            cellUI.GetComponent<NextWaveMonsterUICell>().InitializeCell(mobData.monsterImage, spriteToAssign, mobData.isABossMonster);
         }
     }
 
@@ -106,7 +108,7 @@ public class NextWaveUI : MonoBehaviour
         );
     }
 
-    private bool CompareMobs(MonsterFilterData filterData, MobWave.Mob mob)
+    private bool IsSameMob(MonsterFilterData filterData, MobWave.Mob mob)
     {
         return (filterData.monsterType == mob.monsterData.monsterType
         && filterData.elementAttribute == mob.monsterData.elementAttribute

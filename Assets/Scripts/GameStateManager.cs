@@ -28,8 +28,6 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] private List<Stage> _gameStages;
 
-
-
     public List<Transform> _spawnPoints = new List<Transform>();
 
     public static GameStateManager Instance { get => _gameStateManager; }
@@ -40,13 +38,33 @@ public class GameStateManager : MonoBehaviour
     public int CurrentGold { get => _currentGold; }
 
     public float spacingBetweenHeroes = 0.75f;
-
+    [Space()]
     [Header("Stage Result Stats")]
     [SerializeField] private int _monsterDamageDone;
     [SerializeField] private int _monstersKilled;
     [SerializeField] private int _damageReceived;
     [SerializeField] private int _monstersPassed;
     [SerializeField] private int _totalGoldFromStage;
+
+
+    [Space()]
+    [Header("Gradient date")]
+    [SerializeField] public Gradient fireGradient;
+    [SerializeField] public Gradient lightningGradient;
+    [SerializeField] public Gradient iceGradient;
+    [SerializeField] public Gradient earthGradient;
+    [SerializeField] public Gradient voidGradient;
+
+    // GradientColorKey[] fireColorKey =
+    // {
+    //         new GradientColorKey(Color.red,0.0f),
+    //     };
+    // GradientAlphaKey[] fireAlphaKey =
+    // {
+    //         new GradientAlphaKey(1.0f, 0.0f),
+    //         new GradientAlphaKey(1.0f, 9.0f),
+    //         new GradientAlphaKey(0.0f, 1.0f),
+    // };
 
     private void Update()
     {
@@ -98,8 +116,12 @@ public class GameStateManager : MonoBehaviour
 
         for (int i = 0; i < _currentHeroes.Count; i++)
         {
+            HeroController heroController = _currentHeroes[i].GetComponent<HeroController>();
+
             _currentHeroes[i].transform.position = _spawnPoints[i].position; //set position
             _currentHeroes[i].transform.eulerAngles = _spawnPoints[i].eulerAngles; //set rotation
+
+            heroController.DisableDragger();
         }
     }
 
@@ -122,18 +144,13 @@ public class GameStateManager : MonoBehaviour
 
         HideHeroes();
         HideWeapons();
-
         AssignWeaponsToHeroes();
-
         InstantiateHeroUI();
-
-        //If null reference add the test stage to game manager stage list stuff
-        WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
-
         ResetBattleStats();
         FindObjectOfType<BattleSceneUI>().EnableUI();
 
-        WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
+        WaveManager.Instance.currentStage = _gameStages[_currentStageIndex];
+        //WaveManager.Instance.StartCoroutine(WaveManager.Instance.StartSpawning());
 
         yield return new WaitForEndOfFrame();
     }
@@ -148,6 +165,7 @@ public class GameStateManager : MonoBehaviour
             heroController.weaponObject = _currentWeapons[i];
             heroController.InitializeWeaponPosition();
             heroController.InitalizeWeaponData();
+            heroController.EnableDragger();
         }
     }
 
@@ -162,8 +180,10 @@ public class GameStateManager : MonoBehaviour
 
         InitializeHeroDisplayPositions();
         CalculateGold();
+        FindObjectOfType<AttachmentMenu>().UpdateCurrentGoldCountUI();
 
         _blacksmithCurrentHealth = _blacksmithMaxHealth;
+        _currentEmptyDisplayHero = 0;
 
         yield return new WaitForEndOfFrame();
     }
@@ -178,6 +198,15 @@ public class GameStateManager : MonoBehaviour
 
             _currentUnusedHeroes.Add(_currentHeroes[movedHeroIndex]);
             _currentHeroes.RemoveAt(movedHeroIndex);
+        }
+    }
+
+    private void MoveUnusedHeroesBack()
+    {
+        for (int i = _currentUnusedHeroes.Count - 1; i >= 0; i--)
+        {
+            _currentHeroes.Add(_currentUnusedHeroes[i]);
+            _currentUnusedHeroes.RemoveAt(i);
         }
     }
 
@@ -206,6 +235,7 @@ public class GameStateManager : MonoBehaviour
     public void TransitionToShop()
     {
         DeleteDeadHeroes();
+        MoveUnusedHeroesBack();
         StoreHeroes();
         DeleteWeaponData();
         StartCoroutine(LoadShopScene());
@@ -445,4 +475,28 @@ public class GameStateManager : MonoBehaviour
         _totalGoldFromStage = 0;
     }
     #endregion
+
+    #region Other_Utilities
+
+    public Gradient GetGradientFromElement(GameData.ElementAttribute elementAttribute)
+    {
+        switch (elementAttribute)
+        {
+            case GameData.ElementAttribute.Fire:
+                return fireGradient;
+            case GameData.ElementAttribute.Earth:
+                return earthGradient;
+            case GameData.ElementAttribute.Ice:
+                return iceGradient;
+            case GameData.ElementAttribute.Lightning:
+                return lightningGradient;
+            case GameData.ElementAttribute.Void:
+                return voidGradient;
+            default:
+                return fireGradient;
+
+        }
+    }
+    #endregion
+
 }

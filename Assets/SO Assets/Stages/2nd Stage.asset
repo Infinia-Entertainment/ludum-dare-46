@@ -50,16 +50,16 @@ MonoBehaviour:
         type: 3}
       spawnPointIndex: 4
       delayAfterSpawn: 0
-    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
-      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
-        type: 3}
-      spawnPointIndex: 4
-      delayAfterSpawn: 0
     - monsterData: {fileID: 11400000, guid: 8c15e2f2d4cfb29478a1d8f852b0b601, type: 2}
       monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
         type: 3}
       spawnPointIndex: 3
-      delayAfterSpawn: 0
+      delayAfterSpawn: 1
+    - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
+      monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
+        type: 3}
+      spawnPointIndex: 4
+      delayAfterSpawn: 1
     - monsterData: {fileID: 11400000, guid: f4c2f1f9185eaed489127fe5404fb457, type: 2}
       monsterPrefab: {fileID: 7998595817620121964, guid: d9ceb7a21179ed144931a9f6d5daea04,
         type: 3}
