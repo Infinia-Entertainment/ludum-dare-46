@@ -13,7 +13,11 @@ public class WaveManager : MonoBehaviour
     public Stage currentStage;
     private int _waveCount;
     public int numSpawnPoints;
-    public List<Transform> spawnPoints;
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
+    public Transform spawnPoint4;
+    public Transform spawnPoint5;
     [SerializeField] private GameObject startBattleButton;
     public MobWave _currentWave;
     private static WaveManager _waveManager;
@@ -24,6 +28,7 @@ public class WaveManager : MonoBehaviour
 
     public static WaveManager Instance { get => _waveManager; }
     public int WaveCount { get => _waveCount; }
+    [SerializeField] private List<Transform> spawnPoints;
 
     private void Awake()
     {
@@ -42,12 +47,11 @@ public class WaveManager : MonoBehaviour
     }
     void Start()
     {
-        GameObject[] spawners = GameObject.FindGameObjectsWithTag("Wave Spawner Positions");
-
-        foreach (GameObject spawner in spawners)
-        {
-            spawnPoints.Add(spawner.transform);
-        }
+        spawnPoints.Add(spawnPoint1);
+        spawnPoints.Add(spawnPoint2);
+        spawnPoints.Add(spawnPoint3);
+        spawnPoints.Add(spawnPoint4);
+        spawnPoints.Add(spawnPoint5);
     }
 
     // Update is called once per frame

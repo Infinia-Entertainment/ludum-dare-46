@@ -81,14 +81,7 @@ namespace GameData
                     adjustedDamage *= (1 + elementDamageModifier);
                 }
             }
-            else if (damagingElement == ElementAttribute.Fire)
-            {
-                //Strong against Earth
-                if (monsterElementType == ElementAttribute.Earth)
-                {
-                    adjustedDamage *= (1 + elementDamageModifier);
-                }
-            }
+           
 
             return Mathf.RoundToInt(adjustedDamage);
         }
